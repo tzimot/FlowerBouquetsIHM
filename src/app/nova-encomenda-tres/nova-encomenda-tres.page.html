@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/nova-encomenda-dois"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Passo 3</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">NovaEncomendaTres</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h2>Pagamento</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h3>Selecione o seu método de pagamento</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-radio-group [(ngModel)]="metodoselecionado">
+          <ion-item>
+            <ion-label>MBWay: 917584932</ion-label>
+            <ion-radio value="mbway"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>No Ato da Entrega</ion-label>
+            <ion-radio value="delivery"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h3>Total: {{ precoValue }}</h3> <!-- Display the calculated price -->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="full" color="danger" (click)="goToCancelarPage()">Cancelar</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="full" color="success" (click)="confirmarPagamento()">Confirmar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

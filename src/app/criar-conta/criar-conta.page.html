@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <!--<ion-toolbar>
+    <ion-title>criar-conta</ion-title>
+  </ion-toolbar>
+</ion-header>
+-->
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="register-container">
+    <h1 class="app-title">FlowerBouquets</h1>
+    <div class="welcome-text">
+      <h2>Bem-vindo!</h2>
+      <h3>Crie uma conta para entrar!</h3>
+    </div>
+
+    <form (ngSubmit)="criarconta()" class="register-form">
+      <ion-item class="custom-input">
+        <ion-label position="floating">Nome de utilizador</ion-label>
+        <ion-input type="text" name="username" [(ngModel)]="username"></ion-input>
+      </ion-item>
+
+      <ion-item class="custom-input">
+        <ion-label position="floating">Palavra-passe</ion-label>
+        <ion-input type="password" name="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" type="submit" class="register-button">
+        <ion-icon name="person-add-outline" slot="start"></ion-icon>
+        Criar Conta
+      </ion-button>
+    </form>
+
+    <div class="login-link">
+      <a routerLink="/login">
+        Já tem conta? <u>Autentique-se aqui</u>
+      </a>
+    </div>
+  </div>
+</ion-content>

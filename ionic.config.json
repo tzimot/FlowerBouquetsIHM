@@ -1,0 +1,7 @@
+{
+  "name": "ihmflores",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "title": "Lirio",
+        "image": "assets/imagens/lirioimg.jpg",
+        "price": 0.99,
+        "description": "Uma Flor lilás com cores vibrantes."
+    },
+    {
+        "id": 2,
+        "title": "Orquidea Amarela",
+        "image": "assets/imagens/orquideaamaimg.jpg",
+        "price": 1.19,
+        "description": "Impressionante orquídea amarela com pétalas intrincadas."
+    },
+    {
+        "id": 3,
+        "title": "Rosa",
+        "image": "assets/imagens/rosaimg.jpg",
+        "price": 1.29,
+        "description": "Rosas elegantes com pétalas aveludadas e fragrância encantadora."
+    },
+    {
+        "id": 4,
+        "title": "Ramo de Rosas",
+        "image": "assets/imagens/ramorosas.jpg",
+        "price": 14.99,
+        "description": "Um Impressionante Bouquet Vermelho, demonstração perfeita de afeto."
+    },
+    {
+        "id": 5,
+        "title": "Ramo de Lírios",
+        "image": "assets/imagens/RamoLirios.jpg",
+        "price": 10.99,
+        "description": "Um Impressionante Bouquet Azul, etc etc"
+    },
+    {
+        "id": 6,
+        "title": "Ramo de Rosas e Lirios",
+        "image": "assets/imagens/RosaseLirios.jpg",
+        "price": 12.50,
+        "description": "Um Impressionante Bouquet Vermelho, demonstração perfeita de afeto."
+    },
+    {
+        "id": 7,
+        "title": "Ramo de Lírios Rosas",
+        "image": "assets/imagens/ramoLiriosRosas.jpg",
+        "price": 11.29,
+        "description": "Um Impressionante Bouquet Rosa, etc etc"
+    },
+    {
+        "id": 8,
+        "title": "Ramo de Rosas e Orquideas",
+        "image": "assets/imagens/RosaseOrquideas.jpg",
+        "price": 13.99,
+        "description": "Um Impressionante Bouquet Vermelho, demonstração perfeita de afeto."
+    },
+    {
+        "id": 9,
+        "title": "Ramo de Orquideas e Lirios",
+        "image": "assets/imagens/OrquideaseLirios.jpeg",
+        "price": 10.59,
+        "description": "Um Impressionante Bouquet qdwns, etc etc"
+    }
+
+
+
+
+
+    
+]
+

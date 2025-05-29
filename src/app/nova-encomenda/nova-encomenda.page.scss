@@ -1,0 +1,45 @@
+
+
+
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-left: 5%;
+  }
+
+
+.BtnMenos,
+.BtnMais {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #f29999, #f7d771);
+}
+
+.BtnMenos ion-icon,
+.BtnMais ion-icon {
+  color: rgb(0, 0, 0); /* Set the color to white or any other color that is more visible on the gradient background */
+}
+
+.BtnMenos:active,
+.BtnMais:active {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.701); /* Adjust the shadow color and size as desired */
+}
+
+
+.BtnSeguinte {
+    background: linear-gradient(
+        90deg,
+     rgba(250, 87, 142, 1) 0%,
+     rgba(254, 171, 142, 1) 100%
+     );
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 10px 20px;
+}

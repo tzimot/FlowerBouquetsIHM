@@ -1,0 +1,15 @@
+
+
+
+.custom-heading {
+    color: var(--ion-color-mycolor); /* Use the custom color variable */
+    font-family: 'Montserrat', sans-serif;
+    /* Add any other custom styles for the headings */
+  }
+
+
+  ion-content {
+    .mycolor {
+      color: var(--ion-color-ola);
+    }
+  }

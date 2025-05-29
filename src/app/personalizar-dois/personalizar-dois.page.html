@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/personalizar-um"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Passo 2</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Personalizar Dois</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="messageForm" (ngSubmit)="submitForm()">
+    <ion-item>
+      <ion-label position="floating">De:</ion-label>
+      <ion-input type="text" formControlName="de" class="DadosForm"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Para:</ion-label>
+      <ion-input type="text" formControlName="para" class="DadosForm"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Mensagem:</ion-label>
+      <ion-textarea formControlName="mensagem" autoGrow="true" class="DadosForm"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="btnSeguinte">Seguinte</ion-button>
+  </form>
+</ion-content>
