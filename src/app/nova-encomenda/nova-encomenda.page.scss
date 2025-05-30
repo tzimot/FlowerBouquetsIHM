@@ -1,4 +1,11 @@
+.nova-encomenda-content{
+--background: #f5eee6; // Soft beige background
 
+  ion-toolbar {
+    --background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
 
 .flower-image {
   width: 100%;

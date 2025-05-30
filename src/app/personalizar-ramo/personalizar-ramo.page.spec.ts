@@ -5,11 +5,15 @@ describe('PersonalizarRamoPage', () => {
   let component: PersonalizarRamoPage;
   let fixture: ComponentFixture<PersonalizarRamoPage>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [PersonalizarRamoPage]
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PersonalizarRamoPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

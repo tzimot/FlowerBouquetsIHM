@@ -21,7 +21,7 @@
     <ion-row *ngFor="let image of filteredImages">
       <ion-col>
         <div *ngIf="image.id === 1 || image.id === 2 || image.id === 3">
-        <img [src]="image.image" [alt]="image.title" />
+        <img [src]="image.image" [alt]="image.title" class="flower-image" />
         <h3>{{ image.title }}</h3>
         <p>{{ image.description }}</p>
         <p>Preço: {{ image.price }}</p>
