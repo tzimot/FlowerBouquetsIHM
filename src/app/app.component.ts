@@ -11,10 +11,10 @@ import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-ori
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Home', url: '/home', icon: 'mail' },
-    { title: 'Recomendados', url: '/nova-encomenda', icon: 'paper-plane' },
-    { title: 'Personalizar Ramo', url: '/personalizar-ramo', icon: 'heart' },
-    { title: 'Mais Vendidos', url: '/top-vendas', icon: 'archive' },
+    { title: 'Home', url: '/home', icon: 'home' },
+    { title: 'Recomendados', url: '/nova-encomenda', icon: 'pricetags' },
+    { title: 'Personalizar Ramo', url: '/personalizar-ramo', icon: 'gift' },
+    { title: 'Mais Vendidos', url: '/top-vendas', icon: 'heart' },
     
     
   ];
