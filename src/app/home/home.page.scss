@@ -1,6 +1,81 @@
 
 
 
+.home-content {
+  --background: #f5eee6; // Soft beige background
+
+  ion-toolbar {
+    --background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.welcome-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.custom-heading {
+  color: #9b6b9d; // Soft purple
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.welcome-text {
+  color: #7a6174; // Muted purple-grey
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.contact-section {
+  background: #fff;
+  border-radius: 15px;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 6px rgba(155, 107, 157, 0.1); // Purple-tinted shadow
+
+  h3 {
+    color: #9b6b9d; // Matching purple
+    margin-bottom: 1.5rem;
+  }
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+
+  ion-icon {
+    color: #b185b3; // Lighter purple for icons
+    font-size: 1.3rem;
+  }
+
+  a {
+    color: #9b6b9d; // Matching purple for links
+    text-decoration: none;
+    
+    &:hover {
+      color: #b185b3; // Lighter purple on hover
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    color: #7a6174; // Muted purple-grey
+  }
+}
 .custom-heading {
     color: var(--ion-color-mycolor); /* Use the custom color variable */
     font-family: 'Montserrat', sans-serif;

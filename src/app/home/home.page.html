@@ -1,26 +1,37 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="home-content">
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title color="mycolor">Home</ion-title>
+      <ion-title color="mycolor">Página Inicial</ion-title>
       <ion-buttons slot="end">
         <ion-button color="danger" (click)="logout()">
+          <ion-icon name="log-out-outline" slot="start"></ion-icon>
           Logout
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
-  <h2 class="custom-heading">Bem-Vindo ao FlowerBouquets</h2>
-  <p>Desfrute do seu Jardim Virtual.</p>
-  
-  <h3 class="custom-heading">Contacte-nos!</h3>
-  <ul>
-    <li>Email: <a href="mailto:FlowerBouquets@gmail.com">FlowerBouquets@gmail.com</a></li>
-    <li>Phone: Nº 915 123 090</li>
-  </ul>
+  <div class="welcome-container">
+    <h2 class="custom-heading">Bem-Vindo ao FlowerBouquets</h2>
+    <p class="welcome-text">Desfrute do seu Jardim Virtual.</p>
+    
+    <div class="contact-section">
+      <h3 class="custom-heading">Contactos</h3>
+      <div class="contact-info">
+        <div class="contact-item">
+          <ion-icon name="mail-outline"></ion-icon>
+          <a href="mailto:FlowerBouquets@gmail.com">flowerbouquets@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <ion-icon name="call-outline"></ion-icon>
+          <span>99999999</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
 
 
