@@ -1,10 +1,4 @@
-<ion-header [translucent]="true">
-  <!--<ion-toolbar>
-    <ion-title>criar-conta</ion-title>
-  </ion-toolbar>
-</ion-header>
--->
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding" style="--background: #ffe4f2">
   <div class="register-container">
     <h1 class="app-title">FlowerBouquets</h1>
     <div class="welcome-text">
@@ -14,13 +8,46 @@
 
     <form (ngSubmit)="criarconta()" class="register-form">
       <ion-item class="custom-input">
-        <ion-label position="floating">Nome de utilizador</ion-label>
-        <ion-input type="text" name="username" [(ngModel)]="username"></ion-input>
+        <ion-label position="floating">Nome completo</ion-label>
+        <ion-input type="text" name="nome" [(ngModel)]="nome" required></ion-input>
+      </ion-item>
+
+      <ion-item class="custom-input">
+        <ion-label position="floating">Username</ion-label>
+        <ion-input type="text" name="username" [(ngModel)]="username" required></ion-input>
+      </ion-item>
+
+      <ion-item class="custom-input">
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="email" name="email" [(ngModel)]="email" required></ion-input>
       </ion-item>
 
       <ion-item class="custom-input">
         <ion-label position="floating">Palavra-passe</ion-label>
-        <ion-input type="password" name="password" [(ngModel)]="password"></ion-input>
+        <ion-input type="password" name="password" [(ngModel)]="password" required></ion-input>
+      </ion-item>
+
+      <div class="custom-input">
+        <label class="data-nascimento-label">Data de nascimento</label>
+        <div class="data-nascimento-row">
+          <ion-select interface="popover" placeholder="Dia" [(ngModel)]="diaSelecionado" name="diaSelecionado" required>
+            <ion-select-option *ngFor="let dia of dias" [value]="dia">{{ dia }}</ion-select-option>
+          </ion-select>
+
+          <ion-select interface="popover" placeholder="Mês" [(ngModel)]="mesSelecionado" name="mesSelecionado" required>
+            <ion-select-option *ngFor="let mes of meses" [value]="mes">{{ mes }}</ion-select-option>
+          </ion-select>
+
+          <ion-select interface="popover" placeholder="Ano" [(ngModel)]="anoSelecionado" name="anoSelecionado" required>
+            <ion-select-option *ngFor="let ano of anosDisponiveis" [value]="ano">{{ ano }}</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+
+
+      <ion-item class="custom-input">
+        <ion-label position="floating">Morada (opcional)</ion-label>
+        <ion-input type="text" name="morada" [(ngModel)]="morada"></ion-input>
       </ion-item>
 
       <ion-button expand="block" type="submit" class="register-button">
@@ -31,7 +58,7 @@
 
     <div class="login-link">
       <a routerLink="/login">
-        Já tem conta? <u>Autentique-se aqui</u>
+        Já tem conta? Faça login <u>aqui.</u>
       </a>
     </div>
   </div>
