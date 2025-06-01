@@ -3,17 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/personalizar-um"></ion-back-button>
     </ion-buttons>
-    <ion-title>Passo 2</ion-title>
+    <ion-title>Cartão de Oferta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">recomendados 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+  
   <form [formGroup]="messageForm" (ngSubmit)="submitForm()">
     <ion-item>
       <ion-label position="floating">De:</ion-label>
@@ -30,6 +25,9 @@
       <ion-textarea formControlName="mensagem" autoGrow="true" class="DadosForm"></ion-textarea>
     </ion-item>
 
-    <ion-button expand="block" type="submit" class="btnSeguinte">Seguinte</ion-button>
+    <!--<ion-button expand="block" type="submit" class="btnSeguinte">Seguinte</ion-button>-->
+    <div class="footer-container">
+      <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToNovaEncomendaTresPage()">Seguinte</ion-button>
+    </div>
   </form>
 </ion-content>

@@ -13,6 +13,7 @@ export class NovaEncomendaTresPage implements OnInit {
   metodoselecionado: string = ''; // Armazena o método de pagamento selecionado
   precoValue: number = 0; // Armazena o valor do preço da encomenda
 
+
   constructor(private router: Router, private alertController: AlertController, private preconeService: PrecoNEService) { } // Injeta Router, AlertController e o serviço de preço
 
   ngOnInit() {

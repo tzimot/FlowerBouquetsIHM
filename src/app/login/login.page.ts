@@ -36,6 +36,6 @@ export class LoginPage implements OnInit {
     await alert.present(); // Apresenta o alerta ao utilizador
   }
 
+
   ngOnInit() { } // Método chamado na inicialização do componente, vazio neste caso
 
-}

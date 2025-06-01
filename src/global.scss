@@ -30,14 +30,20 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-  }
-
-
-.ion-color-mycolor {
-    --ion-color-base: var(--ion-color-mycolor);
 }
 
+/* Estilo global para todas as toolbars */
+ion-toolbar {
+  --background: #ffffff !important; // cor branca
+  --color: #6b2c6b; // cor do texto (igual ao botão login)
+  display: flex;
+  justify-content: center;  //alinha o conteúdo ao centro na vertical
+  align-items: center !important; 
+}
 
-ion-menu.ion-color-mycolor ion-label {
-  color: var(--ion-color-mycolor) !important;
+/* Título da app */
+ion-title.app-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #6b2c6b;
 }

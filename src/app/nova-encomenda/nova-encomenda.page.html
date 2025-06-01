@@ -1,51 +1,81 @@
-<ion-header>
-  <ion-toolbar>
+<!--<ion-header>
+  <ion-toolbar color="light">
+    <ion-title class="app-title">Os Nossos Ramos</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title color="Dark">Recomendados</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Recomendados</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-
-  <ion-searchbar placeholder="Pesquisar flores" (ionInput)="searchFlowers($event)"></ion-searchbar>
+<ion-content [fullscreen]="true" class="nova-encomenda-content">
+  <ion-searchbar placeholder="Pesquisar flores" (ionInput)="searchFlowers($event)" class="custom-searchbar" (ionInput)="searchFlowers($event)"></ion-searchbar>
 
   <ion-grid>
-    <ion-row *ngFor="let image of filteredImages">
-      <ion-col>
-        <div *ngIf="image.id === 4 || image.id === 5 || image.id === 6">
-        <img [src]="image.image" [alt]="image.title" class="flower-image" />
-        <h3>{{ image.title }}</h3>
-        <p>{{ image.description }}</p>
-        <p>Preço: {{ image.price }}</p>
-        <div class="quantity-control">
-          <button ion-button icon-only (click)="decreaseQuantity(image)" expand="block" class="BtnMenos">
-            <ion-icon name="remove"></ion-icon>
-          </button>
-          <span>{{ image.quantity }}</span>
-          <button ion-button icon-only (click)="increaseQuantity(image)" expand="block" class="BtnMais">
-            <ion-icon name="add"></ion-icon>
-          </button>
-        </div>
+    <ion-row class="flower-row" *ngFor="let image of filteredImages">
+      <ion-col size="12" size-md="6" size-lg="4">
+        <div *ngIf="image.id === 4 || image.id === 5 || image.id === 6" class="flower-card">
+          <img [src]="image.image" [alt]="image.title" class="flower-image" />
+          <h3>{{ image.title }}</h3>
+          <p class="flower-description">{{ image.description }}</p>
+          <p class="flower-price">Preço: {{ image.price }}€</p>
+          <div class="quantity-control">
+            <button (click)="decreaseQuantity(image)" class="BtnMenos">
+              <ion-icon name="remove"></ion-icon>
+            </button>
+            <span>{{ image.quantity }}</span>
+            <button (click)="increaseQuantity(image)" class="BtnMais">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </div>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-footer>
-    <ion-toolbar>
-      <ion-buttons slot="end">
-        <ion-button (click)="goToNovaEncomendaUmPage()" expand="block" class="BtnSeguinte">Seguinte</ion-button>
-      </ion-buttons>
-      <ion-title>
-        Total: {{ totalSum | currency: '€' }}
-      </ion-title>
-    </ion-toolbar>
-  </ion-footer>
+
+  <div class="footer-container">
+    <p class="total-text">Total: {{ totalSum | currency: '€' }}</p>
+    <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToNovaEncomendaUmPage()">Seguinte</ion-button>
+  </div>
+</ion-content>-->
+
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title class="app-title">Os Nossos Ramos</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="nova-encomenda-content">
+  <ion-searchbar placeholder="Pesquisar flores" (ionInput)="searchFlowers($event)" class="custom-searchbar"></ion-searchbar>
+
+  <div *ngFor="let categoria of categorias" class="categoria-container">
+    <h2 class="categoria-titulo">{{ categoria.nome }}</h2>
+
+    <div class="scroll-horizontal">
+      <div class="flower-card" *ngFor="let image of categoria.ramos">
+        <img [src]="image.image" [alt]="image.title" class="flower-image" />
+        <h3>{{ image.title }}</h3>
+        <p class="flower-description">{{ image.description }}</p>
+        <p class="flower-price">Preço: {{ image.price }}€</p>
+        <div class="quantity-control">
+          <button (click)="decreaseQuantity(image)" class="BtnMenos">
+            <ion-icon name="remove"></ion-icon>
+          </button>
+          <span>{{ image.quantity }}</span>
+          <button (click)="increaseQuantity(image)" class="BtnMais">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-container">
+    <p class="total-text">Total: {{ totalSum | currency: '€' }}</p>
+    <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToNovaEncomendaUmPage()">Seguinte</ion-button>
+  </div>
 </ion-content>
+
+

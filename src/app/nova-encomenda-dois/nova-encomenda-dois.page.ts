@@ -1,7 +1,9 @@
+
 import { Component, OnInit } from '@angular/core'; // Importa Component e OnInit do Angular
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Importa classes para formulários reativos
 import { AlertController } from '@ionic/angular'; // Importa controlador de alertas do Ionic
 import { Router } from '@angular/router'; // Importa roteador para navegação entre páginas
+import { PrecoNEService } from 'src/app/services/preco-ne.service';
 
 @Component({
   selector: 'app-nova-encomenda-dois', // Define o seletor do componente
@@ -12,13 +14,20 @@ export class NovaEncomendaDoisPage implements OnInit { // Declara a classe do co
 
   messageForm: FormGroup; // Variável que representa o formulário
 
-  constructor(private formBuilder: FormBuilder, private alertController: AlertController, private router: Router) { 
-    this.messageForm = this.formBuilder.group({ // Inicializa o formulário com campos e validadores
-      de: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]], // Campo "de": obrigatório, só letras
-      para: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]], // Campo "para": obrigatório, só letras
-      mensagem: [''] // Campo "mensagem": opcional, sem validação
+
+  constructor(
+    private formBuilder: FormBuilder, 
+    private alertController: AlertController, 
+    private router: Router,
+    private preconeService: PrecoNEService
+  ) { 
+    this.messageForm = this.formBuilder.group({
+      de: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+      para: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+      mensagem: ['']
     });
   }
+}
 
   ngOnInit() { } // Método chamado na inicialização do componente (vazio aqui)
 
@@ -41,4 +50,7 @@ export class NovaEncomendaDoisPage implements OnInit { // Declara a classe do co
     await alert.present(); // Apresenta o alerta ao utilizador
   }
 
+  goToNovaEncomendaTresPage() {
+    this.router.navigate(['/nova-encomenda-tres']);
+  }
 }

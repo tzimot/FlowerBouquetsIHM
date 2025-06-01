@@ -15,3 +15,7 @@ describe('NovaEncomendaPage', () => { // Define um grupo de testes para a págin
     expect(component).toBeTruthy(); // Espera que o componente exista e seja verdadeiro (criado com sucesso)
   });
 });
+function async(arg0: () => void): jasmine.ImplementationCallback {
+  throw new Error('Function not implemented.');
+}
+
