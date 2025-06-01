@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core'; // Importa os módulos necessários para definir um componente
+import { Router } from '@angular/router'; // Importa o serviço de navegação entre páginas
 
 @Component({
-  selector: 'app-cancelar',
-  templateUrl: './cancelar.page.html',
-  styleUrls: ['./cancelar.page.scss'],
+  selector: 'app-cancelar', // Define o seletor HTML do componente
+  templateUrl: './cancelar.page.html', // Caminho para o ficheiro HTML associado ao componente
+  styleUrls: ['./cancelar.page.scss'], // Caminho para o ficheiro de estilos associado ao componente
 })
-export class CancelarPage implements OnInit {
+export class CancelarPage implements OnInit { // Declara a classe do componente e implementa o OnInit
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) { } // Injeta o serviço Router para permitir navegação programática
 
-  ngOnInit() {
+  ngOnInit() { // Método chamado quando o componente é inicializado
   }
 
-  redirectToInicio() {
-    this.router.navigate(['/home']); // Replace '/finalizar-dois' with the actual route path of the "finalizar-um" page
+  redirectToInicio() { // Função que navega para a página inicial
+    this.router.navigate(['/home']); // Navega para a rota '/home'
   }
 
 }
