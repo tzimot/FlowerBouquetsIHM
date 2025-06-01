@@ -94,6 +94,7 @@ export class NovaEncomendaPage implements OnInit {
     }
   }
 
+  // Exibe um alerta com o cabeçalho e mensagem fornecidos
   async showAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header,
@@ -103,6 +104,7 @@ export class NovaEncomendaPage implements OnInit {
     await alert.present();
   }
 
+  // Filtra as flores com base no texto de pesquisa inserido pelo utilizador
   searchFlowers(event: any) {
     const searchQuery = event.target.value;
     this.filteredImages = this.images.filter((image) =>
