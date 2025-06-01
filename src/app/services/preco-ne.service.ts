@@ -1,25 +1,19 @@
-import { Injectable } from '@angular/core';
-
-
-
-
+import { Injectable } from '@angular/core'; // Importa o decorador Injectable do Angular
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // Define que este serviço estará disponível globalmente (injeção na root)
 })
 export class PrecoNEService {
 
+  private precoValue: number = 0; // Armazena o valor do preço internamente
 
-  private precoValue: number = 0;
-
-  setPrecoValue(value: number) {
+  setPrecoValue(value: number) { // Define o valor do preço
     this.precoValue = value;
   }
 
-  getPrecoValue() {
+  getPrecoValue() { // Retorna o valor do preço atual
     return this.precoValue;
   }
 
-
-  constructor() { }
+  constructor() { } // Construtor vazio (poderia ser usado para inicializações futuras)
 }

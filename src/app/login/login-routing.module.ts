@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'; // Importa decorador para criar módulo Angular
+import { Routes, RouterModule } from '@angular/router'; // Importa ferramentas para definir rotas
 
-import { LoginPage } from './login.page';
+import { LoginPage } from './login.page'; // Importa o componente LoginPage
 
-const routes: Routes = [
+const routes: Routes = [ // Define as rotas deste módulo
   {
-    path: '',
-    component: LoginPage
+    path: '', // Rota base (vazia)
+    component: LoginPage // Componente a carregar nesta rota
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [RouterModule.forChild(routes)], // Regista as rotas como filhas do módulo principal
+  exports: [RouterModule], // Exporta o módulo de rotas para uso externo
 })
-export class LoginPageRoutingModule {}
+export class LoginPageRoutingModule {} // Declara o módulo de routing para a LoginPage
