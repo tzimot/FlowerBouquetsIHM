@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { PrecoNEService } from 'src/app/services/preco-ne.service';
 
 
 
@@ -16,7 +16,12 @@ export class NovaEncomendaUmPage implements OnInit {
 
 
 
-  constructor(private router: Router, private alertController: AlertController, private formBuilder: FormBuilder) {
+  constructor(
+    private router: Router, 
+    private alertController: AlertController, 
+    private formBuilder: FormBuilder,
+    private preconeService: PrecoNEService
+  ) {
     this.form = this.formBuilder.group({
       nome: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])],
       numeroTelemovel: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{9}')])],
@@ -62,4 +67,7 @@ export class NovaEncomendaUmPage implements OnInit {
     await alert.present();
   }
 
+  goToNovaEncomendaDoisPage() {
+    this.router.navigate(['/nova-encomenda-dois']);
+  }
 }

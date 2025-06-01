@@ -61,12 +61,27 @@
         "image": "assets/imagens/OrquideaseLirios.jpeg",
         "price": 10.59,
         "description": "Um Impressionante Bouquet qdwns, etc etc"
+    },
+    {
+        "id": 10,
+        "title": "Decoração - Lírio Simples",
+        "image": "assets/imagens/lirioimg.jpg",
+        "price": 5.99,
+        "description": "Flor única em vaso decorativo, ideal para estantes e aparadores."
+    },
+    {
+        "id": 11,
+        "title": "Decoração - Orquídea Amarela",
+        "image": "assets/imagens/orquideaamaimg.jpg",
+        "price": 6.99,
+        "description": "Orquídea em mini-arranjo decorativo, perfeita para salas de estar."
+    },
+    {
+        "id": 12,
+        "title": "Decoração - Rosa Única",
+        "image": "assets/imagens/rosaimg.jpg",
+        "price": 4.99,
+        "description": "Rosa isolada em tubo de vidro, uma peça minimalista para decoração moderna."
     }
-
-
-
-
-
-    
 ]
 

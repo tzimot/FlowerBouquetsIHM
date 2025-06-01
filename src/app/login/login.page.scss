@@ -37,7 +37,7 @@
   h3 {
     font-family: 'Montserrat';
     font-size: 1.2rem;
-    color: #8c3f7a;
+    color: #6b2c6b;
     font-weight: normal;
   }
 }
@@ -51,7 +51,8 @@
 .custom-input {
   margin-bottom: 1rem;
   border-radius: 8px;
-  --background: #ffffff;
+  --background: transparent !important;
+  --ion-item-background: transparent !important;
   --highlight-color: #6b2c6b;
   --color: #666666;
 
@@ -101,14 +102,7 @@
 }
 
 form {
-    margin-top: 3rem;
-
-    border-radius: 10px;
-}
-
-form {
   margin-top: 3rem;
-  border-radius: 10px;
 }
 
 form ion-item {

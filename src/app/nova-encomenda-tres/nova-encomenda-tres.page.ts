@@ -16,7 +16,10 @@ export class NovaEncomendaTresPage implements OnInit {
   metodoselecionado: string = '';
   precoValue: number = 0;
 
-  constructor(private router: Router, private alertController: AlertController, private preconeService: PrecoNEService) { }
+  constructor(
+    private router: Router, 
+    private alertController: AlertController, 
+    private preconeService: PrecoNEService) { }
 
   ngOnInit() {
     this.precoValue = this.preconeService.getPrecoValue(); // Retrieve the stored price from the PrecoService

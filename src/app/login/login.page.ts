@@ -3,10 +3,6 @@ import { CriarautentService } from 'src/app/services/criarautent.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
-
-
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -41,9 +37,6 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
-    
-
   ngOnInit() {
-  }
-
+  } 
 }

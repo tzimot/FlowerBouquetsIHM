@@ -1,0 +1,52 @@
+.pagamento-background {
+  --background: #ffeaf4;
+  padding: 1.5rem;
+}
+
+.titulo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #6b2c6b;
+  margin-top: 2rem;
+}
+
+.subtitulo {
+  font-size: 18px;
+  color: #8c3f7a;
+  margin-bottom: 1.5rem;
+}
+
+.total {
+  font-size: 20px;
+  font-weight: 600;
+  color: #6b2c6b;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metodo-opcao {
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
+.cancelar-btn {
+  --background: linear-gradient(90deg, #ff6f91 0%, #ffa9a9 100%);
+  --color: white;
+  font-weight: 600;
+  --border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.confirmar-btn {
+  --background: linear-gradient(90deg, #a1e3a1 0%, #70c770 100%);
+  --color: white;
+  font-weight: 600;
+  --border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.centered-text {
+  text-align: center;
+}

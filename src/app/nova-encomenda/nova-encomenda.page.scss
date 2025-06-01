@@ -1,57 +1,164 @@
-.nova-encomenda-content{
---background: #f5eee6; // Soft beige background
+.nova-encomenda-content {
+  --background: linear-gradient(to bottom, #fdf1ec, #fefae0);
+  padding: 1rem;
+  height: 100%;
+  overflow-y: auto;
 
   ion-toolbar {
-    --background: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --background: #ffffff;
+    --color: #000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .custom-searchbar {
+    --background: white;
+    --color: black;
+    --placeholder-color: #999;
+    --icon-color: #999;
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --border-radius: 20px;
+    --searchbar-border-radius: 20px;
+    margin: 0 auto 20px auto;
+    width: 90%;
+  }
+}
+
+.flower-row {
+  margin-bottom: 20px;
+}
+
+.flower-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-width: 240px;
+  max-width: 240px;
+  min-height: 420px;
+  height: auto;
+
+  position: relative;
+
+  &:hover {
+    transform: translateY(-5px);
   }
 }
 
 .flower-image {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
   margin-bottom: 10px;
 }
 
+.flower-description {
+  font-size: 14px;
+  color: #555;
+  flex-grow: 1;
+}
+
+.flower-price {
+  font-weight: bold;
+  color: #c07f00;
+  margin-top: 8px;
+}
+
 .quantity-control {
-    display: flex;
-    align-items: center;
-    margin-left: 5%;
-  }
-
-
-.BtnMenos,
-.BtnMais {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.quantity-control span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+
+.BtnMenos,
+.BtnMais {
   background: linear-gradient(to right, #f29999, #f7d771);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: none;
 }
 
 .BtnMenos ion-icon,
 .BtnMais ion-icon {
-  color: rgb(0, 0, 0); /* Set the color to white or any other color that is more visible on the gradient background */
+  color: black;
+  font-size: 20px;
 }
 
-.BtnMenos:active,
-.BtnMais:active {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.701); /* Adjust the shadow color and size as desired */
+.footer-container {
+  padding: 20px;
+  background: #fff7f0;
+  text-align: center;
+  border-radius: 12px;
+  margin: 20px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+.total-text {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
 
 .BtnSeguinte {
-    background: linear-gradient(
-        90deg,
-     rgba(250, 87, 142, 1) 0%,
-     rgba(254, 171, 142, 1) 100%
-     );
-    font-family: 'Roboto', sans-serif;
-    color: white;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 10px 20px;
+  margin-top: 2rem;
+  height: 48px;
+  font-size: 1.1rem;
+  --border-radius: 24px;
+  text-transform: uppercase;
+  font-weight: 600;
+  --background: linear-gradient(
+    90deg,
+    rgba(250, 87, 142, 1) 0%,
+    rgba(254, 171, 142, 1) 100%
+  );
+  color: white;
 }
+
+.categoria-titulo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 20px 0 10px 10px;
+  color: #c07f00;
+}
+
+.scroll-horizontal {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 16px;
+  /*padding: 10px;*/
+  padding: 0 10px 20px 10px;
+  scroll-snap-type: x mandatory;
+  min-height: 420px; /* Ajuste a altura para alinhar com o card */
+}
+
+.scroll-horizontal::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-horizontal .flower-card {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
