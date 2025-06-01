@@ -1,51 +1,37 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
+    <ion-title class="app-title">Personalizar Ramo</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title color="Dark">Personalizar Ramo</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">PersonalizarRamo</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="personalizar-ramo-content">
+  <ion-searchbar placeholder="Pesquisar flores" (ionInput)="searchFlowers($event)" class="custom-searchbar"></ion-searchbar>
 
-
-  <ion-searchbar placeholder="Pesquisar flores" (ionInput)="searchFlowers($event)"></ion-searchbar>
-
-  <ion-grid>
-    <ion-row *ngFor="let image of filteredImages">
-      <ion-col>
-        <div *ngIf="image.id === 1 || image.id === 2 || image.id === 3">
+  <div class="categoria-container">
+    <div class="scroll-horizontal">
+      <div class="flower-card" *ngFor="let image of filteredImages.slice(0, 3)">
         <img [src]="image.image" [alt]="image.title" class="flower-image" />
         <h3>{{ image.title }}</h3>
-        <p>{{ image.description }}</p>
-        <p>Preço: {{ image.price }}</p>
+        <p class="flower-description">{{ image.description }}</p>
+        <p class="flower-price">Preço: {{ image.price }}€</p>
         <div class="quantity-control">
-          <button ion-button icon-only (click)="decreaseQuantity(image)" expand="block" class="BtnMenos">
+          <button (click)="decreaseQuantity(image)" class="BtnMenos">
             <ion-icon name="remove"></ion-icon>
           </button>
           <span>{{ image.quantity }}</span>
-          <button ion-button icon-only (click)="increaseQuantity(image)" expand="block" class="BtnMais">
+          <button (click)="increaseQuantity(image)" class="BtnMais">
             <ion-icon name="add"></ion-icon>
           </button>
         </div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-footer>
-    <ion-toolbar>
-      <ion-buttons slot="end">
-        <ion-button (click)="goToPersonalizarUmPage()" expand="block" class="BtnSeguinte">Seguinte</ion-button>
-      </ion-buttons>
-      <ion-title>
-        Total: {{ totalSum | currency: '€' }}
-      </ion-title>
-    </ion-toolbar>
-  </ion-footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-container">
+    <p class="total-text">Total: {{ totalSum | currency: '€' }}</p>
+    <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToPersonalizarUmPage()">Seguinte</ion-button>
+  </div>
 </ion-content>
