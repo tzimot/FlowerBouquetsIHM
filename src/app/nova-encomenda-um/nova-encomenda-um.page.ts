@@ -1,23 +1,21 @@
 
-import { Component, OnInit } from '@angular/core'; // Importa funcionalidades de componente e ciclo de vida
-import { Router } from '@angular/router'; // Importa o Router para navegação entre páginas
-import { AlertController } from '@ionic/angular'; // Importa controlador de alertas do Ionic
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Importa classes para criação e validação de formulários
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PrecoNEService } from 'src/app/services/preco-ne.service';
 
 @Component({
-  selector: 'app-nova-encomenda-um', // Seletor do componente
-  templateUrl: './nova-encomenda-um.page.html', // Caminho do template HTML
-  styleUrls: ['./nova-encomenda-um.page.scss'], // Caminho do ficheiro de estilos
+  selector: 'app-nova-encomenda-um',
+  templateUrl: './nova-encomenda-um.page.html',
+  styleUrls: ['./nova-encomenda-um.page.scss'],
 })
 export class NovaEncomendaUmPage implements OnInit {
-
   form: FormGroup;
 
-
-
   constructor(
-    private router: Router, 
-    private alertController: AlertController, 
+    private router: Router,
+    private alertController: AlertController,
     private formBuilder: FormBuilder,
     private preconeService: PrecoNEService
   ) {
@@ -31,7 +29,7 @@ export class NovaEncomendaUmPage implements OnInit {
     });
   }
 
-  ngOnInit() {} // Método de inicialização (vazio neste caso)
+  ngOnInit() {}
 
   async submitForm() {
     if (this.form.invalid) { // Se o formulário for inválido
