@@ -15,3 +15,7 @@ describe('NovaEncomendaDoisPage', () => { // Começa o bloco de testes para a p�
     expect(component).toBeTruthy(); // Espera que o componente exista (não seja null ou undefined)
   });
 });
+
+function async(arg0: () => void): jasmine.ImplementationCallback {
+  throw new Error('Function not implemented.');
+}

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'; // Import waitForAsync
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TopVendasPage } from './top-vendas.page';
 
 describe('TopVendasPage', () => {
@@ -17,6 +17,6 @@ describe('TopVendasPage', () => {
   }));
 
   it('should create', () => {
-    expect(component).toBeTruthy(); // Verify the component is created successfully
+    expect(component).toBeTruthy();
   });
 });
