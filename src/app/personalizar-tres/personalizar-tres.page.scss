@@ -1,0 +1,61 @@
+ion-content {
+  --background: #f5eee6;
+}
+
+ion-grid {
+  padding: 2rem;
+}
+
+h2 {
+  color: #9b6b9d;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h3 {
+  color: #7a6174;
+  font-size: 18px;
+  margin-bottom: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+ion-radio-group {
+  ion-item {
+    --background: white;
+    --border-radius: 10px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(155, 107, 157, 0.1);
+
+    ion-label {
+      color: #7a6174;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    ion-radio {
+      --color: #9b6b9d;
+      --color-checked: #9b6b9d;
+    }
+  }
+}
+
+ion-button {
+  --border-radius: 10px;
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+
+  &[color="danger"] {
+    --background: #ff6b6b;
+  }
+
+  &[color="success"] {
+    --background: linear-gradient(
+      90deg,
+      rgba(155, 107, 157, 1) 0%,
+      rgba(177, 133, 179, 1) 100%
+    );
+  }
+}
