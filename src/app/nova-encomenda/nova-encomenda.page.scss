@@ -147,10 +147,9 @@
   overflow-x: auto;
   overflow-y: hidden;
   gap: 16px;
-  /*padding: 10px;*/
   padding: 0 10px 20px 10px;
   scroll-snap-type: x mandatory;
-  min-height: 420px; /* Ajuste a altura para alinhar com o card */
+  min-height: 420px; 
 }
 
 .scroll-horizontal::-webkit-scrollbar {

@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FloresService, ImageData } from 'src/app/services/flores.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { TopvendasService } from 'src/app/services/topvendas.service';
+import { PrecoNEService } from 'src/app/services/preco-ne.service';
 
-
-
-
-
+interface ImageData {
+  id: number;
+  title: string;
+  image: string;
+  price: number;
+  description: string;
+  quantity: number;
+}
 
 @Component({
   selector: 'app-top-vendas',
@@ -16,55 +19,95 @@ import { TopvendasService } from 'src/app/services/topvendas.service';
 })
 export class TopVendasPage implements OnInit {
 
-  constructor(private floresService: FloresService, private router: Router, private alertController: AlertController, private topvendasService: TopvendasService) { }
+  public images: ImageData[];
+  public totalSum: number;
+  filteredImages: ImageData[] = [];
 
-  flowers: ImageData[] = [];
-  totalSum: number = 0;
+  public categorias: { nome: string, ramos: ImageData[] }[] = [];
+
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private preconeService: PrecoNEService
+  ) {
+    this.images = [];
+    this.totalSum = 0;
+  }
 
   ngOnInit() {
-    this.floresService.getTopVendas().subscribe(flowers => {
-      this.flowers = flowers.map(flower => ({ ...flower, quantity: 0 }));
-      this.calculateTotalSum();
-    });
+    fetch('./assets/imgsData/imagens.json')
+      .then(res => res.json())
+      .then(json => {
+        this.images = json;
+        this.calculateTotalSum();
+        this.preconeService.setPrecoValue(this.totalSum);
+
+        this.filteredImages = this.images;
+
+        this.categorias = [
+          {
+            nome: 'Mais Vendidos',
+            ramos: this.images.filter(img => [8, 5, 10].includes(img.id))
+          },
+          {
+            nome: 'Melhores Preços',
+            ramos: this.images.filter(img => [12, 4, 9].includes(img.id))
+          },
+          {
+            nome: 'Últimos em Stock',
+            ramos: this.images.filter(img => [6, 11, 7].includes(img.id))
+          }
+        ];
+      });
   }
 
-
-  calculateTotalSum() {
-    this.totalSum = this.flowers.reduce((sum, flower) => sum + flower.price * flower.quantity, 0);
-  }
-
-
-  incrementQuantity(flower: ImageData) {
-    flower.quantity++;
-    this.calculateTotalSum();
-  }
-
-
-  decrementQuantity(flower: ImageData) {
-    if (flower.quantity > 0) {
-      flower.quantity--;
+  decreaseQuantity(image: ImageData) {
+    if (image.quantity && image.quantity > 0) {
+      image.quantity--;
       this.calculateTotalSum();
     }
   }
 
+  increaseQuantity(image: ImageData) {
+    if (image.quantity) {
+      image.quantity++;
+      this.calculateTotalSum();
+    } else {
+      image.quantity = 1;
+      this.calculateTotalSum();
+    }
+  }
 
-  goToTopVendasUmPage() {
+  calculateTotalSum() {
+    this.totalSum = this.images.reduce(
+      (sum, image) => sum + (image.quantity || 0) * (image.price || 0),
+      0
+    );
+  }
+
+  goToNovaEncomendaUmPage() {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
-      this.topvendasService.setPrecoValue(this.totalSum); // Set the calculated price in the TopvendasService
-      this.router.navigate(['/top-vendas-um']);
+      this.calculateTotalSum(); // Garante que o total está atualizado
+      this.preconeService.setPrecoValue(this.totalSum); //guarda o valora globalmente
+      this.router.navigate(['/nova-encomenda-um']);
     }
   }
-
 
   async showAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header,
       message,
-      buttons: ['OK'],
+      buttons: ['OK']
     });
     await alert.present();
   }
 
+  searchFlowers(event: any) {
+    const searchQuery = event.target.value;
+    this.filteredImages = this.images.filter((image) =>
+      image.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 }

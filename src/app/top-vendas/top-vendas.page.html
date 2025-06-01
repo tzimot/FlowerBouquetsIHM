@@ -1,44 +1,40 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
+    <ion-title class="app-title">Em Alta</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title color="Dark">Mais Vendidos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let flower of flowers">
-        <div class="flower-card">
-          <img [src]="flower.image" [alt]="flower.title" class="flower-image" />
-          <h3>{{ flower.title }}</h3>
-          <p>{{ flower.description }}</p>
-          <p>Preço: {{ flower.price }}</p>
+<ion-content [fullscreen]="true" class="top-vendas-content">
+  <div *ngFor="let categoria of categorias" class="categoria-container">
+    <h2 class="categoria-titulo">{{ categoria.nome }}</h2>
 
-          <div class="quantity-controls">
-            <button ion-button icon-only (click)="decrementQuantity(flower)" expand="block" class="BtnMenos">
-              <ion-icon name="remove"></ion-icon>
-            </button>
-            <span>{{ flower.quantity }}</span>
-            <button ion-button icon-only (click)="incrementQuantity(flower)" expand="block" class="BtnMais">
-              <ion-icon name="add"></ion-icon>
-            </button>
-          </div>
+    <div class="scroll-horizontal">
+      <div class="flower-card" *ngFor="let image of categoria.ramos">
+        <img [src]="image.image" [alt]="image.title" class="flower-image" />
+        <h3>{{ image.title }}</h3>
+        <p class="flower-description">{{ image.description }}</p>
+        <p class="flower-price">Preço: {{ image.price }}€</p>
+        <div class="quantity-control">
+          <button (click)="decreaseQuantity(image)" class="BtnMenos">
+            <ion-icon name="remove"></ion-icon>
+          </button>
+          <span>{{ image.quantity }}</span>
+          <button (click)="increaseQuantity(image)" class="BtnMais">
+            <ion-icon name="add"></ion-icon>
+          </button>
         </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-container">
+    <p class="total-text">Total: {{ totalSum | currency: '€' }}</p>
+    <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToNovaEncomendaUmPage()">Seguinte</ion-button>
+  </div>
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button (click)="goToTopVendasUmPage()" expand="block" class="BtnSeguinte">Seguinte</ion-button>
-    </ion-buttons>
-    <ion-title>
-      Total: {{ totalSum | currency: '€' }}
-    </ion-title>
-  </ion-toolbar>
-</ion-footer>
+
+
