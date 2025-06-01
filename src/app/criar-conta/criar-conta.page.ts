@@ -1,88 +1,88 @@
-import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
-import { NavController, AlertController } from '@ionic/angular';
-import { CriarautentService } from 'src/app/services/criarautent.service';
+import { Component, OnInit } from '@angular/core'; // Importa para criar componentes
+import { Storage } from '@ionic/storage-angular'; // Importa para aceder ao armazenamento local
+import { NavController, AlertController } from '@ionic/angular'; // Importa navegação e alertas do Ionic
+import { CriarautentService } from 'src/app/services/criarautent.service'; // Importa serviço para autenticação e criação de conta
 
 @Component({
-  selector: 'app-criar-conta',
-  templateUrl: './criar-conta.page.html',
-  styleUrls: ['./criar-conta.page.scss'],
+  selector: 'app-criar-conta', // Seletor do componente no HTML
+  templateUrl: './criar-conta.page.html', // Ficheiro HTML do componente
+  styleUrls: ['./criar-conta.page.scss'], // Ficheiro do css
 })
-export class CriarContaPage implements OnInit {
+export class CriarContaPage implements OnInit { // Define a classe do componente com OnInit
 
-  nome: string = '';
-  username: string = '';
-  email: string = '';
-  password: string = '';
-  morada?: string;
+  nome: string = ''; // Variável para o nome do utilizador
+  username: string = ''; // Variável para o nome de utilizador
+  email: string = ''; // Variável para o email
+  password: string = ''; // Variável para a password
+  morada?: string; // Variável opcional para morada
 
-  // Novos campos para a data de nascimento
+  // Campos para a data de nascimento
   anoSelecionado?: number;
-  mesSelecionado?: number;
+  mesSelecionado?: number; 
   diaSelecionado?: number;
 
-  anosDisponiveis: number[] = [];
-  meses: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
-  dias: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+  anosDisponiveis: number[] = []; // Array para os anos disponíveis no selector
+  meses: number[] = Array.from({ length: 12 }, (_, i) => i + 1); // Array dos meses de 1 a 12
+  dias: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Array dos dias de 1 a 31
 
   constructor(
-    private storage: Storage,
-    private navCtrl: NavController,
-    private criarAutentService: CriarautentService,
-    private alertController: AlertController
+    private storage: Storage, // Injeta serviço de armazenamento local
+    private navCtrl: NavController, // Injeta serviço de navegação
+    private criarAutentService: CriarautentService, // Injeta serviço para autenticação/criação
+    private alertController: AlertController // Injeta controlador para mostrar alertas
   ) {}
 
-  async criarconta() {
+  async criarconta() { // Método para criar conta
     if (!this.nome || !this.username || !this.email || !this.password ||
         !this.anoSelecionado || !this.mesSelecionado || !this.diaSelecionado) {
-      this.showAlert('Erro', 'Por favor, preencha todos os campos obrigatórios.');
+      this.showAlert('Erro', 'Por favor, preencha todos os campos obrigatórios.'); // Valida campos obrigatórios
       return;
     }
 
-    const dataNascimento = new Date(this.anoSelecionado, this.mesSelecionado - 1, this.diaSelecionado);
-    const idade = this.calcularIdade(dataNascimento);
+    const dataNascimento = new Date(this.anoSelecionado, this.mesSelecionado - 1, this.diaSelecionado); // Cria objeto Date para a data de nascimento
+    const idade = this.calcularIdade(dataNascimento); // Calcula a idade com base na data
 
     if (idade < 18) {
-      this.showAlert('Erro', 'Precisa de ter pelo menos 18 anos para criar uma conta.');
+      this.showAlert('Erro', 'Precisa de ter pelo menos 18 anos para criar uma conta.'); // Verifica idade mínima
       return;
     }
 
-    const existingUser = await this.criarAutentService.checkExistingUser(this.username);
+    const existingUser = await this.criarAutentService.checkExistingUser(this.username); // Verifica se o username já existe
     if (existingUser) {
-      this.showAlert('Nome de utilizador já existe!', 'Por favor, escolha outro nome de utilizador.');
+      this.showAlert('Nome de utilizador já existe!', 'Por favor, escolha outro nome de utilizador.'); // Alerta se o username existir
       return;
     }
 
-    // Aqui podes salvar a data como string se quiseres
+    // Opcional: converte a data para string (YYYY-MM-DD)
     const dataNascimentoString = dataNascimento.toISOString().split('T')[0];
 
-    await this.criarAutentService.criarConta(this.username, this.password);
+    await this.criarAutentService.criarConta(this.username, this.password); // Cria a conta no serviço
 
-    this.navCtrl.navigateRoot('/login');
+    this.navCtrl.navigateRoot('/login'); // Navega para a página de login após criar conta
   }
 
-  calcularIdade(data: Date): number {
-    const hoje = new Date();
-    let idade = hoje.getFullYear() - data.getFullYear();
-    const m = hoje.getMonth() - data.getMonth();
-    if (m < 0 || (m === 0 && hoje.getDate() < data.getDate())) {
+  calcularIdade(data: Date): number { // Função que calcula idade a partir da data
+    const hoje = new Date(); // Data atual
+    let idade = hoje.getFullYear() - data.getFullYear(); // Diferença de anos
+    const m = hoje.getMonth() - data.getMonth(); // Diferença de meses
+    if (m < 0 || (m === 0 && hoje.getDate() < data.getDate())) { // Ajusta idade se ainda não fez anos este ano
       idade--;
     }
-    return idade;
+    return idade; // Retorna a idade calculada
   }
 
-  async showAlert(header: string, message: string) {
+  async showAlert(header: string, message: string) { // Método para mostrar alertas
     const alert = await this.alertController.create({
-      header,
-      message,
-      buttons: ['OK']
+      header, // Título do alerta
+      message, // Mensagem do alerta
+      buttons: ['OK'] // Botão OK para fechar
     });
-    await alert.present();
+    await alert.present(); // Apresenta o alerta
   }
 
-  ngOnInit() {
-    const anoAtual = new Date().getFullYear();
-    for (let i = anoAtual; i >= 1900; i--) {
+  ngOnInit() { // Método executado na inicialização do componente
+    const anoAtual = new Date().getFullYear(); // Ano atual
+    for (let i = anoAtual; i >= 1900; i--) { // Preenche array de anos disponíveis do atual até 1900
       this.anosDisponiveis.push(i);
     }
   }

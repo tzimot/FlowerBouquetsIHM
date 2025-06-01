@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core'; // Importa NgModule para criar um módulo Angular
+import { CommonModule } from '@angular/common'; // Importa funcionalidades comuns do Angular
+import { FormsModule } from '@angular/forms'; // Importa módulo para formulários template-driven
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular'; // Importa módulo Ionic para componentes UI
 
-import { NovaEncomendaTresPageRoutingModule } from './nova-encomenda-tres-routing.module';
+import { NovaEncomendaTresPageRoutingModule } from './nova-encomenda-tres-routing.module'; // Importa o routing da página
 
-import { NovaEncomendaTresPage } from './nova-encomenda-tres.page';
+import { NovaEncomendaTresPage } from './nova-encomenda-tres.page'; // Importa o componente da página
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    NovaEncomendaTresPageRoutingModule
+    CommonModule, // Importa funcionalidades comuns
+    FormsModule, // Importa suporte para formulários
+    IonicModule, // Importa componentes Ionic
+    NovaEncomendaTresPageRoutingModule // Importa rotas específicas desta página
   ],
-  declarations: [NovaEncomendaTresPage]
+  declarations: [NovaEncomendaTresPage] // Declara o componente desta página
 })
-export class NovaEncomendaTresPageModule {}
+export class NovaEncomendaTresPageModule {} // Exporta o módulo da página

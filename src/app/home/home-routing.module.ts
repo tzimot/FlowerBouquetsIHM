@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'; // Importa decorador para criar módulo Angular
+import { Routes, RouterModule } from '@angular/router'; // Importa ferramentas para definir rotas
 
-import { HomePage } from './home.page';
+import { HomePage } from './home.page'; // Importa o componente HomePage
 
-const routes: Routes = [
+const routes: Routes = [ // Define as rotas deste módulo
   {
-    path: '',
-    component: HomePage
+    path: '', // Rota base (vazia)
+    component: HomePage // Componente a carregar nesta rota
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [RouterModule.forChild(routes)], // Regista as rotas como filhas do módulo principal
+  exports: [RouterModule], // Exporta o módulo de rotas para uso externo
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule {} // Declara o módulo de routing para a HomePage
