@@ -41,7 +41,6 @@ export class NovaEncomendaPage implements OnInit {
         this.images = json;
         this.calculateTotalSum();
         this.preconeService.setPrecoValue(this.totalSum);
-
         this.filteredImages = this.images;
 
         this.categorias = [
@@ -89,8 +88,8 @@ export class NovaEncomendaPage implements OnInit {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
-      this.calculateTotalSum(); // Garante que o total está atualizado
-      this.preconeService.setPrecoValue(this.totalSum); //guarda o valora globalmente
+      this.calculateTotalSum();
+      this.preconeService.setPrecoValue(this.totalSum);
       this.router.navigate(['/nova-encomenda-um']);
     }
   }

@@ -19,9 +19,9 @@ interface ImageData {
 })
 export class TopVendasPage implements OnInit {
 
-  public images: ImageData[];
-  public totalSum: number;
-  filteredImages: ImageData[] = [];
+  public images: ImageData[] = [];
+  public totalSum: number = 0;
+  public filteredImages: ImageData[] = [];
 
   public categorias: { nome: string, ramos: ImageData[] }[] = [];
 
@@ -29,20 +29,16 @@ export class TopVendasPage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private preconeService: PrecoNEService
-  ) {
-    this.images = [];
-    this.totalSum = 0;
-  }
+  ) {}
 
   ngOnInit() {
     fetch('./assets/imgsData/imagens.json')
       .then(res => res.json())
       .then(json => {
         this.images = json;
+        this.filteredImages = this.images;
         this.calculateTotalSum();
         this.preconeService.setPrecoValue(this.totalSum);
-
-        this.filteredImages = this.images;
 
         this.categorias = [
           {
@@ -71,11 +67,10 @@ export class TopVendasPage implements OnInit {
   increaseQuantity(image: ImageData) {
     if (image.quantity) {
       image.quantity++;
-      this.calculateTotalSum();
     } else {
       image.quantity = 1;
-      this.calculateTotalSum();
     }
+    this.calculateTotalSum();
   }
 
   calculateTotalSum() {
@@ -89,8 +84,8 @@ export class TopVendasPage implements OnInit {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
-      this.calculateTotalSum(); // Garante que o total está atualizado
-      this.preconeService.setPrecoValue(this.totalSum); //guarda o valora globalmente
+      this.calculateTotalSum();
+      this.preconeService.setPrecoValue(this.totalSum);
       this.router.navigate(['/nova-encomenda-um']);
     }
   }

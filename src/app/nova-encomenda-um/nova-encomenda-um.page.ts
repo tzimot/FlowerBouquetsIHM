@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PrecoNEService } from 'src/app/services/preco-ne.service';
 
-
+import { Component, OnInit } from '@angular/core'; // Importa funcionalidades de componente e ciclo de vida
+import { Router } from '@angular/router'; // Importa o Router para navegação entre páginas
+import { AlertController } from '@ionic/angular'; // Importa controlador de alertas do Ionic
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Importa classes para criação e validação de formulários
 
 @Component({
-  selector: 'app-nova-encomenda-um',
-  templateUrl: './nova-encomenda-um.page.html',
-  styleUrls: ['./nova-encomenda-um.page.scss'],
+  selector: 'app-nova-encomenda-um', // Seletor do componente
+  templateUrl: './nova-encomenda-um.page.html', // Caminho do template HTML
+  styleUrls: ['./nova-encomenda-um.page.scss'], // Caminho do ficheiro de estilos
 })
 export class NovaEncomendaUmPage implements OnInit {
+
   form: FormGroup;
 
 
@@ -30,44 +29,41 @@ export class NovaEncomendaUmPage implements OnInit {
       codigoPostal: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
       localidade: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])]
     });
-   }
-
-
-
-  ngOnInit() {
   }
 
+  ngOnInit() {} // Método de inicialização (vazio neste caso)
 
   async submitForm() {
-    if (this.form.invalid) {
-      this.showAlert('Preencha todos os campos.', 'Erro');
+    if (this.form.invalid) { // Se o formulário for inválido
+      this.showAlert('Preencha todos os campos.', 'Erro'); // Mostra alerta de erro
       return;
     }
 
-    const formData = this.form.value;
-    const message = `
-      Nome: ${formData.nome}<br>
-      Número Telemóvel: ${formData.numeroTelemovel}<br>
-      Rua: ${formData.rua}<br>
-      Número de Porta: ${formData.numeroPorta}<br>
-      Código Postal: ${formData.codigoPostal}<br>
-      Localidade: ${formData.localidade}
-    `;
-    this.showAlert(message, 'Dados do Formulário');
+    const formData = this.form.value; // Obtém os dados do formulário
+    const message = ` 
+      Nome: ${formData.nome}<br> 
+      Número Telemóvel: ${formData.numeroTelemovel}<br> 
+      Rua: ${formData.rua}<br> 
+      Número de Porta: ${formData.numeroPorta}<br> 
+      Código Postal: ${formData.codigoPostal}<br> 
+      Localidade: ${formData.localidade} 
+    `; // Monta mensagem com os dados
 
-    this.router.navigate(['/nova-encomenda-dois']);
+    this.showAlert(message, 'Dados do Formulário'); // Mostra os dados num alerta
+    this.router.navigate(['/nova-encomenda-dois']); // Redireciona para a próxima página
   }
 
-  async showAlert(message: string, header: string) {
+  async showAlert(message: string, header: string) { // Método para mostrar um alerta
     const alert = await this.alertController.create({
       header,
       message,
       buttons: ['OK'],
     });
-    await alert.present();
+    await alert.present(); // Apresenta o alerta
   }
 
   goToNovaEncomendaDoisPage() {
     this.router.navigate(['/nova-encomenda-dois']);
   }
+
 }

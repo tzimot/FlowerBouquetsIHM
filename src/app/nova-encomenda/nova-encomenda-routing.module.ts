@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'; // Importa o decorator NgModule do Angular
+import { Routes, RouterModule } from '@angular/router'; // Importa tipos e módulos para rotas
 
-import { NovaEncomendaPage } from './nova-encomenda.page';
+import { NovaEncomendaPage } from './nova-encomenda.page'; // Importa o componente da página NovaEncomenda
 
-const routes: Routes = [
+const routes: Routes = [ // Define as rotas para este módulo
   {
-    path: '',
-    component: NovaEncomendaPage
+    path: '', // Caminho vazio corresponde à rota base desta página
+    component: NovaEncomendaPage // Associa o componente NovaEncomendaPage a esta rota
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [RouterModule.forChild(routes)], // Importa as rotas definidas para o módulo filho
+  exports: [RouterModule], // Exporta o RouterModule para usar as rotas noutros módulos
 })
-export class NovaEncomendaPageRoutingModule {}
+export class NovaEncomendaPageRoutingModule {} // Declara o módulo de roteamento para a página NovaEncomenda

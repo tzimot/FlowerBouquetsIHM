@@ -1,57 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { PrecoService } from 'src/app/services/preco.service';
-
-
-
+import { Component, OnInit } from '@angular/core'; // Importa funcionalidades básicas para componente e ciclo de vida
+import { Router } from '@angular/router'; // Importa serviço para navegação entre páginas
+import { AlertController } from '@ionic/angular'; // Importa controlador para criar alertas no Ionic
+import { PrecoService } from 'src/app/services/preco.service'; // Importa serviço para gerir o preço
 
 @Component({
-  selector: 'app-personalizar-tres',
-  templateUrl: './personalizar-tres.page.html',
-  styleUrls: ['./personalizar-tres.page.scss'],
+  selector: 'app-personalizar-tres', // Define o seletor do componente
+  templateUrl: './personalizar-tres.page.html', // Aponta para o ficheiro HTML do componente
+  styleUrls: ['./personalizar-tres.page.scss'], // Aponta para o ficheiro de estilos do componente
 })
 export class PersonalizarTresPage implements OnInit {
 
-  metodoselecionado: string = '';
-  precoValue: number = 0;
+  metodoselecionado: string = ''; // Guarda o método de pagamento selecionado
+  precoValue: number = 0; // Guarda o valor do preço atual
 
-  constructor(private router: Router, private alertController: AlertController, private precoService: PrecoService) { }
+  constructor(
+    private router: Router, // Injeta o serviço de navegação
+    private alertController: AlertController, // Injeta o serviço para alertas
+    private precoService: PrecoService // Injeta o serviço para preço
+  ) { }
 
   ngOnInit() {
-    this.precoValue = this.precoService.getPrecoValue(); // Retrieve the stored price from the PrecoService
+    this.precoValue = this.precoService.getPrecoValue(); 
+    // Ao iniciar, obtém o preço guardado no serviço PrecoService
   }
 
   handlePaymentSelection() {
     console.log(this.metodoselecionado);
+    // Mostra no console o método de pagamento selecionado (para debug)
   }
 
   goToCancelarPage() {
-    this.router.navigate(['/cancelar']);
+    this.router.navigate(['/cancelar']); 
+    // Navega para a página de cancelamento
   }
-
-  
 
   confirmarPagamento() {
     if (!this.metodoselecionado) {
-      this.showAlert('Por Favor, selecione um método de Pagamento!', '');
+      this.showAlert('Por Favor, selecione um método de Pagamento!', ''); 
+      // Se não foi selecionado método, mostra alerta a avisar o utilizador
     } else {
-      // Proceed with the payment
-      // Redirect to obrigado page or perform other actions
-      this.goToObrigadoPage();
+      // Se método selecionado, segue com o processo de pagamento
+      this.goToObrigadoPage(); // Navega para página de obrigado
     }
   }
 
   async showAlert(header: string, message: string) {
     const alert = await this.alertController.create({
-      header,
-      message,
-      buttons: ['OK'],
+      header, // Cabeçalho do alerta
+      message, // Mensagem do alerta
+      buttons: ['OK'], // Botão para fechar o alerta
     });
-    await alert.present();
+    await alert.present(); // Mostra o alerta no ecrã
   }
 
   goToObrigadoPage() {
-      this.router.navigate(['/obrigado']);
-    }
+    this.router.navigate(['/obrigado']); 
+    // Navega para a página de obrigado após confirmação
+  }
 }
