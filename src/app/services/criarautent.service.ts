@@ -56,6 +56,19 @@ export class CriarautentService {
     return false;
   }
 
+  async checkExistingUser(username: string): Promise<boolean> {
+    const user = await this.getUser(username);
+    return !!user;
+  }
+  
+  async getUsers(): Promise<User[]> {
+    if (!this.storageInitialized) {
+      await this.initStorage();
+    }
+    return await this.storage.get('users') || [];
+  }
+  
+
   async getUser(username: string) {
     if (!this.storageInitialized) {
       await this.initStorage();
