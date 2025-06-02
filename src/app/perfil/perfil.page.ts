@@ -15,8 +15,19 @@ export class PerfilPage implements OnInit {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-    // Get user data from AuthService
-    this.userData = this.authService.getCurrentUser();
+  async ngOnInit() {
+    await this.loadUserData();
+  }
+
+  async ionViewWillEnter() {
+    await this.loadUserData();
+  }
+
+  private async loadUserData() {
+    try {
+      this.userData = await this.authService.getCurrentUser();
+    } catch (error) {
+      console.error('Error loading user data:', error);
+    }
   }
 }

@@ -1,83 +1,59 @@
 import { Injectable } from '@angular/core';
-// Importa o decorador Injectable para marcar esta classe como injetável
-
 import { Storage } from '@ionic/storage-angular';
-// Importa o serviço de armazenamento do Ionic
+
+interface User {
+  username: string;
+  password: string;
+  [key: string]: any; // Allow for additional properties
+}
 
 @Injectable({
   providedIn: 'root'
 })
-// Declara o serviço como disponível globalmente na app (singleton)
-
 export class CriarautentService {
   private storageInitialized: boolean = false;
-  // Variável privada que indica se o armazenamento já foi inicializado
 
   constructor(private storage: Storage) {
     this.initStorage();
-    // Ao construir o serviço, inicializa o armazenamento
   }
 
   private async initStorage() {
-    await this.storage.create();
-    // Cria/Inicializa o armazenamento
-
+    await this.storage['create']();
     this.storageInitialized = true;
-    // Marca como inicializado
   }
 
-  async criarConta(username: string, password: string) {
+  async criarConta(userData: User) {
     if (!this.storageInitialized) {
       await this.initStorage();
-      // Garante que o armazenamento está pronto antes de continuar
     }
-
-    const existingUsers = await this.storage.get('users') || [];
-    // Vai buscar a lista de utilizadores existentes ou usa um array vazio
-
-    const newUser = { username, password };
-    // Cria um novo objeto utilizador
-
-    existingUsers.push(newUser);
-    // Adiciona o novo utilizador à lista
-
-    await this.storage.set('users', existingUsers);
-    // Guarda novamente a lista atualizada no armazenamento
+    const existingUsers = await this.storage['get']('users') || [];
+    existingUsers.push(userData);
+    await this.storage['set']('users', existingUsers);
   }
 
   async autenticar(username: string, password: string) {
     if (!this.storageInitialized) {
       await this.initStorage();
-      // Garante que o armazenamento está pronto
     }
-
-    const existingUsers = await this.storage.get('users') || [];
-    // Vai buscar os utilizadores existentes
-
-    const matchedUser = existingUsers.find((user: { username: string; password: string }) =>
-      user.username === username && user.password === password
-    );
-    // Procura um utilizador com username e password correspondentes
-
+    const existingUsers = await this.storage['get']('users') || [];
+    const matchedUser = existingUsers.find((user: User) => user.username === username && user.password === password);
     return !!matchedUser;
-    // Devolve true se encontrou o utilizador, false caso contrário
   }
 
   async checkExistingUser(username: string) {
     if (!this.storageInitialized) {
       await this.initStorage();
-      // Garante que o armazenamento está pronto
     }
-
-    const existingUsers = await this.storage.get('users') || [];
-    // Vai buscar os utilizadores existentes
-
-    const matchedUser = existingUsers.find((user: { username: string; password: string }) =>
-      user.username === username
-    );
-    // Procura um utilizador com o username fornecido
-
+    const existingUsers = await this.storage['get']('users') || [];
+    const matchedUser = existingUsers.find((user: User) => user.username === username);
     return !!matchedUser;
-    // Devolve true se já existir esse username, false se não existir
+  }
+
+  async getUsers(): Promise<User[]> {
+    if (!this.storageInitialized) {
+      await this.initStorage();
+    }
+    const users = await this.storage['get']('users');
+    return users || [];
   }
 }

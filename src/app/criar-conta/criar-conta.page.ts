@@ -32,34 +32,42 @@ export class CriarContaPage implements OnInit { // Define a classe do componente
     private alertController: AlertController // Injeta controlador para mostrar alertas
   ) {}
 
-  async criarconta() { // Método para criar conta
+  async criarconta() {
     if (!this.nome || !this.username || !this.email || !this.password ||
         !this.anoSelecionado || !this.mesSelecionado || !this.diaSelecionado) {
-      this.showAlert('Erro', 'Por favor, preencha todos os campos obrigatórios.'); // Valida campos obrigatórios
+      this.showAlert('Erro', 'Por favor, preencha todos os campos obrigatórios.');
       return;
     }
 
-    const dataNascimento = new Date(this.anoSelecionado, this.mesSelecionado - 1, this.diaSelecionado); // Cria objeto Date para a data de nascimento
-    const idade = this.calcularIdade(dataNascimento); // Calcula a idade com base na data
+    const dataNascimento = new Date(this.anoSelecionado, this.mesSelecionado - 1, this.diaSelecionado);
+    const idade = this.calcularIdade(dataNascimento);
 
     if (idade < 18) {
-      this.showAlert('Erro', 'Precisa de ter pelo menos 18 anos para criar uma conta.'); // Verifica idade mínima
+      this.showAlert('Erro', 'Precisa de ter pelo menos 18 anos para criar uma conta.');
       return;
     }
 
-    const existingUser = await this.criarAutentService.checkExistingUser(this.username); // Verifica se o username já existe
+    const existingUser = await this.criarAutentService.checkExistingUser(this.username);
     if (existingUser) {
-      this.showAlert('Nome de utilizador já existe!', 'Por favor, escolha outro nome de utilizador.'); // Alerta se o username existir
+      this.showAlert('Nome de utilizador já existe!', 'Por favor, escolha outro nome de utilizador.');
       return;
     }
 
-    // Opcional: converte a data para string (YYYY-MM-DD)
     const dataNascimentoString = dataNascimento.toISOString().split('T')[0];
 
-    await this.criarAutentService.criarConta(this.username, this.password); // Cria a conta no serviço
+    // Create user object with all information
+    const userData = {
+      username: this.username,
+      password: this.password,
+      fullName: this.nome,
+      email: this.email,
+      morada: this.morada,
+      dataNascimento: dataNascimentoString
+    };
 
-    this.navCtrl.navigateRoot('/login'); // Navega para a página de login após criar conta
-  }
+await this.criarAutentService.criarConta(userData);
+    this.navCtrl.navigateRoot('/login');
+}
 
   calcularIdade(data: Date): number { // Função que calcula idade a partir da data
     const hoje = new Date(); // Data atual

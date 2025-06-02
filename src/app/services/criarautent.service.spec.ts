@@ -1,29 +1,61 @@
-import { TestBed } from '@angular/core/testing';
-// Importa o módulo de teste do Angular para configurar o ambiente de testes
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 
-import { CriarautentService } from './criarautent.service';
-// Importa o serviço a ser testado
+@Injectable({
+  providedIn: 'root'
+})
+export class CriarautentService {
+  private storageInitialized: boolean = false;
 
-describe('CriarautentService', () => {
-  // Define um conjunto de testes para o CriarautentService
+  constructor(private storage: Storage) {
+    this.initStorage();
+  }
 
-  let service: CriarautentService;
-  // Declara uma variável para armazenar a instância do serviço
+  private async initStorage() {
+    await this.storage.create();
+    this.storageInitialized = true;
+  }
 
-  beforeEach(() => {
-    // Executa antes de cada teste
+  async criarConta(userData: any) {
+    if (!this.storageInitialized) {
+      await this.initStorage();
+    }
 
-    TestBed.configureTestingModule({});
-    // Configura o módulo de testes (sem dependências adicionais)
+    const existingUsers = await this.storage.get('users') || [];
+    existingUsers.push(userData);
+    await this.storage.set('users', existingUsers);
+  }
 
-    service = TestBed.inject(CriarautentService);
-    // Injeta a instância do serviço a partir do TestBed
-  });
+  async autenticar(username: string, password: string) {
+    if (!this.storageInitialized) {
+      await this.initStorage();
+    }
 
-  it('should be created', () => {
-    // Define um teste: o serviço deve ser criado
+    const existingUsers = await this.storage.get('users') || [];
+    const matchedUser = existingUsers.find((user: { username: string; password: string }) =>
+      user.username === username && user.password === password
+    );
 
-    expect(service).toBeTruthy();
-    // Verifica se a instância do serviço existe (não é null nem undefined)
-  });
-});
+    return !!matchedUser;
+  }
+
+  async checkExistingUser(username: string) {
+    if (!this.storageInitialized) {
+      await this.initStorage();
+    }
+
+    const existingUsers = await this.storage.get('users') || [];
+    const matchedUser = existingUsers.find((user: { username: string }) =>
+      user.username === username
+    );
+
+    return !!matchedUser;
+  }
+
+  async getUsers() {
+    if (!this.storageInitialized) {
+      await this.initStorage();
+    }
+    return await this.storage.get('users') || [];
+  }
+}

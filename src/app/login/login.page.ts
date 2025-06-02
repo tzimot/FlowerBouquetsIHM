@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CriarautentService } from 'src/app/services/criarautent.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,19 +10,37 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  username: string;
-  password: string;
+  username: string = '';
+  password: string = '';
 
-  constructor(private authService: CriarautentService, private router: Router, private alertController: AlertController) { 
-    this.username = '';
-    this.password = '';
-  }
+  constructor(
+    private criarautentService: CriarautentService,
+    private authService: AuthService,
+    private router: Router,
+    private alertController: AlertController
+  ) {}
 
   ngOnInit() {}
 
   async login() {
-    const isAuthenticated = await this.authService.autenticar(this.username, this.password);
+    const isAuthenticated = await this.criarautentService.autenticar(this.username, this.password);
+
     if (isAuthenticated) {
+      const users = await this.criarautentService.getUsers();
+      const matchedUser = users.find((user: any) => user.username === this.username);
+
+      if (!matchedUser) {
+        // Safety check — unlikely if authenticated, but just in case
+        this.showAlert('Erro', 'Utilizador não encontrado.');
+        return;
+      }
+
+      await this.authService.setCurrentUser({
+        username: matchedUser.username,
+        fullName: matchedUser['fullName'] || matchedUser.username,
+        email: matchedUser['email'] || ''
+      });
+
       this.router.navigate(['/home']);
     } else {
       this.showAlert('Erro', 'Credenciais inválidas. Por favor, verifique o seu username e password.');
@@ -37,4 +56,3 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 }
-
