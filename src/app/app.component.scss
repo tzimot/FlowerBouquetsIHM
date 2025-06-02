@@ -61,6 +61,24 @@ ion-menu {
         }
       }
     }
+
+    .logout-button {
+      --background: transparent;
+      --padding-start: 20px;
+      --padding-end: 20px;
+      --min-height: 50px;
+      margin: 4px 8px;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+    
+      ion-icon, ion-label {
+        color: #fa578e;
+      }
+    
+      &:hover {
+        --background: rgba(250, 87, 142, 0.1);
+      }
+    }
   }
 }
 

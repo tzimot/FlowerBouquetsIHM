@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,5 +16,14 @@ export class AppComponent {
     { title: 'Em Alta', url: '/top-vendas', icon: 'heart' },
     { title: 'Perfil', url: '/perfil', icon: 'person' }
   ];
-  constructor() {}
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  async logout() {
+    await this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }
