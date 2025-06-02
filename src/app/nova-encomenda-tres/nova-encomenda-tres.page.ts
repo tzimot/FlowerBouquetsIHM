@@ -30,10 +30,11 @@ export class NovaEncomendaTresPage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private precoService: PrecoNEService // opcional — remove se não fores usar
+
   ) {}
 
   ngOnInit() {
-    this.precoValue = this.precoService.getPrecoValue(); // remove se não estiveres a usar o PrecoService
+    this.precoValue = this.precoNEService.getPrecoValue(); // remove se não estiveres a usar o PrecoService
   }
 
   selecionarMetodo(metodo: string) {

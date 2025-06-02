@@ -1,15 +1,18 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="cancel-content">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Cancelar</ion-title>
     </ion-toolbar>
   </ion-header>
 
+  <div class="cancel-container">
+    <ion-icon name="close-circle-outline" class="cancel-icon"></ion-icon>
+    <h2>Compra cancelada!</h2>
+    <p class="subtitle">A sua compra foi cancelada com sucesso.</p>
 
-  <h2>Compra cancelada!</h2>
-
-
-  <button class="BtnVoltarInicio" (click)="redirectToInicio()">Voltar ao Inicio</button>
-
-
+    <ion-button class="return-button" (click)="redirectToInicio()" expand="block">
+      <ion-icon name="home-outline" slot="start"></ion-icon>
+      Voltar ao Inicio
+    </ion-button>
+  </div>
 </ion-content>
