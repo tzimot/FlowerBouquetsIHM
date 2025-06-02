@@ -9,9 +9,20 @@
 
 <ion-content class="ion-padding">
   <div class="profile-container">
-    <ion-avatar class="profile-avatar">
-      <img src="assets/icon/profile-placeholder.png" alt="Profile Picture">
-    </ion-avatar>
+    <div class="profile-picture-container">
+      <ion-avatar class="profile-avatar">
+        <img [src]="userData.profilePicture || 'assets/icon/profile-placeholder.png'" alt="Profile Picture">
+      </ion-avatar>
+      <div class="picture-actions">
+        <input type="file" #fileInput style="display: none" accept="image/*" (change)="onFileSelected($event)">
+        <ion-button fill="clear" (click)="fileInput.click()">
+          <ion-icon slot="icon-only" name="camera"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" (click)="removeProfilePicture()" *ngIf="userData.profilePicture">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
 
     <ion-list>
       <ion-item>

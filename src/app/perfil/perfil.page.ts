@@ -10,7 +10,8 @@ export class PerfilPage implements OnInit {
   userData = {
     username: '',
     fullName: '',
-    email: ''
+    email: '',
+    profilePicture: ''
   };
 
   constructor(private authService: AuthService) {}
@@ -29,5 +30,23 @@ export class PerfilPage implements OnInit {
     } catch (error) {
       console.error('Error loading user data:', error);
     }
+  }
+
+  async onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e: any) => {
+        const imageData = e.target.result;
+        await this.authService.updateProfilePicture(imageData);
+        await this.loadUserData();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async removeProfilePicture() {
+    await this.authService.updateProfilePicture('');
+    await this.loadUserData();
   }
 }
