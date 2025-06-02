@@ -86,7 +86,7 @@ export class TopVendasPage implements OnInit {
     } else {
       this.calculateTotalSum();
       this.preconeService.setPrecoValue(this.totalSum);
-      this.router.navigate(['/nova-encomenda-um']);
+      this.router.navigate(['/top-vendas-um']);
     }
   }
 
