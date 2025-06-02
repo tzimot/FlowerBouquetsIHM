@@ -1,54 +1,71 @@
-import { Component, OnInit } from '@angular/core'; // Importa Component e OnInit do Angular
-import { Router } from '@angular/router'; // Importa Router para navegação entre páginas
-import { AlertController } from '@ionic/angular'; // Importa controlador para alertas do Ionic
-import { TopvendasService } from 'src/app/services/topvendas.service'; // Importa o serviço Topvendas para partilha de dados
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { PrecoNEService } from 'src/app/services/preco-ne.service'; // caso uses este serviço como no outro exemplo
 
 @Component({
-  selector: 'app-top-vendas-tres', // Define o seletor do componente no HTML
-  templateUrl: './top-vendas-tres.page.html', // Define o ficheiro HTML do componente
-  styleUrls: ['./top-vendas-tres.page.scss'], // Define o ficheiro de estilos do componente
+  selector: 'app-top-vendas-tres',
+  templateUrl: './top-vendas-tres.page.html',
+  styleUrls: ['./top-vendas-tres.page.scss'],
 })
-export class TopVendasTresPage implements OnInit { // Declara a classe do componente que implementa OnInit
+export class TopVendasTresPage implements OnInit {
 
-  metodoselecionado: string = ''; // Variável para guardar o método de pagamento selecionado, inicializada vazia
-  precoValue: number = 0; // Variável para guardar o valor do preço, inicializada a zero
+  precoValue: number = 0;
+  metodoselecionado: string = '';
+  mbwayNumero: string = '';
+  cartaoNumero: string = '';
+  cartaoValidade: string = '';
+  cartaoCVV: string = '';
+  cartaoNome: string = '';
+  desejaFatura: boolean = false;
 
-  constructor(private router: Router, private alertController: AlertController, private topvendasService: TopvendasService) { } 
-  // Injeção de dependências: Router, AlertController e o serviço Topvendas
+  dadosFatura = {
+    nome: '',
+    nif: '',
+    localidade: '',
+    email: ''
+  };
 
-  ngOnInit() { // Método executado quando o componente é inicializado
-    const precoValue = this.topvendasService.getPrecoValue(); // Obtém o preço armazenado no serviço
-    console.log(precoValue); // Mostra o preço na consola para debug
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private precoService: PrecoNEService // opcional — remove se não fores usar
+  ) {}
+
+  ngOnInit() {
+    this.precoValue = this.precoService.getPrecoValue(); // remove se não estiveres a usar o PrecoService
   }
 
-  handlePaymentSelection() { // Método chamado quando um método de pagamento é selecionado
-    console.log(this.metodoselecionado); // Mostra na consola o método selecionado
+  selecionarMetodo(metodo: string) {
+    this.metodoselecionado = metodo;
   }
 
-  goToCancelarPage() { // Método para navegar para a página de cancelamento
-    this.router.navigate(['/cancelar']); // Navega para a rota '/cancelar'
-  }
-
-  confirmarPagamento() { // Método que confirma o pagamento
-    if (!this.metodoselecionado) { // Se não foi selecionado nenhum método
-      this.showAlert('Por Favor, selecione um método de Pagamento!', ''); // Mostra alerta a pedir seleção
+  confirmarPagamento() {
+    if (!this.metodoselecionado) {
+      this.showAlert('Por Favor, selecione um método de Pagamento!', '');
     } else {
-      // Se o método foi selecionado
-      this.goToObrigadoPage(); // Navega para a página de agradecimento
+      this.goToObrigadoPage();
     }
   }
 
-  async showAlert(header: string, message: string) { // Método assíncrono para mostrar alertas
-    const alert = await this.alertController.create({ // Cria o alerta
-      header, // Cabeçalho do alerta
-      message, // Mensagem do alerta
-      buttons: ['OK'], // Botão para fechar o alerta
+  goToCancelarPage() {
+    this.router.navigate(['/cancelar']);
+  }
+
+  voltarPaginaAnterior() {
+    this.router.navigate(['/top-vendas-dois']); 
+  }
+
+  goToObrigadoPage() {
+    this.router.navigate(['/obrigado']);
+  }
+
+  async showAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK'],
     });
-    await alert.present(); // Apresenta o alerta ao utilizador
+    await alert.present();
   }
-
-  goToObrigadoPage() { // Método para navegar para a página de agradecimento
-    this.router.navigate(['/obrigado']); // Navega para a rota '/obrigado'
-  }
-
 }

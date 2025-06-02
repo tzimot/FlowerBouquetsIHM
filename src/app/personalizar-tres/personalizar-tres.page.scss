@@ -1,66 +1,97 @@
-ion-content {
-  --background: #f5eee6;
+
+
+.pagamento-background {
+  --background: #f5eee6; 
 }
 
-ion-grid {
-  padding: 2rem;
+ion-list{
+  margin: 10px;
+  padding: 10px; 
+  background-color: #f5eee6;
 }
 
-h2 {
-  color: #9b6b9d;
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  font-family: 'Montserrat', sans-serif;
+.subtitulo {
+  font-size: 19px;
+  color: #9b4d81;
+  margin-bottom: 1.6rem;
+  font-weight: 500;
+  margin-left: 15px
 }
 
-h3 {
-  color: #7a6174;
-  font-size: 18px;
-  margin-bottom: 1.5rem;
-  font-family: 'Montserrat', sans-serif;
+.total {
+  font-size: 21px;
+  font-weight: 700;
+  color: #7a2e6d;
 }
 
-ion-radio-group {
-  ion-item {
-    --background: white;
-    --border-radius: 10px;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(155, 107, 157, 0.1);
-
-    ion-label {
-      color: #7a6174;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    ion-radio {
-      --color: #9b6b9d;
-      --color-checked: #9b6b9d;
-    }
-  }
+.metodo-opcao {
+  border-radius: 12px;
+  margin-bottom: 1.1rem;
+  padding: 0.85rem 1.2rem;
+  transition: transform 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 4px rgba(123, 46, 109, 0.1);
+  background-color: #ffffff;
 }
 
+.metodo-opcao:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 8px rgba(123, 46, 109, 0.2);
+}
+
+.metodo-opcao.selected {
+  border: 2.5px solid #7a2e6d;
+}
+
+.mbway-numero {
+  margin-left: 1rem;
+  margin-bottom: 1.8rem;
+  color: #9b4d81;
+  font-weight: 400;
+}
 
 .dados-fatura {
- margin: 15px;
+ margin: 15px
 }
 
+
 ion-button {
-  --border-radius: 20px;
+  --border-radius: 10px;
   --padding-top: 1rem;
   --padding-bottom: 1rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
+}
 
-  &[color="danger"] {
-    --background: #ff6b6b;
-  }
+ion-button[color="danger"] {
+  --background: #ff6b6b;
+}
 
-  &[color="success"] {
-    --background: linear-gradient(
-      90deg,
-      rgba(155, 107, 157, 1) 0%,
-      rgba(177, 133, 179, 1) 100%
-    );
-  }
+ion-button[color="success"] {
+  --background: linear-gradient(
+    90deg,
+    rgba(155, 107, 157, 1) 0%,
+    rgba(177, 133, 179, 1) 100%
+  );
+}
+
+.cancelar-btn {
+  --background: linear-gradient(90deg, #ff6f91 0%, #ffa9a9 100%);
+  --color: white;
+  font-weight: 600;
+  --border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.confirmar-btn {
+  --background: linear-gradient(90deg, #a1e3a1 0%, #70c770 100%);
+  --color: white;
+  font-weight: 600;
+  --border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.centered-text {
+  text-align: center;
 }

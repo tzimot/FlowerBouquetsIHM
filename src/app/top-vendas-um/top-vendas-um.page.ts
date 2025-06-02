@@ -23,9 +23,7 @@ export class TopVendasUmPage implements OnInit { // Declara a classe do componen
     });
    }
 
-  ngOnInit() {
-    // Método vazio, executa ao iniciar o componente (aqui não faz nada)
-  }
+  ngOnInit() {}
 
   async submitForm() {
     if (this.form.invalid) { // Verifica se o formulário está inválido
@@ -56,4 +54,9 @@ export class TopVendasUmPage implements OnInit { // Declara a classe do componen
     });
     await alert.present(); // Apresenta o alerta na UI
   }
+
+  goToTopVendasDoisPage() {
+    this.router.navigate(['/top-vendas-dois']); // Navega para a página de vendas dois
+  }
+
 }

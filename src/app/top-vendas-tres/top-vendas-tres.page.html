@@ -1,55 +1,112 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/top-vendas-dois"></ion-back-button>
+      <ion-button (click)="voltarPaginaAnterior()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>Passo 3</ion-title>
+    <ion-title>Método de Pagamento</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Top Vendas Três</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="pagamento-background">
 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <h2>Pagamento</h2>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <h3>Selecione o seu método de pagamento</h3>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-radio-group [(ngModel)]="metodoselecionado">
-          <ion-item>
-            <ion-label>MBWay: 917584932</ion-label>
-            <ion-radio value="mbway"></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>No Ato da Entrega</ion-label>
-            <ion-radio value="delivery"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <h3>Total: {{ precoValue }}</h3> <!-- Display the calculated price -->
-      </ion-col>
-    </ion-row>
+  <p class="subtitulo">Valor total: <span class="total">{{ precoValue | currency:'EUR' }}</span></p>
+
+  <ion-list>
+    <ion-item 
+      class="metodo-opcao" 
+      button 
+      detail="false"
+      [class.selected]="metodoselecionado === 'mbway'"
+      (click)="selecionarMetodo('mbway')">
+      <ion-label>MB WAY</ion-label>
+      <ion-icon name="checkmark-circle" slot="end" *ngIf="metodoselecionado === 'mbway'"></ion-icon>
+    </ion-item>
+
+    <div *ngIf="metodoselecionado === 'mbway'" class="mbway-numero">
+      <ion-item>
+        <ion-label position="floating">Número de telemóvel</ion-label>
+        <ion-input type="tel" [(ngModel)]="mbwayNumero" placeholder="Insira o número MB WAY"></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-item 
+      class="metodo-opcao" 
+      button 
+      detail="false"
+      [class.selected]="metodoselecionado === 'multibanco'"
+      (click)="selecionarMetodo('multibanco')">
+      <ion-label>Multibanco</ion-label>
+      <ion-icon name="checkmark-circle" slot="end" *ngIf="metodoselecionado === 'multibanco'"></ion-icon>
+    </ion-item>
+
+    <ion-item 
+      class="metodo-opcao" 
+      button 
+      detail="false"
+      [class.selected]="metodoselecionado === 'cartao'"
+      (click)="selecionarMetodo('cartao')">
+      <ion-label>Cartão de Crédito/Débito</ion-label>
+      <ion-icon name="checkmark-circle" slot="end" *ngIf="metodoselecionado === 'cartao'"></ion-icon>
+    </ion-item>
+    <div *ngIf="metodoselecionado === 'cartao'" class="cartao-dados">
+      <ion-item>
+      <ion-label position="floating">Número do Cartão</ion-label>
+      <ion-input type="text" maxlength="19" [(ngModel)]="cartaoNumero" placeholder="Insira o número do cartão"></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-label position="floating">Validade</ion-label>
+      <ion-input type="text" maxlength="5" [(ngModel)]="cartaoValidade" placeholder="MM/AA"></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-label position="floating">CVV</ion-label>
+      <ion-input type="password" maxlength="4" [(ngModel)]="cartaoCVV" placeholder="CVV"></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-label position="floating">Nome no Cartão</ion-label>
+      <ion-input type="text" [(ngModel)]="cartaoNome" placeholder="Nome impresso no cartão"></ion-input>
+      </ion-item>
+    </div>
+  </ion-list>
+
+  <ion-item>
+    <ion-label>Deseja fatura?</ion-label>
+    <ion-checkbox slot="end" [(ngModel)]="desejaFatura"></ion-checkbox>
+  </ion-item>
+
+  <div *ngIf="desejaFatura" class="dados-fatura">
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input [(ngModel)]="dadosFatura.nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">NIF</ion-label>
+      <ion-input [(ngModel)]="dadosFatura.nif" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Localidade</ion-label>
+      <ion-input [(ngModel)]="dadosFatura.localidade"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [(ngModel)]="dadosFatura.email" type="email"></ion-input>
+    </ion-item>
+  </div>
+
     <ion-row>
       <ion-col size="6">
-        <ion-button expand="full" color="danger" (click)="goToCancelarPage()">Cancelar</ion-button>
+        <ion-button expand="block" class="cancelar-btn" (click)="goToCancelarPage()">
+          <ion-icon name="close-circle" slot="start"></ion-icon>
+          Cancelar
+        </ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button expand="full" color="success" (click)="confirmarPagamento()">Confirmar</ion-button>
+        <ion-button expand="block" class="confirmar-btn" (click)="confirmarPagamento()">
+          <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+          Confirmar
+        </ion-button>
       </ion-col>
     </ion-row>
-  </ion-grid>
+</ion-content>
+

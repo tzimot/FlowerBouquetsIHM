@@ -41,5 +41,8 @@ export class TopVendasDoisPage implements OnInit {
     });
     await alert.present();
   }
-
+  
+  goToTopVendasTresPage() {
+    this.router.navigate(['/top-vendas-tres']);
+  }
 }

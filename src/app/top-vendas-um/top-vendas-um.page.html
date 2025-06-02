@@ -3,16 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/top-vendas"></ion-back-button>
     </ion-buttons>
-    <ion-title>Passo 1</ion-title>
+    <ion-title>Dados de Entrega</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">TopVendasUm</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <form [formGroup]="form" (ngSubmit)="submitForm()">
     <ion-item>
@@ -45,6 +40,8 @@
       <ion-input type="text" formControlName="localidade" class="DadosForm"></ion-input>
     </ion-item>
 
-    <ion-button expand="block" type="submit" [disabled]="form.invalid" class="BtnSeguinte">Submit</ion-button>
+    <div class="footer-container">
+      <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToTopVendasDoisPage()">Seguinte</ion-button>
+    </div>
   </form>
 </ion-content>

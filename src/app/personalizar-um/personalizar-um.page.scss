@@ -1,5 +1,5 @@
 
-ion-content {
+/*ion-content {
   --background: #f5eee6;
 }
 
@@ -50,4 +50,25 @@ ion-title {
   color: #9b6b9d;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
+}*/
+
+
+.DadosForm {
+  margin-top: 2%;
 }
+
+.BtnSeguinte {
+  margin-top: 2rem;
+  height: 48px;
+  font-size: 1.1rem;
+  --border-radius: 24px;
+  text-transform: uppercase;
+  font-weight: 600;
+  --background: linear-gradient(
+    90deg,
+    rgba(250, 87, 142, 1) 0%,
+    rgba(254, 171, 142, 1) 100%
+  );
+  color: white;
+}
+

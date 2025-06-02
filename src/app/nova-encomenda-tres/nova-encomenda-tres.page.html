@@ -1,11 +1,9 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="voltarPaginaAnterior()">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-      </ion-button>
+      <ion-back-button defaultHref="/nova-encomenda-dois"></ion-back-button>
     </ion-buttons>
-    <ion-title>Escolha o Método de Pagamento</ion-title>
+    <ion-title>Cartão de Oferta</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -94,12 +92,18 @@
     </ion-item>
   </div>
 
-   <ion-row>
+    <ion-row>
       <ion-col size="6">
-        <ion-button expand="full" color="danger" (click)="goToCancelarPage()">Cancelar</ion-button>
+        <ion-button expand="block" class="cancelar-btn" (click)="goToCancelarPage()">
+          <ion-icon name="close-circle" slot="start"></ion-icon>
+          Cancelar
+        </ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button expand="full" color="success" (click)="confirmarPagamento()">Confirmar</ion-button>
+        <ion-button expand="block" class="confirmar-btn" (click)="confirmarPagamento()">
+          <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+          Confirmar
+        </ion-button>
       </ion-col>
     </ion-row>
 </ion-content>

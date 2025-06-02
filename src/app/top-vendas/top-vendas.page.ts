@@ -80,13 +80,13 @@ export class TopVendasPage implements OnInit {
     );
   }
 
-  goToNovaEncomendaUmPage() {
+  goToTopVendasUmPage() {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
       this.calculateTotalSum();
       this.preconeService.setPrecoValue(this.totalSum);
-      this.router.navigate(['/nova-encomenda-um']);
+      this.router.navigate(['/top-vendas-um']);
     }
   }
 
