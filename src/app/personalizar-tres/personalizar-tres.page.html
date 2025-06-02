@@ -36,6 +36,33 @@
             <ion-label>No Ato da Entrega</ion-label>
             <ion-radio value="delivery"></ion-radio>
           </ion-item>
+            <ion-item 
+      class="metodo-opcao" 
+      button 
+      detail="false"
+      [class.selected]="metodoselecionado === 'cartao'"
+      (click)="selecionarMetodo('cartao')">
+      <ion-label>Cartão de Crédito/Débito</ion-label>
+      <ion-icon name="checkmark-circle" slot="end" *ngIf="metodoselecionado === 'cartao'"></ion-icon>
+    </ion-item>
+    <div *ngIf="metodoselecionado === 'cartao'" class="cartao-dados">
+      <ion-item>
+      <ion-label position="floating">Número do Cartão</ion-label>
+      <ion-input type="text" maxlength="19" [(ngModel)]="cartaoNumero" placeholder="Insira o número do cartão"></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-label position="floating">Validade</ion-label>
+      <ion-input type="text" maxlength="5" [(ngModel)]="cartaoValidade" placeholder="MM/AA"></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-label position="floating">CVV</ion-label>
+      <ion-input type="password" maxlength="4" [(ngModel)]="cartaoCVV" placeholder="CVV"></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-label position="floating">Nome no Cartão</ion-label>
+      <ion-input type="text" [(ngModel)]="cartaoNome" placeholder="Nome impresso no cartão"></ion-input>
+      </ion-item>
+    </div>
         </ion-radio-group>
       </ion-col>
     </ion-row>
@@ -44,6 +71,29 @@
         <h3>Total: {{ precoValue }}</h3> <!-- Display the calculated price -->
       </ion-col>
     </ion-row>
+      <ion-item>
+    <ion-label>Deseja fatura?</ion-label>
+    <ion-checkbox slot="end" [(ngModel)]="desejaFatura"></ion-checkbox>
+  </ion-item>
+
+  <div *ngIf="desejaFatura" class="dados-fatura">
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input [(ngModel)]="dadosFatura.nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">NIF</ion-label>
+      <ion-input [(ngModel)]="dadosFatura.nif" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Localidade</ion-label>
+      <ion-input [(ngModel)]="dadosFatura.localidade"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [(ngModel)]="dadosFatura.email" type="email"></ion-input>
+    </ion-item>
+  </div>
     <ion-row>
       <ion-col size="6">
         <ion-button expand="full" color="danger" (click)="goToCancelarPage()">Cancelar</ion-button>
