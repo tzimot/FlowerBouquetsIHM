@@ -43,7 +43,7 @@ export class TopVendasPage implements OnInit {
         this.categorias = [
           {
             nome: 'Mais Vendidos',
-            ramos: this.images.filter(img => [8, 5, 10].includes(img.id))
+            ramos: this.images.filter(img => [8, 5, 13].includes(img.id))
           },
           {
             nome: 'Melhores Preços',
@@ -51,7 +51,7 @@ export class TopVendasPage implements OnInit {
           },
           {
             nome: 'Últimos em Stock',
-            ramos: this.images.filter(img => [6, 11, 7].includes(img.id))
+            ramos: this.images.filter(img => [6, 11, 14].includes(img.id))
           }
         ];
       });
