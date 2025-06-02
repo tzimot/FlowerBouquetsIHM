@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation';
 
-
-
-
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -15,11 +12,7 @@ export class AppComponent {
     { title: 'Os Nossos Ramos', url: '/nova-encomenda', icon: 'pricetags' },
     { title: 'Personalizar Ramo', url: '/personalizar-ramo', icon: 'gift' },
     { title: 'Em Alta', url: '/top-vendas', icon: 'heart' },
-    
-    
+    { title: 'Perfil', url: '/profile', icon: 'person' }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {
-    //this.initializeApp();
-  }
+  constructor() {}
 }

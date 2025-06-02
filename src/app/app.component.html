@@ -2,27 +2,19 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay" class="ion-color-mycolor" swipeGesture="false">
       <ion-content>
-        <ion-list id="inbox-list">
+        <div class="menu-header">
+          <img src="assets/icon/favicon.png" alt="Logo">
           <ion-list-header>Flower Bouquets</ion-list-header>
           <ion-note>As melhores flores!</ion-note>
+        </div>
 
+        <ion-list id="inbox-list" lines="none">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
-        </ion-list>
-
-        <ion-list id="labels-list">
-          <ion-list-header></ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-              <ion-label></ion-label>   
-          </ion-item>
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-label></ion-label>   
-        </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>
