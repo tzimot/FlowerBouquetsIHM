@@ -12,16 +12,31 @@ export class PersonalizarTresPage implements OnInit {
 
   metodoselecionado: string = ''; // Guarda o método de pagamento selecionado
   precoValue: number = 0; // Guarda o valor do preço atual
+   desejaFatura: boolean = false;
+   cartaoNumero: string = '';
+  cartaoValidade: string = '';
+  cartaoCVV: string = '';
+  cartaoNome: string = '';
 
   constructor(
     private router: Router, // Injeta o serviço de navegação
     private alertController: AlertController, // Injeta o serviço para alertas
     private precoService: PrecoService // Injeta o serviço para preço
   ) { }
-
+ dadosFatura = {
+    nome: '',
+    nif: '',
+    localidade: '',
+    email: ''
+  };
   ngOnInit() {
     this.precoValue = this.precoService.getPrecoValue(); 
     // Ao iniciar, obtém o preço guardado no serviço PrecoService
+  }
+
+  
+  selecionarMetodo(metodo: string) {
+    this.metodoselecionado = metodo;
   }
 
   handlePaymentSelection() {
