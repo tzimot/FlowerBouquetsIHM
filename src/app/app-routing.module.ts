@@ -79,7 +79,11 @@ const routes: Routes = [
   {
     path: 'nova-encomenda-tres',
     loadChildren: () => import('./nova-encomenda-tres/nova-encomenda-tres.module').then( m => m.NovaEncomendaTresPageModule)
+  },  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   }
+
 ];
 
 @NgModule({
