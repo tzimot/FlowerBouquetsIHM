@@ -82,6 +82,27 @@
         "image": "assets/imagens/rosaimg.jpg",
         "price": 4.99,
         "description": "Rosa isolada em tubo de vidro, uma peça minimalista para decoração moderna."
+    },
+        {
+        "id": 13,
+        "title": "Chá Branco",
+        "image": "assets/imagens/bouquet1.jpg",
+        "price": 16.99,
+        "description": "Bouquet delicado."
+    },
+    {
+        "id": 14,
+        "title": "Festim das Rosas",
+        "image": "assets/imagens/bouquet2.jpg",
+        "price": 22.99,
+        "description": "Rosas brancas nunca falham, simples e bonito."
+    },
+        {
+        "id": 15,
+        "title": "Branco da Noiva",
+        "image": "assets/imagens/bouquet3.jpg",
+        "price": 19.99,
+        "description": "Um bouquet de princesa, para um dia de princesa."
     }
 ]
 

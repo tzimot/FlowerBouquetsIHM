@@ -3,9 +3,14 @@ ion-menu-button {
 }
 
 .home-content {
-  --background: #FCC3C3;
+  --background: #ffeaf4;
 
-  ion-toolbar {
+  /*ion-content {
+    --background: var(--cor-fundo-principal);
+  }*/
+
+
+  ion-toolbar { 
     --background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     animation: fadeDown 1s ease-in-out; // Animação para o toolbar aparecer deslizando para baixo

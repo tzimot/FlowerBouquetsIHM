@@ -46,15 +46,15 @@ export class NovaEncomendaPage implements OnInit {
         this.categorias = [
           {
             nome: 'Bouquets de Noiva',
-            ramos: this.images.filter(img => [4, 5, 6].includes(img.id))
+            ramos: this.images.filter(img => [13, 14, 15].includes(img.id))
           },
           {
             nome: 'Dia dos Namorados',
-            ramos: this.images.filter(img => [7, 8, 9].includes(img.id))
+            ramos: this.images.filter(img => [4, 8, 9].includes(img.id))
           },
           {
             nome: 'Decoração de Casa',
-            ramos: this.images.filter(img => [10, 11, 12].includes(img.id))
+            ramos: this.images.filter(img => [7, 5, 6].includes(img.id))
           }
         ];
       });

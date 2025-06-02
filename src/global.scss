@@ -29,7 +29,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 body {
-    font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Estilo global para todas as toolbars */
@@ -47,3 +47,21 @@ ion-title.app-title {
   font-weight: bold;
   color: #6b2c6b;
 }
+
+/*:root {
+	--ion-color-fundo: #ffeaf4;
+	--ion-color-fundo-rgb: 255,234,244;
+	--ion-color-fundo-contrast: #000000;
+	--ion-color-fundo-contrast-rgb: 0,0,0;
+	--ion-color-fundo-shade: #e0ced7;
+	--ion-color-fundo-tint: #ffecf5;
+}
+
+.ion-color-fundo {
+	--ion-color-base: var(--ion-color-fundo);
+	--ion-color-base-rgb: var(--ion-color-fundo-rgb);
+	--ion-color-contrast: var(--ion-color-fundo-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-fundo-contrast-rgb);
+	--ion-color-shade: var(--ion-color-fundo-shade);
+	--ion-color-tint: var(--ion-color-fundo-tint);
+}*/
