@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { CriarautentService } from './criarautent.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,15 @@ export class AuthService {
   private currentUser = {
     username: '',
     fullName: '',
-    email: ''
+    email: '',
+    profilePicture: ''
   };
   private initialized = false;
 
-  constructor(private storage: Storage) {}
+  constructor(
+    private storage: Storage,
+    private criarautentService: CriarautentService
+  ) {}
 
   private async initializeService() {
     if (this.initialized) return;
@@ -20,7 +25,16 @@ export class AuthService {
     await this.storage.create();
     const user = await this.storage.get('currentUser');
     if (user) {
-      this.currentUser = user;
+      // Get the latest user data from criarautentService
+      const updatedUser = await this.criarautentService.getUser(user.username);
+      if (updatedUser) {
+        this.currentUser = {
+          username: updatedUser.username,
+          fullName: updatedUser.fullName,
+          email: updatedUser.email,
+          profilePicture: updatedUser.profilePicture || ''
+        };
+      }
     }
     this.initialized = true;
   }
@@ -35,10 +49,27 @@ export class AuthService {
     this.currentUser = {
       username: userData.username,
       fullName: userData.fullName,
-      email: userData.email
+      email: userData.email,
+      profilePicture: userData.profilePicture || ''
     };
 
     await this.storage.set('currentUser', this.currentUser);
+    // Also update the user in the main users storage
+    await this.criarautentService.updateUserProfile(userData.username, {
+      fullName: userData.fullName,
+      email: userData.email,
+      profilePicture: userData.profilePicture
+    });
+  }
+
+  async updateProfilePicture(imageData: string) {
+    await this.initializeService();
+    this.currentUser.profilePicture = imageData;
+    await this.storage.set('currentUser', this.currentUser);
+    // Also update the user in the main users storage
+    await this.criarautentService.updateUserProfile(this.currentUser.username, {
+      profilePicture: imageData
+    });
   }
 
   async logout() {
@@ -46,7 +77,8 @@ export class AuthService {
     this.currentUser = {
       username: '',
       fullName: '',
-      email: ''
+      email: '',
+      profilePicture: ''
     };
     await this.storage.remove('currentUser');
   }
