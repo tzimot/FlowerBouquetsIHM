@@ -34,7 +34,7 @@ export class NovaEncomendaTresPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.precoValue = this.precoNEService.getPrecoValue(); // remove se não estiveres a usar o PrecoService
+    this.precoValue = this.precoService.getPrecoValue(); // remove se não estiveres a usar o PrecoService
   }
 
   selecionarMetodo(metodo: string) {

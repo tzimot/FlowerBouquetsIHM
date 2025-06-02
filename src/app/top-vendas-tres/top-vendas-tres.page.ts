@@ -52,10 +52,6 @@ export class TopVendasTresPage implements OnInit {
     this.router.navigate(['/cancelar']);
   }
 
-  voltarPaginaAnterior() {
-    this.router.navigate(['/top-vendas-dois']); 
-  }
-
   goToObrigadoPage() {
     this.router.navigate(['/obrigado']);
   }

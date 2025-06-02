@@ -1,68 +1,17 @@
-<!--<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/personalizar-ramo"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Passo 1</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">PersonalizarUm</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <form [formGroup]="form" (ngSubmit)="submitForm()">
-    <ion-item>
-      <ion-label position="floating">Nome</ion-label>
-      <ion-input type="text" formControlName="nome" class="DadosForm"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Número Telemóvel</ion-label>
-      <ion-input type="tel" formControlName="numeroTelemovel" class="DadosForm"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Rua</ion-label>
-      <ion-input type="text" formControlName="rua" class="DadosForm"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Número de Porta</ion-label>
-      <ion-input type="text" formControlName="numeroPorta" class="DadosForm"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Código Postal</ion-label>
-      <ion-input type="text" formControlName="codigoPostal" class="DadosForm"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Localidade</ion-label>
-      <ion-input type="text" formControlName="localidade" class="DadosForm"></ion-input>
-    </ion-item>
-
-    <ion-button expand="block" type="submit" [disabled]="form.invalid" class="BtnSeguinte">Submit</ion-button>
-  </form>
-</ion-content>-->
-
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/personalizar-ramo"></ion-back-button>
+      <ion-back-button defaultHref="/top-vendas"></ion-back-button>
     </ion-buttons>
     <ion-title>Dados de Entrega</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
+
   <form [formGroup]="form" (ngSubmit)="submitForm()">
-    <ion-item class="custom-input">
-      <ion-label position="floating">Nome de entrega</ion-label>
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
       <ion-input type="text" formControlName="nome" class="DadosForm"></ion-input>
     </ion-item>
 
@@ -96,4 +45,3 @@
     </div>
   </form>
 </ion-content>
-
