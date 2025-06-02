@@ -13,7 +13,11 @@ export class TopVendasUmPage implements OnInit {
   adicionarCartao: boolean = false;
   precoTotal: number = 0;
 
-  constructor(private router: Router, private alertController: AlertController, private formBuilder: FormBuilder) {
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private formBuilder: FormBuilder
+  ) {
     this.form = this.formBuilder.group({
       nome: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])],
       numeroTelemovel: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{9}')])],
@@ -31,6 +35,7 @@ export class TopVendasUmPage implements OnInit {
       this.showAlert('Preencha todos os campos.', 'Erro');
       return;
     }
+
     if (this.adicionarCartao) {
       this.precoTotal += 0.99;
       this.router.navigate(['/top-vendas-dois']);
@@ -46,5 +51,9 @@ export class TopVendasUmPage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
+  }
+
+  goToTopVendasDoisPage() {
+    this.router.navigate(['/top-vendas-dois']);
   }
 }

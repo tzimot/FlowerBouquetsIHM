@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { PrecoNEService } from 'src/app/services/preco-ne.service';
+import { PrecoNEService } from 'src/app/services/preco-ne.service'; 
 
 @Component({
   selector: 'app-nova-encomenda-tres',
@@ -29,7 +29,8 @@ export class NovaEncomendaTresPage implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private precoNEService: PrecoNEService
+    private precoService: PrecoNEService // opcional — remove se não fores usar
+
   ) {}
 
   ngOnInit() {
@@ -50,10 +51,6 @@ export class NovaEncomendaTresPage implements OnInit {
 
   goToCancelarPage() {
     this.router.navigate(['/cancelar']);
-  }
-
-  voltarPaginaAnterior() {
-    this.router.navigate(['/nova-encomenda-dois']); // ajusta esta rota se necessário
   }
 
   goToObrigadoPage() {

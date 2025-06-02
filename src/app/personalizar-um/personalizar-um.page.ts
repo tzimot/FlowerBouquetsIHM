@@ -92,4 +92,8 @@ export class PersonalizarUmPage implements OnInit {
     await alert.present();
     // Exibe o alerta ao utilizador
   }
+
+  goToPersonalizarDoisPage() {
+    this.router.navigate(['/personalizar-dois']);
+  } 
 }

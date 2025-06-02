@@ -76,6 +76,22 @@ ion-button[color="success"] {
   );
 }
 
+.cancelar-btn {
+  --background: linear-gradient(90deg, #ff6f91 0%, #ffa9a9 100%);
+  --color: white;
+  font-weight: 600;
+  --border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.confirmar-btn {
+  --background: linear-gradient(90deg, #a1e3a1 0%, #70c770 100%);
+  --color: white;
+  font-weight: 600;
+  --border-radius: 20px;
+  text-transform: uppercase;
+}
+
 .centered-text {
   text-align: center;
 }

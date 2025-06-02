@@ -1,75 +1,67 @@
-import { Component, OnInit } from '@angular/core'; // Importa funcionalidades básicas para componente e ciclo de vida
-import { Router } from '@angular/router'; // Importa serviço para navegação entre páginas
-import { AlertController } from '@ionic/angular'; // Importa controlador para criar alertas no Ionic
-import { PrecoService } from 'src/app/services/preco.service'; // Importa serviço para gerir o preço
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { PrecoNEService } from 'src/app/services/preco-ne.service'; // caso uses este serviço como no outro exemplo
 
 @Component({
-  selector: 'app-personalizar-tres', // Define o seletor do componente
-  templateUrl: './personalizar-tres.page.html', // Aponta para o ficheiro HTML do componente
-  styleUrls: ['./personalizar-tres.page.scss'], // Aponta para o ficheiro de estilos do componente
+  selector: 'app-personalizar-tres',
+  templateUrl: './personalizar-tres.page.html',
+  styleUrls: ['./personalizar-tres.page.scss'],
 })
 export class PersonalizarTresPage implements OnInit {
 
-  metodoselecionado: string = ''; // Guarda o método de pagamento selecionado
-  precoValue: number = 0; // Guarda o valor do preço atual
-   desejaFatura: boolean = false;
-   cartaoNumero: string = '';
+  precoValue: number = 0;
+  metodoselecionado: string = '';
+  mbwayNumero: string = '';
+  cartaoNumero: string = '';
   cartaoValidade: string = '';
   cartaoCVV: string = '';
   cartaoNome: string = '';
+  desejaFatura: boolean = false;
 
-  constructor(
-    private router: Router, // Injeta o serviço de navegação
-    private alertController: AlertController, // Injeta o serviço para alertas
-    private precoService: PrecoService // Injeta o serviço para preço
-  ) { }
- dadosFatura = {
+  dadosFatura = {
     nome: '',
     nif: '',
     localidade: '',
     email: ''
   };
+
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private precoService: PrecoNEService // opcional — remove se não fores usar
+  ) {}
+
   ngOnInit() {
-    this.precoValue = this.precoService.getPrecoValue(); 
-    // Ao iniciar, obtém o preço guardado no serviço PrecoService
+    this.precoValue = this.precoService.getPrecoValue(); // remove se não estiveres a usar o PrecoService
   }
 
-  
   selecionarMetodo(metodo: string) {
     this.metodoselecionado = metodo;
   }
 
-  handlePaymentSelection() {
-    console.log(this.metodoselecionado);
-    // Mostra no console o método de pagamento selecionado (para debug)
+  confirmarPagamento() {
+    if (!this.metodoselecionado) {
+      this.showAlert('Por Favor, selecione um método de Pagamento!', '');
+    } else {
+      this.goToObrigadoPage();
+    }
   }
 
   goToCancelarPage() {
-    this.router.navigate(['/cancelar']); 
-    // Navega para a página de cancelamento
+    this.router.navigate(['/cancelar']);
   }
 
-  confirmarPagamento() {
-    if (!this.metodoselecionado) {
-      this.showAlert('Por Favor, selecione um método de Pagamento!', ''); 
-      // Se não foi selecionado método, mostra alerta a avisar o utilizador
-    } else {
-      // Se método selecionado, segue com o processo de pagamento
-      this.goToObrigadoPage(); // Navega para página de obrigado
-    }
+  goToObrigadoPage() {
+    this.router.navigate(['/obrigado']);
   }
 
   async showAlert(header: string, message: string) {
     const alert = await this.alertController.create({
-      header, // Cabeçalho do alerta
-      message, // Mensagem do alerta
-      buttons: ['OK'], // Botão para fechar o alerta
+      header,
+      message,
+      buttons: ['OK'],
     });
-    await alert.present(); // Mostra o alerta no ecrã
-  }
-
-  goToObrigadoPage() {
-    this.router.navigate(['/obrigado']); 
-    // Navega para a página de obrigado após confirmação
+    await alert.present();
   }
 }

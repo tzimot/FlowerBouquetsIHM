@@ -80,7 +80,7 @@ export class TopVendasPage implements OnInit {
     );
   }
 
-  goToNovaEncomendaUmPage() {
+  goToTopVendasUmPage() {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
