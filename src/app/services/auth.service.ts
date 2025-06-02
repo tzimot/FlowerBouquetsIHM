@@ -40,4 +40,14 @@ export class AuthService {
 
     await this.storage.set('currentUser', this.currentUser);
   }
+
+  async logout() {
+    await this.initializeService();
+    this.currentUser = {
+      username: '',
+      fullName: '',
+      email: ''
+    };
+    await this.storage.remove('currentUser');
+  }
 }
