@@ -58,4 +58,32 @@ export class CriarautentService {
     }
     return await this.storage.get('users') || [];
   }
+
+  async getUser(username: string) {
+    if (!this.storageInitialized) {
+      await this.initStorage();
+    }
+  
+    const users = await this.storage.get('users') || [];
+    return users.find((user: any) => user.username === username);
+  }
+  
+  async updateUserProfile(username: string, updates: Partial<any>) {
+    if (!this.storageInitialized) {
+      await this.initStorage();
+    }
+  
+    const users = await this.storage.get('users') || [];
+  
+    const updatedUsers = users.map((user: any) => {
+      if (user.username === username) {
+        return { ...user, ...updates };
+      }
+      return user;
+    });
+  
+    await this.storage.set('users', updatedUsers);
+  }
+  
+  
 }
