@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { PrecoNEService } from 'src/app/services/preco-ne.service';
+import { EncomendaService } from '../services/encomenda.service'; 
 
 interface ImageData {
   id: number;
@@ -28,7 +28,7 @@ export class NovaEncomendaPage implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private preconeService: PrecoNEService
+    private encomendaService: EncomendaService
   ) {
     this.images = [];
     this.totalSum = 0;
@@ -40,7 +40,6 @@ export class NovaEncomendaPage implements OnInit {
       .then(json => {
         this.images = json;
         this.calculateTotalSum();
-        this.preconeService.setPrecoValue(this.totalSum);
         this.filteredImages = this.images;
 
         this.categorias = [
@@ -88,9 +87,8 @@ export class NovaEncomendaPage implements OnInit {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
-      this.calculateTotalSum();
-      this.preconeService.setPrecoValue(this.totalSum);
       this.router.navigate(['/nova-encomenda-um']);
+      this.encomendaService.setTotal(this.totalSum);
     }
   }
 

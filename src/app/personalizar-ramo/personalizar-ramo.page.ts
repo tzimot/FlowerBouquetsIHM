@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { PrecoService } from 'src/app/services/preco.service'; // Serviço para guardar o preço selecionado
+import { EncomendaService } from '../services/encomenda.service'; 
 
 // Define a interface do tipo dos dados das imagens
 interface ImageData {
@@ -27,7 +27,11 @@ export class PersonalizarRamoPage implements OnInit {
   filteredImages: ImageData[] = []; // Lista filtrada para pesquisa
 
   // Construtor com injeção de dependências
-  constructor(private router: Router, private alertController: AlertController, private precoService: PrecoService) {
+  constructor(
+    private router: Router, 
+    private alertController: AlertController, 
+    private encomendaService: EncomendaService
+  ) {
     this.images = [];        // Inicializa lista de imagens
     this.totalSum = 0;       // Inicializa o total a 0
   }
@@ -40,7 +44,6 @@ export class PersonalizarRamoPage implements OnInit {
       .then(json => {
         this.images = json;            // Guarda os dados no array de imagens
         this.calculateTotalSum();      // Calcula o total inicial
-        this.precoService.setPrecoValue(this.totalSum); // Guarda o preço no serviço
         this.filteredImages = this.images; // Inicializa a lista filtrada com todas as imagens
       });
   }
@@ -77,8 +80,8 @@ export class PersonalizarRamoPage implements OnInit {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
-      this.precoService.setPrecoValue(this.totalSum); // Atualiza o preço no serviço
       this.router.navigate(['/personalizar-um']);     // Redireciona para a próxima página
+      this.encomendaService.setTotal(this.totalSum);
     }
   }
 
