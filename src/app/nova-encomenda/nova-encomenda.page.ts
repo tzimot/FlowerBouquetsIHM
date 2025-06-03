@@ -104,9 +104,23 @@ export class NovaEncomendaPage implements OnInit {
 
   // Filtra as flores com base no texto de pesquisa inserido pelo utilizador
   searchFlowers(event: any) {
-    const searchQuery = event.target.value;
-    this.filteredImages = this.images.filter((image) =>
-      image.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const searchQuery = event.target.value?.toLowerCase();
+  
+    if (!searchQuery || searchQuery.trim() === '') {
+      // Reset to full categories
+      this.ngOnInit(); // Or keep a backup copy of original categorias if you prefer
+      return;
+    }
+  
+    this.categorias = this.categorias
+      .map(categoria => {
+        const filteredRamos = categoria.ramos.filter(ramo =>
+          ramo.title.toLowerCase().includes(searchQuery) ||
+          ramo.description.toLowerCase().includes(searchQuery)
+        );
+        return { ...categoria, ramos: filteredRamos };
+      })
+      .filter(categoria => categoria.ramos.length > 0);
   }
+  
 }

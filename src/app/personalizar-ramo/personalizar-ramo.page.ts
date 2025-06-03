@@ -21,10 +21,10 @@ interface ImageData {
   styleUrls: ['./personalizar-ramo.page.scss'],
 })
 export class PersonalizarRamoPage implements OnInit {
-  // Lista de imagens e total acumulado
-  public images: ImageData[];
-  public totalSum: number;
-  filteredImages: ImageData[] = []; // Lista filtrada para pesquisa
+  public images: ImageData[];           // Lista de imagens
+  public filteredImages: ImageData[] = []; // Lista filtrada para pesquisa
+  public totalSum: number;              // Total acumulado
+  private originalImages: ImageData[];  // Cópia original para reset de pesquisa
 
   // Construtor com injeção de dependências
   constructor(
@@ -32,27 +32,31 @@ export class PersonalizarRamoPage implements OnInit {
     private alertController: AlertController, 
     private encomendaService: EncomendaService
   ) {
-    this.images = [];        // Inicializa lista de imagens
-    this.totalSum = 0;       // Inicializa o total a 0
+    this.images = [];        
+    this.totalSum = 0;       
+    this.originalImages = [];
   }
 
   // Função chamada ao iniciar o componente
   ngOnInit() {
-    // Vai buscar os dados do ficheiro JSON
     fetch('./assets/imgsData/imagens.json')
-      .then(res => res.json())         // Converte a resposta para JSON
+      .then(res => res.json())
       .then(json => {
-        this.images = json;            // Guarda os dados no array de imagens
-        this.calculateTotalSum();      // Calcula o total inicial
-        this.filteredImages = this.images; // Inicializa a lista filtrada com todas as imagens
+        // Only use specific images for this page (e.g., ID 1, 2, 3)
+        const selectedIds = [1, 2, 3]; // Change these as needed
+        this.images = json.filter((img: ImageData) => selectedIds.includes(img.id));
+        this.originalImages = [...this.images];
+        this.filteredImages = this.images; // Show all selected initially
+        this.calculateTotalSum();
       });
   }
+  
 
   // Diminui a quantidade de uma flor
   decreaseQuantity(image: ImageData) {
     if (image.quantity && image.quantity > 0) {
       image.quantity--;
-      this.calculateTotalSum(); // Atualiza o total
+      this.calculateTotalSum(); 
     }
   }
 
@@ -60,11 +64,10 @@ export class PersonalizarRamoPage implements OnInit {
   increaseQuantity(image: ImageData) {
     if (image.quantity) {
       image.quantity++;
-      this.calculateTotalSum(); // Atualiza o total
     } else {
-      image.quantity = 1;       // Se não tiver quantidade, define como 1
-      this.calculateTotalSum();
+      image.quantity = 1;       
     }
+    this.calculateTotalSum();
   }
 
   // Calcula o total da encomenda
@@ -80,7 +83,7 @@ export class PersonalizarRamoPage implements OnInit {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
-      this.router.navigate(['/personalizar-um']);     // Redireciona para a próxima página
+      this.router.navigate(['/personalizar-um']);     
       this.encomendaService.setTotal(this.totalSum);
     }
   }
@@ -92,14 +95,21 @@ export class PersonalizarRamoPage implements OnInit {
       message,
       buttons: ['OK']
     });
-    await alert.present(); // Apresenta o alerta
+    await alert.present(); 
   }
 
   // Filtra as flores com base no texto da pesquisa
   searchFlowers(event: any) {
-    const searchQuery = event.target.value;
-    this.filteredImages = this.images.filter((image) =>
-      image.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const query = event.target.value?.toLowerCase();
+  
+    if (!query || query.trim() === '') {
+      this.filteredImages = [...this.originalImages];
+    } else {
+      this.filteredImages = this.originalImages.filter(image =>
+        image.title.toLowerCase().includes(query) ||
+        image.description.toLowerCase().includes(query)
+      );
+    }
   }
+  
 }
