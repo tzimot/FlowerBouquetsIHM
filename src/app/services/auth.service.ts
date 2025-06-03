@@ -40,9 +40,23 @@ export class AuthService {
   }
 
   async getCurrentUser() {
-    await this.initializeService();
+    await this.storage.create();
+    const user = await this.storage.get('currentUser');
+    if (!user) return this.currentUser;
+  
+    const updatedUser = await this.criarautentService.getUser(user.username);
+    if (updatedUser) {
+      this.currentUser = {
+        username: updatedUser.username,
+        fullName: updatedUser.fullName,
+        email: updatedUser.email,
+        profilePicture: updatedUser.profilePicture || ''
+      };
+    }
     return this.currentUser;
   }
+  
+  
 
   async setCurrentUser(userData: any) {
     await this.initializeService();
@@ -63,23 +77,28 @@ export class AuthService {
   }
 
   async updateProfilePicture(imageData: string) {
-    await this.initializeService();
     this.currentUser.profilePicture = imageData;
     await this.storage.set('currentUser', this.currentUser);
-    // Also update the user in the main users storage
     await this.criarautentService.updateUserProfile(this.currentUser.username, {
+      
       profilePicture: imageData
     });
+  
   }
+  
+  
 
   async logout() {
-    await this.initializeService();
+    await this.storage.remove('currentUser');
     this.currentUser = {
       username: '',
       fullName: '',
       email: '',
       profilePicture: ''
     };
-    await this.storage.remove('currentUser');
+    this.initialized = false; // ← this is the fix
   }
+  
+  
+
 }
