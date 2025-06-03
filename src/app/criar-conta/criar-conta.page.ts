@@ -38,24 +38,39 @@ export class CriarContaPage implements OnInit { // Define a classe do componente
       this.showAlert('Erro', 'Por favor, preencha todos os campos obrigatórios.');
       return;
     }
-
+  
+    // Novas restrições
+    if (this.username.length < 5) {
+      this.showAlert('Erro', 'O nome de utilizador deve ter pelo menos 5 caracteres.');
+      return;
+    }
+  
+    if (this.password.length < 8) {
+      this.showAlert('Erro', 'A palavra-passe deve ter pelo menos 8 caracteres.');
+      return;
+    }
+  
+    if (!this.email.includes('@')) {
+      this.showAlert('Erro', 'Introduza um e-mail válido.');
+      return;
+    }
+  
     const dataNascimento = new Date(this.anoSelecionado, this.mesSelecionado - 1, this.diaSelecionado);
     const idade = this.calcularIdade(dataNascimento);
-
+  
     if (idade < 18) {
       this.showAlert('Erro', 'Precisa de ter pelo menos 18 anos para criar uma conta.');
       return;
     }
-
+  
     const existingUser = await this.criarAutentService.checkExistingUser(this.username);
     if (existingUser) {
       this.showAlert('Nome de utilizador já existe!', 'Por favor, escolha outro nome de utilizador.');
       return;
     }
-
+  
     const dataNascimentoString = dataNascimento.toISOString().split('T')[0];
-
-    // Create user object with all information
+  
     const userData = {
       username: this.username,
       password: this.password,
@@ -64,10 +79,11 @@ export class CriarContaPage implements OnInit { // Define a classe do componente
       morada: this.morada,
       dataNascimento: dataNascimentoString
     };
-
-await this.criarAutentService.criarConta(userData);
+  
+    await this.criarAutentService.criarConta(userData);
     this.navCtrl.navigateRoot('/login');
-}
+  }
+  
 
   calcularIdade(data: Date): number { // Função que calcula idade a partir da data
     const hoje = new Date(); // Data atual
