@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { PrecoNEService } from 'src/app/services/preco-ne.service';
+import { EncomendaService } from '../services/encomenda.service'; 
 
 interface ImageData {
   id: number;
@@ -28,7 +28,7 @@ export class TopVendasPage implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private preconeService: PrecoNEService
+    private encomendaService: EncomendaService
   ) {}
 
   ngOnInit() {
@@ -38,7 +38,6 @@ export class TopVendasPage implements OnInit {
         this.images = json;
         this.filteredImages = this.images;
         this.calculateTotalSum();
-        this.preconeService.setPrecoValue(this.totalSum);
 
         this.categorias = [
           {
@@ -84,8 +83,7 @@ export class TopVendasPage implements OnInit {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
-      this.calculateTotalSum();
-      this.preconeService.setPrecoValue(this.totalSum);
+      this.encomendaService.setTotal(this.totalSum);
       this.router.navigate(['/top-vendas-um']);
     }
   }

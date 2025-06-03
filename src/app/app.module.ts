@@ -10,7 +10,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 import { HttpClientModule } from '@angular/common/http';
-  import { AuthService } from './services/auth.service';
+import { AuthService } from './services/auth.service';
 
 
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { PrecoNEService } from 'src/app/services/preco-ne.service'; // caso uses este serviço como no outro exemplo
+import { EncomendaService } from '../services/encomenda.service'; 
+
 
 @Component({
   selector: 'app-top-vendas-tres',
@@ -10,7 +11,7 @@ import { PrecoNEService } from 'src/app/services/preco-ne.service'; // caso uses
 })
 export class TopVendasTresPage implements OnInit {
 
-  precoValue: number = 0;
+  precoTotal: number = 0;
   metodoselecionado: string = '';
   mbwayNumero: string = '';
   cartaoNumero: string = '';
@@ -29,11 +30,11 @@ export class TopVendasTresPage implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private precoService: PrecoNEService // opcional — remove se não fores usar
+    private encomendaService:  EncomendaService 
   ) {}
 
   ngOnInit() {
-    this.precoValue = this.precoService.getPrecoValue(); // remove se não estiveres a usar o PrecoService
+    this.precoTotal = this.encomendaService.getTotal();
   }
 
   selecionarMetodo(metodo: string) {
