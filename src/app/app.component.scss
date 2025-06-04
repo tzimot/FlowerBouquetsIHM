@@ -92,7 +92,7 @@ ion-menu {
   margin-bottom: 10px;
 
   img {
-    width: 130px;
+    width: 100px;
     height: 100px;
     border-radius: 50%;
     margin-bottom: 10px;
@@ -101,14 +101,16 @@ ion-menu {
 
   ion-list-header {
     width: 100%;
-    text-align: center;
+    text-align: left;
     justify-content: center;
     padding: 0;
+    font-size: 20px;
+    font-weight: 600;
   }
 
   ion-note {
     width: 100%;
-    text-align: center;
+    text-align: left;
     padding: 0;
   }
 }

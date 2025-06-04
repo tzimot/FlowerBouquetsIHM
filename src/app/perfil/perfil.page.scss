@@ -56,4 +56,24 @@ ion-item {
     padding: 8px 0;
     display: block;
   }
+
+  ion-title {
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.app-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+}
+
+ion-toolbar {
+  --background: #ffffff;
+  --color: #6b2c6b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
