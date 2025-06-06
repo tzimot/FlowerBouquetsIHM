@@ -108,19 +108,19 @@
         "id": 16,
         "title": "Branco",
         "image": "assets/imagens/vaso1.jpg",
-        "description": "aaaaa"
+        "description": "Um vaso simples, para uma casa simples"
     },
     {
         "id": 17,
-        "title": "Azul",
+        "title": "Verde Seco",
         "image": "assets/imagens/vaso2.jpg",
-        "description": "bbbbbbbbb"
+        "description": "Tons naturais, para uma casa campestre"
     },
     {
         "id": 18,
-        "title": "Beje",
+        "title": "Azul",
         "image": "assets/imagens/vaso3.jpg",
-        "description": "ccccccc"
+        "description": "A cor do mar para lembrar o verão"
     }  
 ]
 

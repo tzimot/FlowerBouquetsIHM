@@ -14,7 +14,8 @@ export class AppComponent {
     { title: 'Os Nossos Ramos', url: '/nova-encomenda', icon: 'pricetags' },
     { title: 'Personalizar Ramo', url: '/personalizar-ramo', icon: 'gift' },
     { title: 'Em Alta', url: '/top-vendas', icon: 'heart' },
-    { title: 'Perfil', url: '/perfil', icon: 'person' }
+    { title: 'Perfil', url: '/perfil', icon: 'person' },
+    { title: 'Cartão de Pontos', url: '/cartao-pontos', icon: 'card' }
   ];
 
   constructor(
