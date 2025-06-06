@@ -1,81 +1,84 @@
 .personalizar-ramo-content {
-  --background: #FFF7F0;
-}
+  --background: linear-gradient(to bottom, #fdf1ec, #fefae0);
+  padding: 1rem;
+  height: 100%;
+  overflow-y: auto;
 
-.custom-searchbar {
-  margin: 16px;
-  --border-radius: 20px;
-  --background: #fff;
-  --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.categoria-container {
-  margin: 20px 0;
-}
-
-.scroll-horizontal {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  gap: 16px;
-  padding: 0 10px 20px 10px;
-  scroll-snap-type: x mandatory;
-  min-height: 420px;
-
-  &::-webkit-scrollbar {
-    display: none;
+  ion-toolbar {
+    --background: #ffffff;
+    --color: #000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
+
+  .custom-searchbar {
+    --background: white;
+    --color: black;
+    --placeholder-color: #999;
+    --icon-color: #999;
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --border-radius: 20px;
+    --searchbar-border-radius: 20px;
+    margin: 0 auto 20px auto;
+    width: 90%;
+  }
+}
+
+.flower-row {
+  margin-bottom: 20px;
 }
 
 .flower-card {
-  flex: 0 0 300px;
-  background: #fff;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  scroll-snap-align: start;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
 
-  h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    margin: 10px 0;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-width: 240px;
+  max-width: 240px;
+  min-height: 420px;
+  height: auto;
+
+  position: relative;
 }
 
 .flower-image {
   width: 100%;
-  height: 200px;
+  height: 160px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 12px;
   margin-bottom: 10px;
 }
 
 .flower-description {
-  color: #666;
-  font-size: 0.9rem;
-  margin: 8px 0;
+  font-size: 14px;
+  color: #555;
+  flex-grow: 1;
 }
 
 .flower-price {
-  font-weight: 600;
+  font-weight: bold;
   color: #c07f00;
-  font-size: 1.1rem;
-  margin: 8px 0;
+  margin-top: 8px;
 }
 
 .quantity-control {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 15px;
-  margin: 15px 0;
+  margin-top: 10px;
+}
 
-  span {
-    font-size: 1.1rem;
-    font-weight: 500;
-  }
+.quantity-control span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
 }
 
 .BtnMenos,
@@ -89,16 +92,17 @@
   background: linear-gradient(90deg, #fa578e 0%, #feab8e 100%);
   border: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
 
-  ion-icon {
-    color: white;
-    font-size: 20px;
-  }
+.BtnMenos ion-icon,
+.BtnMais ion-icon {
+  color: white;
+  font-size: 20px;
 }
 
 .footer-container {
   padding: 20px;
-  background: #fff;
+  background: #fff7f0;
   text-align: center;
   border-radius: 12px;
   margin: 20px 10px;
@@ -124,6 +128,33 @@
     rgba(254, 171, 142, 1) 100%
   );
   color: white;
+}
+
+.categoria-titulo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 20px 0 10px 10px;
+  color: #c07f00;
+}
+
+.scroll-horizontal {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 16px;
+  padding: 0 10px 20px 10px;
+  scroll-snap-type: x mandatory;
+  min-height: 420px; 
+}
+
+.scroll-horizontal::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-horizontal .flower-card {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
 }
 
 .app-title {

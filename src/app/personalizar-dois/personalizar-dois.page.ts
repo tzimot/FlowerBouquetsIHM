@@ -9,10 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./personalizar-dois.page.scss'],
 })
 export class PersonalizarDoisPage implements OnInit {
+  public mostrarCartaoOferta: boolean = false;
 
   messageForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private alertController: AlertController, private router: Router) { 
+  constructor(
+    private formBuilder: FormBuilder, 
+    private alertController: AlertController, 
+    private router: Router
+  ) { 
     this.messageForm = this.formBuilder.group({
       de: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]], // Permitido espaço para nomes compostos
       para: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],

@@ -11,6 +11,7 @@ import { PrecoNEService } from 'src/app/services/preco-ne.service';
   styleUrls: ['./nova-encomenda-dois.page.scss'],
 })
 export class NovaEncomendaDoisPage implements OnInit {
+  public mostrarCartaoOferta: boolean = false;
   messageForm: FormGroup;
 
   constructor(

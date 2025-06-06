@@ -68,6 +68,14 @@
   --ion-color-medium-shade: #808289;
   --ion-color-medium-tint: #9d9fa6;
 
+  /** cor global side Menu **/
+	--ion-color-menu: #fdf9e6;
+	--ion-color-menu-rgb: 253,249,230;
+	--ion-color-menu-contrast: #000000;
+	--ion-color-menu-contrast-rgb: 0,0,0;
+	--ion-color-menu-shade: #dfdbca;
+	--ion-color-menu-tint: #fdfae9;
+
   :root {
     --ion-color-ola: #2f6ab6;
     --ion-color-ola-rgb: 47, 106, 182;
@@ -93,6 +101,14 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+}
+
+.ion-color-new {
+	--ion-color-base: var(--ion-color-menu);
+	--ion-color-contrast: var(--ion-color-menu-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-menu-contrast-rgb);
+	--ion-color-shade: var(--ion-color-menu-shade);
+	--ion-color-tint: var(--ion-color-menu-tint);
 }
 
 @media (prefers-color-scheme: dark) {

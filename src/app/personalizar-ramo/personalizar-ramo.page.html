@@ -1,28 +1,36 @@
 <ion-header>
   <ion-toolbar color="light">
-    <ion-title class="app-title" color="mycolor">Personalizar Ramo</ion-title>
+    <ion-title class="app-title" color="mycolor">Personalize o seu Ramo</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="personalizar-ramo-content">
-  <ion-searchbar placeholder="Pesquisar flores" (ionInput)="searchFlowers($event)" class="custom-searchbar"></ion-searchbar>
+<ion-content class="personalizar-ramo-content">
 
-  <div class="categoria-container">
+  <ion-searchbar 
+    placeholder="Pesquisar flores ou vasos..." 
+    (ionInput)="searchFlowers($event)"
+    class="custom-searchbar">
+  </ion-searchbar>
+
+  <div *ngFor="let categoria of categorias">
+    <h2 class="categoria-titulo">{{ categoria.nome }}</h2>
+
     <div class="scroll-horizontal">
-      <div class="flower-card" *ngFor="let image of filteredImages.slice(0, 3)">
-        <img [src]="image.image" [alt]="image.title" class="flower-image" />
-        <h3>{{ image.title }}</h3>
-        <p class="flower-description">{{ image.description }}</p>
-        <p class="flower-price">Preço: {{ image.price }}€</p>
+      <div class="flower-card" *ngFor="let item of categoria.ramos">
+        <img [src]="item.image" alt="{{ item.title }}" class="flower-image">
+        <h3>{{ item.title }}</h3>
+        <p class="flower-description">{{ item.description }}</p>
+        <p class="flower-price">{{ item.price | currency:'EUR':'symbol' }}</p>
+
         <div class="quantity-control">
-          <button (click)="decreaseQuantity(image)" class="BtnMenos">
+          <button (click)="decreaseQuantity(item)" class="BtnMenos">
             <ion-icon name="remove"></ion-icon>
           </button>
-          <span>{{ image.quantity }}</span>
-          <button (click)="increaseQuantity(image)" class="BtnMais">
+          <span>{{ item.quantity || 0 }}</span>
+          <button (click)="increaseQuantity(item)" class="BtnMais">
             <ion-icon name="add"></ion-icon>
           </button>
         </div>
@@ -30,8 +38,33 @@
     </div>
   </div>
 
+  <ion-card class="vaso-card" *ngIf="showVaseSizeCard">
+  <ion-card-header>
+    <ion-card-title>Tamanho do Vaso</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-radio-group [(ngModel)]="selectedVase" (ionChange)="updateSelectedVase($event.detail.value)">
+      <ion-item>
+        <ion-label>Pequeno (2€)</ion-label>
+        <ion-radio slot="start" value="pequeno"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Médio (4€)</ion-label>
+        <ion-radio slot="start" value="medio"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Grande (6€)</ion-label>
+        <ion-radio slot="start" value="grande"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-card-content>
+</ion-card>
+
+
   <div class="footer-container">
-    <p class="total-text">Total: {{ totalSum | currency: '€' }}</p>
-    <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToPersonalizarUmPage()">Seguinte</ion-button>
+    <p class="total-text">Total: {{ totalSum | currency:'EUR':'symbol' }}</p>
+    <ion-button expand="block" class="BtnSeguinte" (click)="goToPersonalizarUmPage()">Avançar</ion-button>
   </div>
+
 </ion-content>
