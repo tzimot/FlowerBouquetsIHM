@@ -97,12 +97,30 @@
         "price": 22.99,
         "description": "Rosas brancas nunca falham, simples e bonito."
     },
-        {
+    {
         "id": 15,
         "title": "Branco da Noiva",
         "image": "assets/imagens/bouquet3.jpg",
         "price": 19.99,
         "description": "Um bouquet de princesa, para um dia de princesa."
-    }
+    },
+    {
+        "id": 16,
+        "title": "Branco",
+        "image": "assets/imagens/vaso1.jpg",
+        "description": "Um vaso simples, para uma casa simples"
+    },
+    {
+        "id": 17,
+        "title": "Verde Seco",
+        "image": "assets/imagens/vaso2.jpg",
+        "description": "Tons naturais, para uma casa campestre"
+    },
+    {
+        "id": 18,
+        "title": "Azul",
+        "image": "assets/imagens/vaso3.jpg",
+        "description": "A cor do mar para lembrar o verão"
+    }  
 ]
 
