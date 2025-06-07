@@ -10,6 +10,7 @@
 <ion-content class="pagamento-background">
 
   <p class="subtitulo">Valor total: <span class="total">{{ precoTotal | currency:'EUR' }}</span></p>
+  <p *ngIf="usarPontos && descontoPontos > 0" class="subtotal-text">Está a utilizar {{ descontoPontos }} pontos</p>
 
   <ion-list>
     <ion-item 
@@ -91,6 +92,11 @@
       <ion-input [(ngModel)]="dadosFatura.email" type="email"></ion-input>
     </ion-item>
   </div>
+
+  <ion-item>
+    <ion-label>Deseja usar pontos?</ion-label>
+    <ion-checkbox [(ngModel)]="usarPontos" (ionChange)="aplicarDescontoPontos()"></ion-checkbox>
+  </ion-item>
 
     <ion-row>
       <ion-col size="6">

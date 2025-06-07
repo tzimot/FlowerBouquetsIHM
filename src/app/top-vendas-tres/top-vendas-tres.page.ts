@@ -19,6 +19,10 @@ export class TopVendasTresPage implements OnInit {
   cartaoCVV: string = '';
   cartaoNome: string = '';
   desejaFatura: boolean = false;
+  usarPontos: boolean = false;
+  pontosDisponiveis: number = 0;
+  descontoPontos: number = 0;
+  originalTotal: number = 0;
 
   dadosFatura = {
     nome: '',
@@ -34,18 +38,26 @@ export class TopVendasTresPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.precoTotal = this.encomendaService.getTotal();
+    this.originalTotal = this.encomendaService.getPendingTotal();
+    this.precoTotal = this.encomendaService.getPendingTotal();
+    this.pontosDisponiveis = this.encomendaService.getPontos();
   }
 
   selecionarMetodo(metodo: string) {
     this.metodoselecionado = metodo;
   }
 
-  confirmarPagamento() {
+  async confirmarPagamento() {
     if (!this.metodoselecionado) {
       this.showAlert('Por Favor, selecione um método de Pagamento!', '');
     } else {
-      this.goToObrigadoPage();
+    // Deduct points if used
+    if (this.usarPontos && this.descontoPontos > 0) {
+      this.encomendaService.addPontos(-this.descontoPontos);
+    }
+    // Reset points if not using them
+    this.encomendaService.setTotal(this.precoTotal);
+    this.goToObrigadoPage();
     }
   }
 
@@ -64,5 +76,20 @@ export class TopVendasTresPage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
+  }
+
+    
+  aplicarDescontoPontos() {
+    if (this.usarPontos && this.pontosDisponiveis > 0) {
+      // Only use integer points, and only for the integer part of the original total
+      const pontosParaUsar = Math.min(this.pontosDisponiveis, Math.floor(this.originalTotal));
+      this.descontoPontos = pontosParaUsar;
+      this.precoTotal = this.originalTotal - this.descontoPontos;
+      // Ensure no negative price
+      if (this.precoTotal < 0) this.precoTotal = 0;
+    } else {
+      this.descontoPontos = 0;
+      this.precoTotal = this.originalTotal;
+    }
   }
 }

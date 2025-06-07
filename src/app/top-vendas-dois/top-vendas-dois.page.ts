@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./top-vendas-dois.page.scss'],
 })
 export class TopVendasDoisPage implements OnInit {
+  public mostrarCartaoOferta: boolean = false;
 
   messageForm: FormGroup;
 

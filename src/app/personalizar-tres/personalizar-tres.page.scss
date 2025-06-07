@@ -24,6 +24,12 @@ ion-list{
   color: #7a2e6d;
 }
 
+.subtotal-text {
+  margin-left: 16px;
+  color: #666;
+  font-size: 1rem;
+}
+
 .metodo-opcao {
   border-radius: 12px;
   margin-bottom: 1.1rem;
@@ -54,7 +60,6 @@ ion-list{
 .dados-fatura {
  margin: 15px
 }
-
 
 ion-button {
   --border-radius: 10px;

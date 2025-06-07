@@ -10,7 +10,9 @@ export class AuthService {
     username: '',
     fullName: '',
     email: '',
-    profilePicture: ''
+    profilePicture: '',
+    birthDate: '',
+    points: 0
   };
   private initialized = false;
 
@@ -21,18 +23,19 @@ export class AuthService {
 
   private async initializeService() {
     if (this.initialized) return;
-    
+
     await this.storage.create();
     const user = await this.storage.get('currentUser');
     if (user) {
-      // Get the latest user data from criarautentService
       const updatedUser = await this.criarautentService.getUser(user.username);
       if (updatedUser) {
         this.currentUser = {
           username: updatedUser.username,
           fullName: updatedUser.fullName,
           email: updatedUser.email,
-          profilePicture: updatedUser.profilePicture || ''
+          profilePicture: updatedUser.profilePicture || '',
+          birthDate: updatedUser.birthDate || '',
+          points: updatedUser.points || 0
         };
       }
     }
@@ -43,20 +46,20 @@ export class AuthService {
     await this.storage.create();
     const user = await this.storage.get('currentUser');
     if (!user) return this.currentUser;
-  
+
     const updatedUser = await this.criarautentService.getUser(user.username);
     if (updatedUser) {
       this.currentUser = {
         username: updatedUser.username,
         fullName: updatedUser.fullName,
         email: updatedUser.email,
-        profilePicture: updatedUser.profilePicture || ''
+        profilePicture: updatedUser.profilePicture || '',
+        birthDate: updatedUser.birthDate || '',
+        points: updatedUser.points || 0
       };
     }
     return this.currentUser;
   }
-  
-  
 
   async setCurrentUser(userData: any) {
     await this.initializeService();
@@ -64,29 +67,37 @@ export class AuthService {
       username: userData.username,
       fullName: userData.fullName,
       email: userData.email,
-      profilePicture: userData.profilePicture || ''
+      profilePicture: userData.profilePicture || '',
+      birthDate: userData.birthDate || '',
+      points: userData.points || 0
     };
 
     await this.storage.set('currentUser', this.currentUser);
-    // Also update the user in the main users storage
     await this.criarautentService.updateUserProfile(userData.username, {
       fullName: userData.fullName,
       email: userData.email,
-      profilePicture: userData.profilePicture
+      profilePicture: userData.profilePicture,
+      birthDate: userData.birthDate, 
+      points: userData.points || 0
     });
+
   }
 
   async updateProfilePicture(imageData: string) {
     this.currentUser.profilePicture = imageData;
     await this.storage.set('currentUser', this.currentUser);
     await this.criarautentService.updateUserProfile(this.currentUser.username, {
-      
       profilePicture: imageData
     });
-  
   }
-  
-  
+
+  async updatePoints(newPoints: number) {
+    this.currentUser.points = newPoints;
+    await this.storage.set('currentUser', this.currentUser);
+    await this.criarautentService.updateUserProfile(this.currentUser.username, {
+      points: newPoints
+    });
+  }
 
   async logout() {
     await this.storage.remove('currentUser');
@@ -94,11 +105,10 @@ export class AuthService {
       username: '',
       fullName: '',
       email: '',
-      profilePicture: ''
+      profilePicture: '',
+      birthDate: '',
+      points: 0
     };
-    this.initialized = false; // ← this is the fix
+    this.initialized = false;
   }
-  
-  
-
 }

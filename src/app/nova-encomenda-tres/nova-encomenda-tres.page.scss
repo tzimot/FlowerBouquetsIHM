@@ -1,5 +1,3 @@
-
-
 .pagamento-background {
   --background: #f5eee6; 
 }
@@ -22,6 +20,12 @@ ion-list{
   font-size: 21px;
   font-weight: 700;
   color: #7a2e6d;
+}
+
+.subtotal-text {
+  margin-left: 16px;
+  color: #666;
+  font-size: 1rem;
 }
 
 .metodo-opcao {

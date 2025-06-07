@@ -48,20 +48,20 @@ ion-title.app-title {
   color: #6b2c6b;
 }
 
-/*:root {
-	--ion-color-fundo: #ffeaf4;
-	--ion-color-fundo-rgb: 255,234,244;
-	--ion-color-fundo-contrast: #000000;
-	--ion-color-fundo-contrast-rgb: 0,0,0;
-	--ion-color-fundo-shade: #e0ced7;
-	--ion-color-fundo-tint: #ffecf5;
+/** cor global side Menu **/
+:root {
+	--ion-color-menu: #fdf9e6;
+	--ion-color-menu-rgb: 253,249,230;
+	--ion-color-menu-contrast: #000000;
+	--ion-color-menu-contrast-rgb: 0,0,0;
+	--ion-color-menu-shade: #dfdbca;
+	--ion-color-menu-tint: #fdfae9;
 }
 
-.ion-color-fundo {
-	--ion-color-base: var(--ion-color-fundo);
-	--ion-color-base-rgb: var(--ion-color-fundo-rgb);
-	--ion-color-contrast: var(--ion-color-fundo-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-fundo-contrast-rgb);
-	--ion-color-shade: var(--ion-color-fundo-shade);
-	--ion-color-tint: var(--ion-color-fundo-tint);
-}*/
+.ion-color-menu {
+	--ion-color-base: var(--ion-color-menu);
+	--ion-color-contrast: var(--ion-color-menu-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-menu-contrast-rgb);
+	--ion-color-shade: var(--ion-color-menu-shade);
+	--ion-color-tint: var(--ion-color-menu-tint);
+}

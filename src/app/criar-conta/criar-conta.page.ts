@@ -77,7 +77,7 @@ export class CriarContaPage implements OnInit { // Define a classe do componente
       fullName: this.nome,
       email: this.email,
       morada: this.morada,
-      dataNascimento: dataNascimentoString
+      birthDate: dataNascimentoString
     };
   
     await this.criarAutentService.criarConta(userData);

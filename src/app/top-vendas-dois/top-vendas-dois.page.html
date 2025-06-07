@@ -3,18 +3,21 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/top-vendas-um"></ion-back-button>
     </ion-buttons>
-    <ion-title>Passo 2</ion-title>
+    <ion-title>Cartão de Oferta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Top vendas dois</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <form [formGroup]="messageForm" (ngSubmit)="submitForm()">
+  <!-- Checkbox para mostrar/esconder o cartão -->
+  <ion-item lines="full">
+    <ion-label>Deseja adicionar um cartão de oferta?</ion-label>
+    <ion-checkbox slot="end" [(ngModel)]="mostrarCartaoOferta"></ion-checkbox>
+  </ion-item>
+
+  <!-- Formulário apenas visível se checkbox estiver ativa -->
+  <form *ngIf="mostrarCartaoOferta" [formGroup]="messageForm" (ngSubmit)="submitForm()" class="cartao-form">
+
     <ion-item>
       <ion-label position="floating">De:</ion-label>
       <ion-input type="text" formControlName="de" class="DadosForm"></ion-input>
@@ -30,8 +33,10 @@
       <ion-textarea formControlName="mensagem" autoGrow="true" class="DadosForm"></ion-textarea>
     </ion-item>
 
-    <div class="footer-container">
-      <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToTopVendasTresPage()">Seguinte</ion-button>
-    </div>
   </form>
+
+  <div class="footer-container">
+    <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToTopVendasTresPage()">Seguinte</ion-button>
+  </div>
+
 </ion-content>

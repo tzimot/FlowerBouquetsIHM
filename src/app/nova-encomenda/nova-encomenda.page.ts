@@ -88,7 +88,7 @@ export class NovaEncomendaPage implements OnInit {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
       this.router.navigate(['/nova-encomenda-um']);
-      this.encomendaService.setTotal(this.totalSum);
+      this.encomendaService.setPendingTotal(this.totalSum); // <-- Set pending total
     }
   }
 

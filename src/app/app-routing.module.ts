@@ -82,6 +82,10 @@ const routes: Routes = [
   },  {
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'cartao-pontos',
+    loadChildren: () => import('./cartao-pontos/cartao-pontos.module').then( m => m.CartaoPontosPageModule)
   }
 
 ];
