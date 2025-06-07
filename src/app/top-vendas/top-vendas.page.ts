@@ -83,7 +83,7 @@ export class TopVendasPage implements OnInit {
     if (this.totalSum === 0) {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
-      this.encomendaService.setTotal(this.totalSum);
+      this.encomendaService.setPendingTotal(this.totalSum);
       this.router.navigate(['/top-vendas-um']);
     }
   }

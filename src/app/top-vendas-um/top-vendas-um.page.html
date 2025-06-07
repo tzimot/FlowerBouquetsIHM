@@ -40,8 +40,14 @@
       <ion-input type="text" formControlName="localidade" class="DadosForm"></ion-input>
     </ion-item>
 
-    <div class="footer-container">
-      <ion-button fill="clear" expand="block" class="BtnSeguinte" (click)="goToTopVendasDoisPage()">Seguinte</ion-button>
-    </div>
+    <ion-button 
+      fill="clear" 
+      expand="block" 
+      class="BtnSeguinte" 
+      [disabled]="form.invalid" 
+      (click)="goToTopVendasDoisPage()">
+      Seguinte
+    </ion-button>
+
   </form>
 </ion-content>

@@ -11,14 +11,16 @@
   <div class="cartao-container">
     <ion-card class="pontos-card">
       <img [src]="userData.profilePicture || 'assets/icon/profile-placeholder.png'" class="user-foto" />
-      <ion-card-header>
+      <div class="user-info">
         <ion-card-title>{{ userData.fullName }}</ion-card-title>
-        <ion-card-subtitle>{{ userData.pontos }} pontos</ion-card-subtitle>
-      </ion-card-header>
+        <ion-card-subtitle>{{ userData.birthDate }}</ion-card-subtitle>
+        <ion-card-subtitle>{{ userData.pontos | number:'1.0-0' }} pontos</ion-card-subtitle>
+      </div>
     </ion-card>
 
+
     <p class="explicacao-pontos">
-      Cada 1€ gasto em encomendas equivale a 10 pontos.
+      Cada 1€ gasto em encomendas equivale a 1 ponto.
     </p>
   </div>
 </ion-content>

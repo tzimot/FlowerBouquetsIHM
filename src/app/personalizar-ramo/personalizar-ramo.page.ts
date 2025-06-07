@@ -128,7 +128,7 @@ export class PersonalizarRamoPage implements OnInit {
       this.showAlert('Por favor, selecione algo para prosseguir.', '');
     } else {
       this.router.navigate(['/personalizar-um']);
-      this.encomendaService.setTotal(this.totalSum);
+      this.encomendaService.setPendingTotal(this.totalSum);
     }
   }
 
