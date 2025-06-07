@@ -30,6 +30,7 @@ export class CriarautentService {
     const existingUsers = await this.storage['get']('users') || [];
     existingUsers.push(userData);
     await this.storage['set']('users', existingUsers);
+    await this.storage.set('user', userData); 
   }
 
   async autenticar(username: string, password: string) {

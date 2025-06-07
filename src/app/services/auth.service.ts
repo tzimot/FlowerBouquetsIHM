@@ -11,6 +11,7 @@ export class AuthService {
     fullName: '',
     email: '',
     profilePicture: '',
+    birthDate: '',
     points: 0
   };
   private initialized = false;
@@ -33,6 +34,7 @@ export class AuthService {
           fullName: updatedUser.fullName,
           email: updatedUser.email,
           profilePicture: updatedUser.profilePicture || '',
+          birthDate: updatedUser.birthDate || '',
           points: updatedUser.points || 0
         };
       }
@@ -52,6 +54,7 @@ export class AuthService {
         fullName: updatedUser.fullName,
         email: updatedUser.email,
         profilePicture: updatedUser.profilePicture || '',
+        birthDate: updatedUser.birthDate || '',
         points: updatedUser.points || 0
       };
     }
@@ -65,6 +68,7 @@ export class AuthService {
       fullName: userData.fullName,
       email: userData.email,
       profilePicture: userData.profilePicture || '',
+      birthDate: userData.birthDate || '',
       points: userData.points || 0
     };
 
@@ -73,8 +77,10 @@ export class AuthService {
       fullName: userData.fullName,
       email: userData.email,
       profilePicture: userData.profilePicture,
+      birthDate: userData.birthDate, 
       points: userData.points || 0
     });
+
   }
 
   async updateProfilePicture(imageData: string) {
@@ -100,6 +106,7 @@ export class AuthService {
       fullName: '',
       email: '',
       profilePicture: '',
+      birthDate: '',
       points: 0
     };
     this.initialized = false;
