@@ -44,7 +44,7 @@ export class NovaEncomendaPage implements OnInit {
 
         this.categorias = [
           {
-            nome: 'Bouquets de Noiva',
+            nome: 'Ramos de Noiva',
             ramos: this.images.filter(img => [13, 14, 15].includes(img.id))
           },
           {
