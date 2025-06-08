@@ -18,9 +18,62 @@
       </div>
     </ion-card>
 
-
     <p class="explicacao-pontos">
       Cada 1€ gasto em encomendas equivale a 1 ponto.
     </p>
+
+    <!-- Botão para mostrar/esconder histórico -->
+    <ion-button expand="block" fill="outline" (click)="toggleHistorico()" class="historico-toggle">
+      <ion-icon [name]="mostrarHistorico ? 'chevron-up' : 'chevron-down'" slot="start"></ion-icon>
+      {{ mostrarHistorico ? 'Esconder' : 'Ver' }} Histórico de Compras
+    </ion-button>
+
+    <!-- Seção do histórico -->
+    <div *ngIf="mostrarHistorico" class="historico-section">
+      <ion-card class="resumo-card">
+        <ion-card-header>
+          <ion-card-title>Histórico de conta</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="resumo-item">
+            <span>Total gasto:</span>
+            <span class="valor">{{ getTotalGasto() | currency:'EUR':'symbol':'1.2-2' }}</span>
+          </div>
+          <div class="resumo-item">
+            <span>Total de pontos:</span>
+            <span class="pontos">{{ getTotalPontosGanhos() }} pontos</span>
+          </div>
+          <div class="resumo-item">
+            <span>Número de compras:</span>
+            <span>{{ historicoCompras.length }}</span>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <div *ngIf="historicoCompras.length === 0" class="sem-historico">
+        <ion-icon name="receipt-outline" class="icon-vazio"></ion-icon>
+        <p>Ainda não realizou nenhuma compra.</p>
+        <p class="subtexto">As suas compras aparecerão aqui automaticamente.</p>
+      </div>
+
+      <ion-list *ngIf="historicoCompras.length > 0" class="historico-lista">
+        <ion-list-header>
+          <ion-label>Histórico de Compras</ion-label>
+        </ion-list-header>
+        
+        <ion-item *ngFor="let compra of historicoCompras" class="compra-item">
+          <ion-icon [name]="getIconePorTipo(compra.tipo)" slot="start" [color]="getCorPorTipo(compra.tipo)"></ion-icon>
+          <ion-label>
+            <h3>{{ compra.tipo }}</h3>
+            <p>{{ compra.descricao }}</p>
+            <p class="data">{{ compra.data }}</p>
+          </ion-label>
+          <div slot="end" class="compra-valores">
+            <div class="valor-compra">{{ compra.valor | currency:'EUR':'symbol':'1.2-2' }}</div>
+            <div class="pontos-ganhos">+{{ compra.pontosGanhos }} pontos</div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
   </div>
 </ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { EncomendaService } from '../services/encomenda.service';
+import { EncomendaService, HistoricoCompra } from '../services/encomenda.service';
 
 @Component({
   selector: 'app-cartao-pontos',
@@ -17,6 +17,9 @@ export class CartaoPontosPage implements OnInit {
     pontos: 0
   };
 
+  historicoCompras: HistoricoCompra[] = [];
+  mostrarHistorico: boolean = false;
+
   constructor(
     private authService: AuthService,
     private encomendaService: EncomendaService
@@ -27,27 +30,69 @@ export class CartaoPontosPage implements OnInit {
     this.encomendaService.pontos$.subscribe(pontos => {
       this.userData.pontos = pontos;
     });
+    this.carregarHistorico();
   }
 
   async ionViewWillEnter() {
     await this.loadUserData();
-    // pontos subscription is already set in ngOnInit
+    this.carregarHistorico();
   }
 
   private async loadUserData() {
     try {
       const user = await this.authService.getCurrentUser();
       this.userData = {
-        ...this.userData, // mantém os pontos já subscritos
+        ...this.userData,
         username: user.username,
         fullName: user.fullName,
         email: user.email,
         profilePicture: user.profilePicture,
         birthDate: user.birthDate || ''
       };
-
     } catch (error) {
       console.error('Erro ao carregar dados do utilizador:', error);
+    }
+  }
+
+  private carregarHistorico() {
+    this.historicoCompras = this.encomendaService.getHistoricoCompras();
+  }
+
+  toggleHistorico() {
+    this.mostrarHistorico = !this.mostrarHistorico;
+  }
+
+  getTotalGasto(): number {
+    return this.historicoCompras.reduce((total, compra) => total + compra.valor, 0);
+  }
+
+  getTotalPontosGanhos(): number {
+    return this.historicoCompras.reduce((total, compra) => total + compra.pontosGanhos, 0);
+  }
+
+  getIconePorTipo(tipo: string): string {
+    switch (tipo) {
+      case 'Os Nossos Ramos':
+        return 'flower-outline';
+      case 'Personalizar Ramo':
+        return 'brush-outline';
+      case 'Em Alta':
+        return 'trending-up-outline';
+      default:
+        return 'bag-outline';
+    }
+  }
+
+  getCorPorTipo(tipo: string): string {
+    switch (tipo) {
+      case 'Os Nossos Ramos':
+        return 'success';
+      case 'Personalizar Ramo':
+        return 'secondary';
+      case 'Em Alta':
+        return 'warning';
+      default:
+        return 'medium';
     }
   }
 }

@@ -18,9 +18,9 @@ ion-content {
 .pontos-card {
   width: 100%;
   max-width: 420px;
-  background: #ffffff;
+  background: white;
   border-radius: 24px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+ // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
@@ -81,4 +81,126 @@ ion-content {
   color: #6b2c6b;
   font-family: 'Montserrat';
   padding: 0 12px;
+}
+
+.historico-toggle {
+  margin: 20px 0;
+  --color: #6b2c6b;
+  --border-color: #6b2c6b;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.historico-section {
+  margin-top: 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.resumo-card {
+  margin-bottom: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  .resumo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    .valor {
+      font-weight: 600;
+      color: #2dd36f;
+      font-size: 1.2rem;
+    }
+    
+    .pontos {
+      font-weight: 600;
+      color: #6b2c6b;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.historico-lista {
+  background: transparent;
+  border-radius: 16px;
+  padding: 0 10px;
+  
+  .compra-item {
+    --background: transparent;
+    margin-bottom: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    
+    ion-label {
+      font-family: 'Montserrat', sans-serif;
+      
+      h3 {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        font-size: 1.2rem;
+      }
+      
+      p {
+        margin: 8px 0;
+        color: #666;
+        font-size: 1rem;
+      }
+      
+      .data {
+        color: #999;
+        font-size: 0.9rem;
+        margin-top: 8px;
+      }
+    }
+    
+    .compra-valores {
+      text-align: right;
+      margin-top: 10px;
+      
+      .valor-compra {
+        font-weight: 600;
+        color: #2dd36f;
+        font-size: 1.3rem;
+      }
+      
+      .pontos-ganhos {
+        color: #6b2c6b;
+        font-size: 1rem;
+        margin-top: 6px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.sem-historico {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-family: 'Playfair Display', serif;
+  
+  .icon-vazio {
+    font-size: 64px;
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+  
+  .subtexto {
+    font-size: 0.9em;
+    color: #999;
+    font-family: 'Playfair Display', serif;
+  }
 }
