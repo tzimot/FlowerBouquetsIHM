@@ -47,6 +47,11 @@ export class NovaEncomendaTresPage implements OnInit {
   }
 
   async confirmarPagamento() {
+    this.encomendaService.adicionarCompraAoHistorico(
+      this.precoTotal, 
+      'Os Nossos Ramos', 
+      `Compra realizada via ${this.metodoselecionado}`
+    );
     if (!this.metodoselecionado) {
       this.showAlert('Por Favor, selecione um método de Pagamento!', '');
     } else {

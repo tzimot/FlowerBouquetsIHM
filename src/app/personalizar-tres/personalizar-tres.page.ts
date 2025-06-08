@@ -49,6 +49,11 @@ export class PersonalizarTresPage implements OnInit {
   }
 
   async confirmarPagamento() {
+    this.encomendaService.adicionarCompraAoHistorico(
+      this.precoTotal, 
+      'Personalizar Ramo', 
+      `Compra realizada via ${this.metodoselecionado}`
+    );
     if (!this.metodoselecionado) {
       this.showAlert('Por Favor, selecione um método de Pagamento!', '');
     } else {

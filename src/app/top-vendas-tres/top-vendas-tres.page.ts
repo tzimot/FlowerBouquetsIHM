@@ -48,8 +48,13 @@ export class TopVendasTresPage implements OnInit {
   }
 
   async confirmarPagamento() {
+    this.encomendaService.adicionarCompraAoHistorico(
+      this.precoTotal, 
+      'Em Alta', 
+      `Compra realizada via ${this.metodoselecionado}`
+    );
     if (!this.metodoselecionado) {
-      this.showAlert('Por Favor, selecione um método de Pagamento!', '');
+      this.showAlert('Por favor, selecione um método de pagamento!', '');
     } else {
     // Deduct points if used
     if (this.usarPontos && this.descontoPontos > 0) {
