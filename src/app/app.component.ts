@@ -23,11 +23,19 @@ export class AppComponent {
     private authService: AuthService,
     private router: Router,
     private encomendaService: EncomendaService
-  ) {}
+  ) {
+    // Adicionar listener para eventos de logout
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'userLoggedOut') {
+        this.encomendaService.limparDados();
+      }
+    });
+  }
 
   async logout() {
     this.encomendaService.logout();
     await this.authService.logout();
-    this.router.navigate(['/login']);
+    this.encomendaService.limparDados(); // Limpar dados diretamente ao fazer logout
+    this.router.navigateByUrl('/login');
   }
 }

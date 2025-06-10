@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 export interface HistoricoCompra {
   id: string;
@@ -16,15 +17,42 @@ export interface HistoricoCompra {
 export class EncomendaService {
   private total: number = 0;
   private pontosSubject = new BehaviorSubject<number>(0);
-  private pendingTotal: number = 0; 
+  private pendingTotal: number = 0;
   private historicoCompras: HistoricoCompra[] = [];
   private userId: string = '';
   private resetQuantitiesSubject = new Subject<void>();
   resetQuantities$ = this.resetQuantitiesSubject.asObservable();
   pontos$ = this.pontosSubject.asObservable();
 
+  constructor(private authService: AuthService) {
+    this.carregarDadosUsuarioAtual();
+  }
+
   emitResetQuantities() {
     this.resetQuantitiesSubject.next();
+  }
+
+  async carregarDadosUsuarioAtual() {
+    const user = await this.authService.getCurrentUser();
+    if (user && user.username) {
+      this.userId = user.username;
+
+      // Carregar pontos do usuário atual
+      this.pontosSubject.next(user.points || 0);
+
+      // Carregar histórico do usuário atual
+      const historicoKey = `historicoCompras_${user.username}`;
+      const historico = localStorage.getItem(historicoKey);
+      if (historico) {
+        this.historicoCompras = JSON.parse(historico);
+      } else {
+        this.historicoCompras = [];
+      }
+    } else {
+      this.userId = '';
+      this.pontosSubject.next(0);
+      this.historicoCompras = [];
+    }
   }
 
   setTotal(total: number, adicionarPontos: boolean = true): void {
@@ -64,17 +92,24 @@ export class EncomendaService {
     return this.pendingTotal;
   }
 
-  addPontos(amount: number): void {
+  async addPontos(amount: number): Promise<void> {
     let newPontos = this.pontosSubject.value + amount;
     if (newPontos < 0) newPontos = 0;
     this.pontosSubject.next(newPontos);
-    if (this.userId) {
+
+    const user = await this.authService.getCurrentUser();
+    if (user && user.username) {
+      await this.authService.updatePoints(newPontos);
+    } else if (this.userId) {
       localStorage.setItem(this.getPontosKey(), newPontos.toString());
     }
   }
 
-  // Novo método para adicionar compra ao histórico
-  adicionarCompraAoHistorico(valor: number, tipo: 'Os Nossos Ramos' | 'Personalizar Ramo' | 'Em Alta', descricao: string = ''): void {
+  async adicionarCompraAoHistorico(
+    valor: number,
+    tipo: 'Os Nossos Ramos' | 'Personalizar Ramo' | 'Em Alta',
+    descricao: string = ''
+  ): Promise<void> {
     const pontosGanhos = Math.floor(valor);
     const novaCompra: HistoricoCompra = {
       id: Date.now().toString(),
@@ -84,24 +119,25 @@ export class EncomendaService {
       descricao: descricao || `Compra em ${tipo}`,
       tipo: tipo
     };
-    
-    this.historicoCompras.unshift(novaCompra); // Adiciona no início da lista
-    this.salvarHistorico();
+
+    this.historicoCompras.unshift(novaCompra);
+    await this.salvarHistorico();
   }
 
-  // Método para obter o histórico de compras
   getHistoricoCompras(): HistoricoCompra[] {
     return this.historicoCompras;
   }
 
-  // Método para salvar histórico no localStorage
-  private salvarHistorico(): void {
-    if (this.userId) {
+  private async salvarHistorico(): Promise<void> {
+    const user = await this.authService.getCurrentUser();
+    if (user && user.username) {
+      const historicoKey = `historicoCompras_${user.username}`;
+      localStorage.setItem(historicoKey, JSON.stringify(this.historicoCompras));
+    } else if (this.userId) {
       localStorage.setItem(this.getHistoricoKey(), JSON.stringify(this.historicoCompras));
     }
   }
 
-  // Método para carregar histórico do localStorage
   private carregarHistorico(): void {
     if (this.userId) {
       const historico = localStorage.getItem(this.getHistoricoKey());
@@ -126,7 +162,10 @@ export class EncomendaService {
     this.historicoCompras = [];
   }
 
-  constructor() {
-    // Não carregar pontos nem histórico no construtor, pois não há userId definido ainda
+  public limparDados(): void {
+    this.pontosSubject.next(0);
+    this.historicoCompras = [];
+    this.total = 0;
+    this.pendingTotal = 0;
   }
 }
