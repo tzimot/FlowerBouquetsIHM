@@ -64,6 +64,7 @@ export class PersonalizarTresPage implements OnInit {
     // Reset points if not using them
     this.encomendaService.setTotal(this.precoTotal);
     this.goToObrigadoPage();
+    this.encomendaService.emitResetQuantities();
     }
   }
 

@@ -3,6 +3,7 @@ import { CriarautentService } from 'src/app/services/criarautent.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
+import { EncomendaService } from '../services/encomenda.service';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginPage implements OnInit {
   constructor(
     private criarautentService: CriarautentService,
     private authService: AuthService,
+    private encomendaService: EncomendaService,
     private router: Router,
     private alertController: AlertController
   ) {}
@@ -40,6 +42,8 @@ export class LoginPage implements OnInit {
         fullName: matchedUser['fullName'] || matchedUser.username,
         email: matchedUser['email'] || ''
       });
+
+      this.encomendaService.setUserId(matchedUser.username);
 
       this.router.navigate(['/home']);
     } else {

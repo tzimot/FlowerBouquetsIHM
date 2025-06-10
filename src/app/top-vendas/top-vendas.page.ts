@@ -38,6 +38,7 @@ export class TopVendasPage implements OnInit {
         this.images = json;
         this.filteredImages = this.images;
         this.calculateTotalSum();
+        this.resetQuantities();
 
         this.categorias = [
           {
@@ -54,6 +55,14 @@ export class TopVendasPage implements OnInit {
           }
         ];
       });
+    this.encomendaService.resetQuantities$.subscribe(() => {
+      this.resetQuantities();
+    });
+  }
+
+  resetQuantities() {
+    this.images.forEach(image => image.quantity = 0);
+    this.calculateTotalSum();
   }
 
   decreaseQuantity(image: ImageData) {

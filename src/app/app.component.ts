@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation';
 import { AuthService } from './services/auth.service';
+import { EncomendaService } from './services/encomenda.service';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +21,12 @@ export class AppComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private encomendaService: EncomendaService
   ) {}
 
   async logout() {
+    this.encomendaService.logout();
     await this.authService.logout();
     this.router.navigate(['/login']);
   }

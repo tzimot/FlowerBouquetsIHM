@@ -40,6 +40,7 @@ export class NovaEncomendaPage implements OnInit {
       .then(json => {
         this.images = json;
         this.calculateTotalSum();
+        this.resetQuantities();
         this.filteredImages = this.images;
 
         this.categorias = [
@@ -57,6 +58,14 @@ export class NovaEncomendaPage implements OnInit {
           }
         ];
       });
+    this.encomendaService.resetQuantities$.subscribe(() => {
+      this.resetQuantities();
+    });
+  }
+
+  resetQuantities() {
+    this.images.forEach(image => image.quantity = 0);
+    this.calculateTotalSum();
   }
 
   decreaseQuantity(image: ImageData) {
@@ -107,8 +116,7 @@ export class NovaEncomendaPage implements OnInit {
     const searchQuery = event.target.value?.toLowerCase();
   
     if (!searchQuery || searchQuery.trim() === '') {
-      // Reset to full categories
-      this.ngOnInit(); // Or keep a backup copy of original categorias if you prefer
+      this.ngOnInit(); 
       return;
     }
   

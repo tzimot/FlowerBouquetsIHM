@@ -39,6 +39,7 @@ export class PersonalizarRamoPage implements OnInit {
       .then(json => {
         this.images = json;
         this.calculateTotalSum();
+        this.resetQuantities();
 
         this.categorias = [
           {
@@ -53,6 +54,14 @@ export class PersonalizarRamoPage implements OnInit {
 
         this.originalCategorias = JSON.parse(JSON.stringify(this.categorias));
       });
+    this.encomendaService.resetQuantities$.subscribe(() => {
+      this.resetQuantities();
+    });
+  }
+
+  resetQuantities() {
+    this.images.forEach(image => image.quantity = 0);
+    this.calculateTotalSum();
   }
 
   decreaseQuantity(image: ImageData) {

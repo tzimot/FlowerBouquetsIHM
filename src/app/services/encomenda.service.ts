@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export interface HistoricoCompra {
   id: string;
@@ -18,13 +18,34 @@ export class EncomendaService {
   private pontosSubject = new BehaviorSubject<number>(0);
   private pendingTotal: number = 0; 
   private historicoCompras: HistoricoCompra[] = [];
+  private userId: string = '';
+  private resetQuantitiesSubject = new Subject<void>();
+  resetQuantities$ = this.resetQuantitiesSubject.asObservable();
   pontos$ = this.pontosSubject.asObservable();
+
+  emitResetQuantities() {
+    this.resetQuantitiesSubject.next();
+  }
 
   setTotal(total: number, adicionarPontos: boolean = true): void {
     this.total = total;
     if (adicionarPontos) {
       this.addPontos(Math.floor(total));
     }
+  }
+
+  setUserId(userId: string): void {
+    this.userId = userId;
+    this.loadPontos();
+    this.carregarHistorico();
+  }
+
+  private getPontosKey(): string {
+    return `userPontos_${this.userId}`;
+  }
+
+  private getHistoricoKey(): string {
+    return `historicoCompras_${this.userId}`;
   }
 
   getTotal(): number {
@@ -47,7 +68,9 @@ export class EncomendaService {
     let newPontos = this.pontosSubject.value + amount;
     if (newPontos < 0) newPontos = 0;
     this.pontosSubject.next(newPontos);
-    localStorage.setItem('userPontos', newPontos.toString());
+    if (this.userId) {
+      localStorage.setItem(this.getPontosKey(), newPontos.toString());
+    }
   }
 
   // Novo método para adicionar compra ao histórico
@@ -73,26 +96,37 @@ export class EncomendaService {
 
   // Método para salvar histórico no localStorage
   private salvarHistorico(): void {
-    localStorage.setItem('historicoCompras', JSON.stringify(this.historicoCompras));
+    if (this.userId) {
+      localStorage.setItem(this.getHistoricoKey(), JSON.stringify(this.historicoCompras));
+    }
   }
 
   // Método para carregar histórico do localStorage
   private carregarHistorico(): void {
-    const historico = localStorage.getItem('historicoCompras');
-    if (historico) {
-      this.historicoCompras = JSON.parse(historico);
+    if (this.userId) {
+      const historico = localStorage.getItem(this.getHistoricoKey());
+      this.historicoCompras = historico ? JSON.parse(historico) : [];
+    } else {
+      this.historicoCompras = [];
     }
   }
 
   loadPontos(): void {
-    const saved = Number(localStorage.getItem('userPontos'));
-    if (!isNaN(saved)) {
-      this.pontosSubject.next(saved);
+    if (this.userId) {
+      const saved = Number(localStorage.getItem(this.getPontosKey()));
+      this.pontosSubject.next(!isNaN(saved) ? saved : 0);
+    } else {
+      this.pontosSubject.next(0);
     }
   }
 
+  logout(): void {
+    this.userId = '';
+    this.pontosSubject.next(0);
+    this.historicoCompras = [];
+  }
+
   constructor() {
-    this.loadPontos();
-    this.carregarHistorico();
+    // Não carregar pontos nem histórico no construtor, pois não há userId definido ainda
   }
 }
