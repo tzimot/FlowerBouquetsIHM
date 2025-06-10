@@ -23,8 +23,9 @@ export class PersonalizarUmPage implements OnInit {
       numeroTelemovel: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{9}')])],
       rua: ['', Validators.required],
       numeroPorta: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
-      codigoPostal: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
-      localidade: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])]
+      codigoPostal: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{4}-[0-9]{3}')])],
+      localidade: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])],
+      nota: ['', Validators.compose([Validators.minLength(10)])]
     });
   }
 

@@ -25,7 +25,8 @@ export class NovaEncomendaUmPage implements OnInit {
       rua: ['', Validators.required],
       numeroPorta: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
       codigoPostal: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{4}-[0-9]{3}')])],
-      localidade: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])]
+      localidade: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z ]*')])],
+      nota: ['', Validators.compose([Validators.minLength(10)])]
     });
   }
 
