@@ -110,5 +110,6 @@ export class AuthService {
       points: 0
     };
     this.initialized = false;
+    localStorage.setItem('userLoggedOut', Date.now().toString());
   }
 }

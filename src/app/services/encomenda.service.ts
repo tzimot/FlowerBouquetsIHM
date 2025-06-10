@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 export interface HistoricoCompra {
   id: string;
@@ -19,6 +20,32 @@ export class EncomendaService {
   private pendingTotal: number = 0; 
   private historicoCompras: HistoricoCompra[] = [];
   pontos$ = this.pontosSubject.asObservable();
+
+  constructor(private authService: AuthService) {
+    this.carregarDadosUsuarioAtual();
+  }
+
+  // Método para carregar dados do usuário atual
+  async carregarDadosUsuarioAtual() {
+    const user = await this.authService.getCurrentUser();
+    if (user && user.username) {
+      // Carregar pontos do usuário atual
+      this.pontosSubject.next(user.points || 0);
+      
+      // Carregar histórico do usuário atual
+      const historicoKey = `historicoCompras_${user.username}`;
+      const historico = localStorage.getItem(historicoKey);
+      if (historico) {
+        this.historicoCompras = JSON.parse(historico);
+      } else {
+        this.historicoCompras = [];
+      }
+    } else {
+      // Resetar dados quando não há usuário logado
+      this.pontosSubject.next(0);
+      this.historicoCompras = [];
+    }
+  }
 
   setTotal(total: number, adicionarPontos: boolean = true): void {
     this.total = total;
@@ -43,15 +70,20 @@ export class EncomendaService {
     return this.pendingTotal;
   }
 
-  addPontos(amount: number): void {
+  async addPontos(amount: number): Promise<void> {
     let newPontos = this.pontosSubject.value + amount;
     if (newPontos < 0) newPontos = 0;
     this.pontosSubject.next(newPontos);
-    localStorage.setItem('userPontos', newPontos.toString());
+    
+    // Atualizar pontos no perfil do usuário
+    const user = await this.authService.getCurrentUser();
+    if (user && user.username) {
+      await this.authService.updatePoints(newPontos);
+    }
   }
 
   // Novo método para adicionar compra ao histórico
-  adicionarCompraAoHistorico(valor: number, tipo: 'Os Nossos Ramos' | 'Personalizar Ramo' | 'Em Alta', descricao: string = ''): void {
+  async adicionarCompraAoHistorico(valor: number, tipo: 'Os Nossos Ramos' | 'Personalizar Ramo' | 'Em Alta', descricao: string = ''): Promise<void> {
     const pontosGanhos = Math.floor(valor);
     const novaCompra: HistoricoCompra = {
       id: Date.now().toString(),
@@ -63,7 +95,7 @@ export class EncomendaService {
     };
     
     this.historicoCompras.unshift(novaCompra); // Adiciona no início da lista
-    this.salvarHistorico();
+    await this.salvarHistorico();
   }
 
   // Método para obter o histórico de compras
@@ -71,28 +103,20 @@ export class EncomendaService {
     return this.historicoCompras;
   }
 
-  // Método para salvar histórico no localStorage
-  private salvarHistorico(): void {
-    localStorage.setItem('historicoCompras', JSON.stringify(this.historicoCompras));
-  }
-
-  // Método para carregar histórico do localStorage
-  private carregarHistorico(): void {
-    const historico = localStorage.getItem('historicoCompras');
-    if (historico) {
-      this.historicoCompras = JSON.parse(historico);
+  // Método para salvar histórico no localStorage por usuário
+  private async salvarHistorico(): Promise<void> {
+    const user = await this.authService.getCurrentUser();
+    if (user && user.username) {
+      const historicoKey = `historicoCompras_${user.username}`;
+      localStorage.setItem(historicoKey, JSON.stringify(this.historicoCompras));
     }
   }
 
-  loadPontos(): void {
-    const saved = Number(localStorage.getItem('userPontos'));
-    if (!isNaN(saved)) {
-      this.pontosSubject.next(saved);
-    }
-  }
-
-  constructor() {
-    this.loadPontos();
-    this.carregarHistorico();
+  // Método para limpar dados ao fazer logout
+  public limparDados(): void {
+    this.pontosSubject.next(0);
+    this.historicoCompras = [];
+    this.total = 0;
+    this.pendingTotal = 0;
   }
 }
