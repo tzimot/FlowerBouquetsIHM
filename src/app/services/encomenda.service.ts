@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { AuthService } from './auth.service';
 
 export interface HistoricoCompra {
@@ -17,21 +17,29 @@ export interface HistoricoCompra {
 export class EncomendaService {
   private total: number = 0;
   private pontosSubject = new BehaviorSubject<number>(0);
-  private pendingTotal: number = 0; 
+  private pendingTotal: number = 0;
   private historicoCompras: HistoricoCompra[] = [];
+  private userId: string = '';
+  private resetQuantitiesSubject = new Subject<void>();
+  resetQuantities$ = this.resetQuantitiesSubject.asObservable();
   pontos$ = this.pontosSubject.asObservable();
 
   constructor(private authService: AuthService) {
     this.carregarDadosUsuarioAtual();
   }
 
-  // Método para carregar dados do usuário atual
+  emitResetQuantities() {
+    this.resetQuantitiesSubject.next();
+  }
+
   async carregarDadosUsuarioAtual() {
     const user = await this.authService.getCurrentUser();
     if (user && user.username) {
+      this.userId = user.username;
+
       // Carregar pontos do usuário atual
       this.pontosSubject.next(user.points || 0);
-      
+
       // Carregar histórico do usuário atual
       const historicoKey = `historicoCompras_${user.username}`;
       const historico = localStorage.getItem(historicoKey);
@@ -41,7 +49,7 @@ export class EncomendaService {
         this.historicoCompras = [];
       }
     } else {
-      // Resetar dados quando não há usuário logado
+      this.userId = '';
       this.pontosSubject.next(0);
       this.historicoCompras = [];
     }
@@ -52,6 +60,20 @@ export class EncomendaService {
     if (adicionarPontos) {
       this.addPontos(Math.floor(total));
     }
+  }
+
+  setUserId(userId: string): void {
+    this.userId = userId;
+    this.loadPontos();
+    this.carregarHistorico();
+  }
+
+  private getPontosKey(): string {
+    return `userPontos_${this.userId}`;
+  }
+
+  private getHistoricoKey(): string {
+    return `historicoCompras_${this.userId}`;
   }
 
   getTotal(): number {
@@ -74,16 +96,20 @@ export class EncomendaService {
     let newPontos = this.pontosSubject.value + amount;
     if (newPontos < 0) newPontos = 0;
     this.pontosSubject.next(newPontos);
-    
-    // Atualizar pontos no perfil do usuário
+
     const user = await this.authService.getCurrentUser();
     if (user && user.username) {
       await this.authService.updatePoints(newPontos);
+    } else if (this.userId) {
+      localStorage.setItem(this.getPontosKey(), newPontos.toString());
     }
   }
 
-  // Novo método para adicionar compra ao histórico
-  async adicionarCompraAoHistorico(valor: number, tipo: 'Os Nossos Ramos' | 'Personalizar Ramo' | 'Em Alta', descricao: string = ''): Promise<void> {
+  async adicionarCompraAoHistorico(
+    valor: number,
+    tipo: 'Os Nossos Ramos' | 'Personalizar Ramo' | 'Em Alta',
+    descricao: string = ''
+  ): Promise<void> {
     const pontosGanhos = Math.floor(valor);
     const novaCompra: HistoricoCompra = {
       id: Date.now().toString(),
@@ -93,26 +119,49 @@ export class EncomendaService {
       descricao: descricao || `Compra em ${tipo}`,
       tipo: tipo
     };
-    
-    this.historicoCompras.unshift(novaCompra); // Adiciona no início da lista
+
+    this.historicoCompras.unshift(novaCompra);
     await this.salvarHistorico();
   }
 
-  // Método para obter o histórico de compras
   getHistoricoCompras(): HistoricoCompra[] {
     return this.historicoCompras;
   }
 
-  // Método para salvar histórico no localStorage por usuário
   private async salvarHistorico(): Promise<void> {
     const user = await this.authService.getCurrentUser();
     if (user && user.username) {
       const historicoKey = `historicoCompras_${user.username}`;
       localStorage.setItem(historicoKey, JSON.stringify(this.historicoCompras));
+    } else if (this.userId) {
+      localStorage.setItem(this.getHistoricoKey(), JSON.stringify(this.historicoCompras));
     }
   }
 
-  // Método para limpar dados ao fazer logout
+  private carregarHistorico(): void {
+    if (this.userId) {
+      const historico = localStorage.getItem(this.getHistoricoKey());
+      this.historicoCompras = historico ? JSON.parse(historico) : [];
+    } else {
+      this.historicoCompras = [];
+    }
+  }
+
+  loadPontos(): void {
+    if (this.userId) {
+      const saved = Number(localStorage.getItem(this.getPontosKey()));
+      this.pontosSubject.next(!isNaN(saved) ? saved : 0);
+    } else {
+      this.pontosSubject.next(0);
+    }
+  }
+
+  logout(): void {
+    this.userId = '';
+    this.pontosSubject.next(0);
+    this.historicoCompras = [];
+  }
+
   public limparDados(): void {
     this.pontosSubject.next(0);
     this.historicoCompras = [];

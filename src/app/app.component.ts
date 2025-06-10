@@ -33,6 +33,7 @@ export class AppComponent {
   }
 
   async logout() {
+    this.encomendaService.logout();
     await this.authService.logout();
     this.encomendaService.limparDados(); // Limpar dados diretamente ao fazer logout
     this.router.navigateByUrl('/login');
