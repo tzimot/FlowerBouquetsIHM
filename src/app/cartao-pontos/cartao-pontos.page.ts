@@ -3,13 +3,13 @@ import { AuthService } from '../services/auth.service';
 import { EncomendaService, HistoricoCompra } from '../services/encomenda.service';
 
 @Component({
-  selector: 'app-cartao-pontos',
-  templateUrl: './cartao-pontos.page.html',
-  styleUrls: ['./cartao-pontos.page.scss'],
+  selector: 'app-cartao-pontos',              
+  templateUrl: './cartao-pontos.page.html',   // Caminho para o ficheiro HTML do componente
+  styleUrls: ['./cartao-pontos.page.scss'],   // Caminho para o ficheiro de estilos do componente
 })
 export class CartaoPontosPage implements OnInit {
   userData = {
-    username: '',
+    username: '',    
     fullName: '',
     email: '',
     profilePicture: '',

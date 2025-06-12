@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ScreenOrientation, OrientationLockOptions } from '@capacitor/screen-orientation';
 import { AuthService } from './services/auth.service';
 import { EncomendaService } from './services/encomenda.service';
 
