@@ -46,7 +46,7 @@ export class CartaoPontosPage implements OnInit {
     try {
       const user = await this.authService.getCurrentUser(); // Obtém utilizador atual
       this.userData = {
-        ...this.userData,
+        ...this.userData, // Mantém os dados existentes do utilizador
         username: user.username,
         fullName: user.fullName,
         email: user.email,

@@ -200,7 +200,7 @@ calculateTotalSum() {
           ramo.title.toLowerCase().includes(searchQuery) ||
           ramo.description.toLowerCase().includes(searchQuery)
         );
-        return { ...categoria, ramos: ramosFiltrados };
+        return { ...categoria, ramos: ramosFiltrados };  // Retorna a categoria com ramos filtrados
       })
       .filter(categoria => categoria.ramos.length > 0); // Remove categorias vazias
   }

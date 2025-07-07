@@ -135,7 +135,7 @@ export class NovaEncomendaPage implements OnInit {
           ramo.title.toLowerCase().includes(searchQuery) ||
           ramo.description.toLowerCase().includes(searchQuery)
         );
-        return { ...categoria, ramos: filteredRamos };
+        return { ...categoria, ramos: filteredRamos };  // Retorna a categoria com os ramos filtrados
       })
       .filter(categoria => categoria.ramos.length > 0); // Só mantém categorias com resultados
   }

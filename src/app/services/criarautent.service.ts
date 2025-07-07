@@ -94,7 +94,7 @@ export class CriarautentService {
     
     if (userIndex !== -1) {
       // Atualiza os dados do utilizador mantendo os anteriores
-      existingUsers[userIndex] = { ...existingUsers[userIndex], ...updates };
+      existingUsers[userIndex] = { ...existingUsers[userIndex], ...updates };  // Atualiza os campos fornecidos
       await this.storage['set']('users', existingUsers);
       return true;
     }
