@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
-import { CriarautentService } from './criarautent.service';
+import { Injectable } from '@angular/core'; // Importa o decorador Injectable do Angular
+import { Storage } from '@ionic/storage-angular'; // Importa o serviço de storage do Ionic
+import { CriarautentService } from './criarautent.service'; // Importa o serviço de autenticação personalizado
 
 /**
  * Serviço responsável pela gestão da autenticação e dados do utilizador
@@ -14,7 +14,6 @@ import { CriarautentService } from './criarautent.service';
   providedIn: 'root' // Disponibilizado como serviço singleton em toda a aplicação
 })
 export class AuthService {
-  // Objeto com os dados atuais do utilizador
   private currentUser = {
     username: '',        // Nome de utilizador único
     fullName: '',        // Nome completo
@@ -23,8 +22,6 @@ export class AuthService {
     birthDate: '',       // Data de nascimento
     points: 0            // Pontos acumulados
   };
-
-  // Flag para controlar se o serviço foi inicializado
   private initialized = false;
 
   /**
@@ -33,24 +30,16 @@ export class AuthService {
    * @param criarautentService Serviço externo de autenticação
    */
   constructor(
-    private storage: Storage,
-    private criarautentService: CriarautentService
+    private storage: Storage, // Injeta o serviço de storage
+    private criarautentService: CriarautentService // Injeta o serviço de autenticação
   ) {}
 
-  /**
-   * Método de inicialização do serviço
-   * Carrega os dados do utilizador do armazenamento local
-   * e sincroniza com o servidor
-   */
   private async initializeService() {
-    if (this.initialized) return; // Evita inicialização múltipla
+    if (this.initialized) return;
 
-    await this.storage.create(); // Garante que o storage está criado
-    
-    // Obtém utilizador do armazenamento local
+    await this.storage.create();
     const user = await this.storage.get('currentUser');
     if (user) {
-      // Atualiza dados a partir do servidor
       const updatedUser = await this.criarautentService.getUser(user.username);
       if (updatedUser) {
         this.currentUser = {
@@ -66,18 +55,11 @@ export class AuthService {
     this.initialized = true; // Marca como inicializado
   }
 
-  /**
-   * Obtém os dados atuais do utilizador
-   * @returns Objeto com dados do utilizador
-   */
   async getCurrentUser() {
     await this.storage.create(); // Garante que o storage está criado
     const user = await this.storage.get('currentUser');
-    
-    // Se não existir utilizador local, retorna objeto vazio
     if (!user) return this.currentUser;
 
-    // Sincroniza com dados do servidor
     const updatedUser = await this.criarautentService.getUser(user.username);
     if (updatedUser) {
       this.currentUser = {
@@ -92,10 +74,6 @@ export class AuthService {
     return this.currentUser;
   }
 
-  /**
-   * Define/Atualiza os dados do utilizador atual
-   * @param userData Objeto com dados do utilizador
-   */
   async setCurrentUser(userData: any) {
     await this.initializeService();
     
@@ -109,10 +87,7 @@ export class AuthService {
       points: userData.points || 0
     };
 
-    // Guarda localmente
     await this.storage.set('currentUser', this.currentUser);
-    
-    // Atualiza no servidor
     await this.criarautentService.updateUserProfile(userData.username, {
       fullName: userData.fullName,
       email: userData.email,
@@ -120,28 +95,17 @@ export class AuthService {
       birthDate: userData.birthDate, 
       points: userData.points || 0
     });
+
   }
 
-  /**
-   * Atualiza a imagem de perfil do utilizador
-   * @param imageData Dados da imagem (URL ou base64)
-   */
   async updateProfilePicture(imageData: string) {
     this.currentUser.profilePicture = imageData;
-    
-    // Atualiza localmente
     await this.storage.set('currentUser', this.currentUser);
-    
-    // Atualiza no servidor
     await this.criarautentService.updateUserProfile(this.currentUser.username, {
       profilePicture: imageData
-    });
+    }); // Atualiza no serviço externo
   }
 
-  /**
-   * Atualiza os pontos do utilizador
-   * @param newPoints Novo valor de pontos
-   */
   async updatePoints(newPoints: number) {
     this.currentUser.points = newPoints;
     
@@ -154,10 +118,6 @@ export class AuthService {
     });
   }
 
-  /**
-   * Efetua logout do utilizador
-   * Limpa todos os dados locais e notifica outras abas
-   */
   async logout() {
     // Remove utilizador do armazenamento local
     await this.storage.remove('currentUser');

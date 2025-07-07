@@ -3,15 +3,15 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '',  // Rota raiz da aplicação
     redirectTo: 'login',
     pathMatch: 'full'
   },
 
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule) // o "m" é uma abreviação para o módulo carregado
+  },                                                                                 // neste caso o módulo "LoginPageModule"                 
   {
     path: 'criar-conta',
     loadChildren: () => import('./criar-conta/criar-conta.module').then( m => m.CriarContaPageModule)
@@ -79,7 +79,8 @@ const routes: Routes = [
   {
     path: 'nova-encomenda-tres',
     loadChildren: () => import('./nova-encomenda-tres/nova-encomenda-tres.module').then( m => m.NovaEncomendaTresPageModule)
-  },  {
+  },
+  {
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   },
@@ -92,7 +93,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }) 
   ],
   exports: [RouterModule]
 })

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { EncomendaService, HistoricoCompra } from '../services/encomenda.service';
+import { Component, OnInit } from '@angular/core'; // Importa os módulos necessários do Angular
+import { AuthService } from '../services/auth.service'; // Serviço de autenticação do utilizador
+import { EncomendaService, HistoricoCompra } from '../services/encomenda.service'; // Serviço de encomendas e tipo para histórico
 
 @Component({
-  selector: 'app-cartao-pontos',
-  templateUrl: './cartao-pontos.page.html',
-  styleUrls: ['./cartao-pontos.page.scss'],
+  selector: 'app-cartao-pontos',              // Seletor do componente
+  templateUrl: './cartao-pontos.page.html',   // Caminho para o ficheiro HTML do componente
+  styleUrls: ['./cartao-pontos.page.scss'],   // Caminho para o ficheiro de estilos do componente
 })
 export class CartaoPontosPage implements OnInit {
+  // Dados do utilizador a apresentar
   userData = {
-    username: '',
+    username: '',    
     fullName: '',
     email: '',
     profilePicture: '',
@@ -17,30 +18,33 @@ export class CartaoPontosPage implements OnInit {
     pontos: 0
   };
 
-  historicoCompras: HistoricoCompra[] = [];
-  mostrarHistorico: boolean = false;
+  historicoCompras: HistoricoCompra[] = []; // Lista de compras do utilizador
+  mostrarHistorico: boolean = false;        // Controla a visibilidade do histórico
 
   constructor(
-    private authService: AuthService,
-    private encomendaService: EncomendaService
+    private authService: AuthService,           // Injeta o serviço de autenticação
+    private encomendaService: EncomendaService  // Injeta o serviço de encomendas
   ) {}
 
+  // Executa ao inicializar o componente
   async ngOnInit() {
-    await this.loadUserData();
+    await this.loadUserData(); // Carrega dados do utilizador
     this.encomendaService.pontos$.subscribe(pontos => {
-      this.userData.pontos = pontos;
+      this.userData.pontos = pontos; // Atualiza pontos em tempo real
     });
-    this.carregarHistorico();
+    this.carregarHistorico(); // Carrega histórico de compras
   }
 
+  // Executa sempre que a página vai ser apresentada
   async ionViewWillEnter() {
-    await this.loadUserData();
-    this.carregarHistorico();
+    await this.loadUserData(); // Atualiza dados do utilizador
+    this.carregarHistorico();  // Atualiza histórico de compras
   }
 
+  // Carrega dados do utilizador autenticado
   private async loadUserData() {
     try {
-      const user = await this.authService.getCurrentUser();
+      const user = await this.authService.getCurrentUser(); // Obtém utilizador atual
       this.userData = {
         ...this.userData,
         username: user.username,
@@ -50,26 +54,31 @@ export class CartaoPontosPage implements OnInit {
         birthDate: user.birthDate || ''
       };
     } catch (error) {
-      console.error('Erro ao carregar dados do utilizador:', error);
+      console.error('Erro ao carregar dados do utilizador:', error); // Log de erro
     }
   }
 
+  // Carrega o histórico de compras do utilizador
   private carregarHistorico() {
     this.historicoCompras = this.encomendaService.getHistoricoCompras();
   }
 
+  // Alterna a visibilidade do histórico de compras
   toggleHistorico() {
     this.mostrarHistorico = !this.mostrarHistorico;
   }
 
+  // Calcula o total gasto pelo utilizador
   getTotalGasto(): number {
     return this.historicoCompras.reduce((total, compra) => total + compra.valor, 0);
   }
 
+  // Calcula o total de pontos ganhos pelo utilizador
   getTotalPontosGanhos(): number {
     return this.historicoCompras.reduce((total, compra) => total + compra.pontosGanhos, 0);
   }
 
+  // Retorna o ícone correspondente ao tipo de compra
   getIconePorTipo(tipo: string): string {
     switch (tipo) {
       case 'Os Nossos Ramos':
@@ -83,6 +92,7 @@ export class CartaoPontosPage implements OnInit {
     }
   }
 
+  // Retorna a cor correspondente ao tipo de compra
   getCorPorTipo(tipo: string): string {
     switch (tipo) {
       case 'Os Nossos Ramos':

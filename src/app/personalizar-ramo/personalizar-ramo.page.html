@@ -25,6 +25,13 @@
         <p class="flower-description">{{ item.description }}</p>
         <p class="flower-price">{{ item.price | currency:'EUR':'symbol' }}</p>
 
+        <!-- Quantidades por tamanho (apenas para vasos) -->
+        <div *ngIf="item.quantityBySize && isVase(item)" class="tamanhos-info">
+          <p *ngIf="item.quantityBySize.pequeno">Pequeno: {{ item.quantityBySize.pequeno }}</p>
+          <p *ngIf="item.quantityBySize.medio">Médio: {{ item.quantityBySize.medio }}</p>
+          <p *ngIf="item.quantityBySize.grande">Grande: {{ item.quantityBySize.grande }}</p>
+        </div>
+
         <div class="quantity-control">
           <button (click)="decreaseQuantity(item)" class="BtnMenos">
             <ion-icon name="remove"></ion-icon>
@@ -39,28 +46,27 @@
   </div>
 
   <ion-card class="vaso-card" *ngIf="showVaseSizeCard">
-  <ion-card-header>
-    <ion-card-title>Tamanho do Vaso</ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content>
-    <ion-radio-group [(ngModel)]="selectedVase" (ionChange)="updateSelectedVase($event.detail.value)">
-      <ion-item>
-        <ion-label>Pequeno (2€)</ion-label>
-        <ion-radio slot="start" value="pequeno"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label>Médio (4€)</ion-label>
-        <ion-radio slot="start" value="medio"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label>Grande (6€)</ion-label>
-        <ion-radio slot="start" value="grande"></ion-radio>
-      </ion-item>
-    </ion-radio-group>
-  </ion-card-content>
-</ion-card>
-
+    <ion-card-header>
+      <ion-card-title>Tamanho do Vaso</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-radio-group [(ngModel)]="selectedVaseSize">
+        <ion-item>
+          <ion-label>Pequeno (2€)</ion-label>
+          <ion-radio slot="start" value="pequeno"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Médio (4€)</ion-label>
+          <ion-radio slot="start" value="medio"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Grande (6€)</ion-label>
+          <ion-radio slot="start" value="grande"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+      <ion-button expand="block" (click)="confirmVaseSize()">Confirmar</ion-button>
+    </ion-card-content>
+  </ion-card>
 
   <div class="footer-container">
     <p class="total-text">Total: {{ totalSum | currency:'EUR':'symbol' }}</p>
