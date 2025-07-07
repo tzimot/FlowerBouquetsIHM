@@ -7,7 +7,6 @@ interface User {
   password: string;
   profilePicture?: string;
   [key: string]: any; // Permite propriedades adicionais
-  [key: string]: any; // Permite adicionar outras propriedades se necessário
 }
 
 /**
